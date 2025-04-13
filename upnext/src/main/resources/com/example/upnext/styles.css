@@ -1,0 +1,101 @@
+.root {
+    -fx-background-image: url("backg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.nav-label {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 20px;
+    -fx-text-fill: #acacac;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+}
+
+.nav-label:hover {
+    -fx-text-fill: #ffcc00;
+}
+
+.community-box {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-alignment: center;
+}
+
+.community-box:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.round-image {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.round-image:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.name-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+}
+
+/* Search bar container */
+.search-bar {
+    -fx-padding: 5px;
+    -fx-background-color: #333333;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-alignment: center;
+    -fx-max-width: 100px;
+}
+
+/* Search text field */
+.search-field {
+    -fx-background-color: #444444;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-padding: 4px 8px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #555555;
+    -fx-border-width: 1px;
+    -fx-pref-width: 150px;
+}
+
+.search-field:focused {
+    -fx-border-color: #BD2526;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,120,215,0.2), 10, 0, 0, 0);
+}
+
+/* Search button */
+.search-button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 4px 8px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: #005bb5;
+}
+
+.search-button:pressed {
+    -fx-background-color: #004080;
+}
