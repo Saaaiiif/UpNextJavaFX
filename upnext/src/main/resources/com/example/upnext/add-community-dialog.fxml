@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<DialogPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="com.example.upnext.AddCommunityController"
+            stylesheets="@styles.css"
+            prefWidth="400">
+    
+    <headerText>
+        Add New Community
+    </headerText>
+    
+    <content>
+        <VBox spacing="15" alignment="CENTER">
+            <GridPane hgap="10" vgap="10">
+                <Label text="ID:" styleClass="dialog-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <HBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <TextField fx:id="idField" styleClass="dialog-field" editable="true" HBox.hgrow="ALWAYS"/>
+                    <Button text="Generate" styleClass="image-upload-button" onAction="#handleGenerateId"/>
+                </HBox>
+                
+                <Label text="Name:" styleClass="dialog-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="nameField" styleClass="dialog-field" 
+                          GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                
+                <Label text="Image:" styleClass="dialog-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Button text="Choose Image" styleClass="image-upload-button" 
+                       onAction="#handleImageUpload" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+            
+            <ImageView fx:id="imagePreview" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+        </VBox>
+    </content>
+</DialogPane> 

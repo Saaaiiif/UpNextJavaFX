@@ -22,4 +22,12 @@ public class Community {
     public byte[] getImage() {
         return image;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

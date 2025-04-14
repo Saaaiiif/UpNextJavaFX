@@ -47,4 +47,80 @@ public class DatabaseService {
         }
         return communities;
     }
+
+    public void addCommunity(String name) {
+        String query = "INSERT INTO communities (name) VALUES (?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to add community: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCommunity(int id) {
+        String query = "DELETE FROM communities WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to delete community: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCommunity(int id, String newName) {
+        String query = "UPDATE communities SET name = ? WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, newName);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to update community: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCommunityImage(int id, byte[] imageData) {
+        String query = "UPDATE communities SET image = ? WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setBytes(1, imageData);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to update community image: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public boolean idExists(int id) {
+        String query = "SELECT id FROM communities WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            return stmt.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void addCommunityWithId(int id, String name, byte[] image) {
+        String query = "INSERT INTO communities (id, name, image) VALUES (?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.setString(2, name);
+            stmt.setBytes(3, image);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to add community: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

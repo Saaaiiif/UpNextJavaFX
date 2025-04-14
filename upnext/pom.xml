@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>17.0.6</version>
+            <version>17.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -127,6 +127,10 @@
                 <configuration>
                     <source>24</source>
                     <target>24</target>
+                    <compilerArgs>
+                        <arg>--add-exports</arg>
+                        <arg>java.desktop/java.awt.image=ALL-UNNAMED</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

@@ -2,6 +2,7 @@ module com.example.upnext {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.swing;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -11,6 +12,7 @@ module com.example.upnext {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens com.example.upnext to javafx.fxml;
     exports com.example.upnext;
