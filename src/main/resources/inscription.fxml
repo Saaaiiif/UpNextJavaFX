@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="649.0" prefWidth="916.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-radius: 50;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Inscription">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="649.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="318.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Accordion layoutX="26.0" layoutY="14.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="19.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new account" wrappingWidth="283.1898498535156">
+         <font>
+            <Font name="Dubai Medium" size="34.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="57.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already registered?" wrappingWidth="137.58981323242188">
+         <font>
+            <Font name="Dubai Light" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="511.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@up-next.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="email" layoutX="361.0" layoutY="115.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="504.0" promptText="email" style="-fx-border-radius: 50; -fx-background-radius: 50;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets left="5.0" top="5.0" />
+         </opaqueInsets>
+         <effect>
+            <Glow />
+         </effect>
+      </TextField>
+      <TextField fx:id="description" alignment="TOP_LEFT" layoutX="361.0" layoutY="488.0" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="94.0" prefWidth="514.0" promptText="Description" style="-fx-background-radius: 20;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets left="20.0" top="20.0" />
+         </opaqueInsets>
+      </TextField>
+      <Text fill="#7e7e7e" layoutX="370.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your Email">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#7e7e7e" layoutX="370.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your password">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#7e7e7e" layoutX="373.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#7e7e7e" layoutX="643.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <TextField fx:id="firstname" layoutX="363.0" layoutY="275.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="234.0" promptText="Firstname" style="-fx-background-radius: 50;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets top="5.0" />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="lastname" layoutX="634.0" layoutY="275.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="234.0" promptText="Lastname" style="-fx-background-radius: 50;">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets top="5.0" />
+         </opaqueInsets>
+      </TextField>
+      <Text fill="#7e7e7e" layoutX="369.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#7e7e7e" layoutX="643.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Speciality">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="roles" editable="true" layoutX="363.0" layoutY="350.0" onAction="#select" prefHeight="38.0" prefWidth="234.0" promptText="chose your role" />
+      <ComboBox fx:id="speciality" editable="true" layoutX="635.0" layoutY="350.0" onAction="#select" prefHeight="38.0" prefWidth="234.0" promptText="chose your speciality" />
+      <PasswordField fx:id="password" layoutX="362.0" layoutY="192.0" prefHeight="38.0" prefWidth="504.0" promptText="password" style="-fx-background-radius: 50;">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets left="5.0" />
+         </opaqueInsets></PasswordField>
+      <Text fill="#7e7e7e" layoutX="368.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Text>
+      <Button fx:id="register" defaultButton="true" layoutX="523.0" layoutY="598.0" mnemonicParsing="false" onAction="#SignUp" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #ff0000; -fx-border-radius: 50; -fx-background-radius: 50;" text="Register" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Dubai Medium" size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="number" layoutX="452.0" layoutY="410.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="145.0" promptText="phone number">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets top="5.0" />
+         </opaqueInsets>
+      </TextField>
+      <ComboBox fx:id="pay" editable="true" layoutX="364.0" layoutY="410.0" onAction="#select" prefHeight="38.0" prefWidth="82.0" promptText="+" style="-fx-border-radius: 50;" />
+      <Button fx:id="image" layoutX="634.0" layoutY="410.0" mnemonicParsing="false" onAction="#upload" prefHeight="38.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #8c8c8c; -fx-border-radius: 50;" text="+ Upload image" textFill="#8c8c8c" />
+      <Hyperlink fx:id="loginLink" layoutX="185.0" layoutY="329.0" onAction="#goToLogin" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Text layoutX="820.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label fx:id="imagePathLabel" layoutX="643.0" layoutY="449.0" opacity="0.37" text="No image selected">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailErrorLabel" alignment="TOP_RIGHT" layoutX="373.0" layoutY="154.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="passwordErrorLabel" alignment="TOP_RIGHT" layoutX="374.0" layoutY="233.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="firstnamerequireerror" alignment="TOP_RIGHT" layoutX="376.0" layoutY="315.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastnamerequireerror" alignment="TOP_RIGHT" layoutX="646.0" layoutY="313.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="passwordrequireerror" alignment="TOP_RIGHT" layoutX="377.0" layoutY="234.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailrequireerror" alignment="TOP_RIGHT" layoutX="375.0" layoutY="154.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="rolerequireerror" alignment="TOP_RIGHT" layoutX="367.0" layoutY="389.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="specialityrequireerror" alignment="TOP_RIGHT" layoutX="646.0" layoutY="389.0" opacity="0.49" text="Label" textAlignment="RIGHT" textFill="RED" visible="false">
+         <font>
+            <Font name="Bodoni MT Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="charCountLabel" layoutX="823.0" layoutY="581.0" opacity="0.42" text="Label" />
+      <VBox fx:id="passwordRulesBox" layoutX="9.0" layoutY="135.0" opacity="0.83" prefHeight="131.0" prefWidth="302.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
+         <children>
+            <Label text="Password must">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="5.0" />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="lengthLabel" text="❌ At least 8 characters">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="letterLabel" text="❌ At least 1 letter">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="digitLabel" text="❌ At least 1 number">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
