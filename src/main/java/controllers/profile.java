@@ -1,0 +1,267 @@
+package controllers;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+import edu.up_next.entities.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+public class profile {
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private Label AuthenticatedUser;
+    @FXML private Label AuthenticatedUser1;
+    @FXML private Label AuthenticatedUser11;
+    @FXML private ImageView verifiedTik;
+    @FXML private Hyperlink EventLink;
+    @FXML private Hyperlink Logout;
+    @FXML private Hyperlink ProductLink;
+    @FXML private ImageView ProfileImage;
+    @FXML private ImageView ProfileImage1;
+    @FXML private Hyperlink ProfileLink;
+    @FXML private Hyperlink VerifiedArtistLink;
+    @FXML private Button addLocationButton;
+    @FXML private TextField cityField;
+    @FXML private TextField countryField;
+    @FXML private TextField descriptionField;
+    @FXML private Button editProfileButton;
+    @FXML private TextField emailField;
+    @FXML private TextField firstnameField;
+    @FXML private TextField lastnameField;
+    @FXML private TextField phoneField;
+    @FXML private TextField roleField;
+    @FXML private TextField search;
+    @FXML private TextField specialityField;
+    @FXML private Label specialityLabel;
+    @FXML private TextField AddressField;
+
+    private User currentUser;
+
+    public void setUser(User user) {
+        this.currentUser = user;
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        if (currentUser == null) {
+            System.out.println("No user provided to profile controller");
+            return;
+        }
+
+        // Set full name in sidebar
+        AuthenticatedUser.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
+
+        // Set full name at the top of the profile
+        AuthenticatedUser1.setText(currentUser.getFirstname()+" "+currentUser.getLastname());
+
+
+        // Show verified icon if user is verified
+        if (verifiedTik != null) {
+            verifiedTik.setVisible(currentUser.isIs_verified());
+        } else {
+            System.err.println("Warning: verifiedTik is null. Check fx:id in profile.fxml");
+        }
+
+        // Set profile image (sidebar and profile section)
+        String imagePath = currentUser.getImage();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imageFile = new File("D:/PI java/up-next/uploads/" + imagePath);
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                if (ProfileImage != null) {
+                    ProfileImage.setImage(image);
+                }
+                if (ProfileImage1 != null) {
+                    ProfileImage1.setImage(image);
+                }
+            } else {
+                System.out.println("Image file not found: " + imagePath);
+            }
+        } else {
+            File imageFile = new File("D:/PI java/up-next/src/main/resources/user.png");
+        }
+
+        // Populate profile fields
+        firstnameField.setText(currentUser.getFirstname());
+        lastnameField.setText(currentUser.getLastname());
+        emailField.setText(currentUser.getEmail());
+
+        // Clean up the role string (e.g., ["ROLE_ARTIST"] -> "Artist")
+        String role = currentUser.getRoles();
+        if (role != null && !role.isEmpty()) {
+            // Remove square brackets and "ROLE_" prefix
+            String cleanedRole = role.replaceAll("[\\[\\]]", "") // Remove [ and ]
+                    .replace("ROLE_", "") // Remove ROLE_ prefix
+                    .toLowerCase(); // Convert to lowercase
+            // Capitalize the first letter
+            cleanedRole = cleanedRole.substring(0, 1).toUpperCase() + cleanedRole.substring(1);
+            roleField.setText(cleanedRole);
+        } else {
+            roleField.setText("Unknown");
+        }
+
+        phoneField.setText(String.valueOf(currentUser.getNum()));
+        descriptionField.setText(currentUser.getDescription() != null ? currentUser.getDescription() : "");
+
+        // Show speciality field only for ROLE_ARTIST
+        String roles = currentUser.getRoles();
+        boolean isArtist = roles != null && roles.contains("ROLE_ARTIST");
+        specialityLabel.setVisible(isArtist);
+        specialityField.setVisible(isArtist);
+        if (isArtist) {
+            specialityField.setText(currentUser.getSpeciality() != null ? currentUser.getSpeciality() : "");
+        }
+
+        // Underline ProfileLink to indicate active page
+        ProfileLink.setUnderline(true);
+
+        // TODO: Populate location fields (countryField, cityField, AddressField) once added to database
+    }
+
+    @FXML
+    void goToEditProfile(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/EditProfile.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /EditProfile.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading EditProfile page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void GoToProduct(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/product.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /product.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading product page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void GoToEvent(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/event.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /event.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading event page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void GoToVerifiedArtist(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/verifiedArtist.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /verifiedArtist.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading verified artist page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void goToProfile(ActionEvent event) {
+        // Already on profile page, no action needed
+    }
+
+    @FXML
+    void Logout(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/login.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /login.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading login page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void initialize() {
+        assert AuthenticatedUser != null : "fx:id=\"AuthenticatedUser\" was not injected: check your FXML file 'profile.fxml'.";
+        assert AuthenticatedUser1 != null : "fx:id=\"AuthenticatedUser1\" was not injected: check your FXML file 'profile.fxml'.";
+        assert AuthenticatedUser11 != null : "fx:id=\"AuthenticatedUser11\" was not injected: check your FXML file 'profile.fxml'.";
+        assert verifiedTik != null : "fx:id=\"verifiedTik\" was not injected: check your FXML file 'profile.fxml'.";
+        assert EventLink != null : "fx:id=\"EventLink\" was not injected: check your FXML file 'profile.fxml'.";
+        assert Logout != null : "fx:id=\"Logout\" was not injected: check your FXML file 'profile.fxml'.";
+        assert ProductLink != null : "fx:id=\"ProductLink\" was not injected: check your FXML file 'profile.fxml'.";
+        assert ProfileImage != null : "fx:id=\"ProfileImage\" was not injected: check your FXML file 'profile.fxml'.";
+        assert ProfileImage1 != null : "fx:id=\"ProfileImage1\" was not injected: check your FXML file 'profile.fxml'.";
+        assert ProfileLink != null : "fx:id=\"ProfileLink\" was not injected: check your FXML file 'profile.fxml'.";
+        assert VerifiedArtistLink != null : "fx:id=\"VerifiedArtistLink\" was not injected: check your FXML file 'profile.fxml'.";
+        assert addLocationButton != null : "fx:id=\"addLocationButton\" was not injected: check your FXML file 'profile.fxml'.";
+        assert cityField != null : "fx:id=\"cityField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert countryField != null : "fx:id=\"countryField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert descriptionField != null : "fx:id=\"descriptionField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert editProfileButton != null : "fx:id=\"editProfileButton\" was not injected: check your FXML file 'profile.fxml'.";
+        assert emailField != null : "fx:id=\"emailField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert firstnameField != null : "fx:id=\"firstnameField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert lastnameField != null : "fx:id=\"lastnameField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert phoneField != null : "fx:id=\"phoneField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert roleField != null : "fx:id=\"roleField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert search != null : "fx:id=\"search\" was not injected: check your FXML file 'profile.fxml'.";
+        assert specialityField != null : "fx:id=\"specialityField\" was not injected: check your FXML file 'profile.fxml'.";
+        assert specialityLabel != null : "fx:id=\"specialityLabel\" was not injected: check your FXML file 'profile.fxml'.";
+        assert AddressField != null : "fx:id=\"AddressField\" was not injected: check your FXML file 'profile.fxml'.";
+    }
+}

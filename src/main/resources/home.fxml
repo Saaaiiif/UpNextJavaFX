@@ -13,6 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -43,7 +44,7 @@
                      </fill>
                   </Rectangle>
                   <Accordion layoutX="26.0" layoutY="14.0" />
-                  <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="97.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="65.59999999999991">
+                  <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="67.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="155.99999389648428">
                      <font>
                         <Font name="Dubai Light" size="16.0" />
                      </font>
@@ -106,6 +107,9 @@
                      <image>
                         <Image url="@user.png" />
                      </image>
+                     <clip>
+                        <Circle centerX="87.0" centerY="87.0" radius="87.0" />
+                     </clip>
                   </ImageView>
                   <Text fill="#363636" fontSmoothingType="LCD" layoutX="257.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello!" wrappingWidth="142.0">
                      <font>
