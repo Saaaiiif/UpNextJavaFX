@@ -14,7 +14,7 @@
 <?import javafx.scene.control.ScrollPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.upnext.MainController"
+            fx:controller="com.example.upnext.UserCommunitiesController"
             prefWidth="1200" prefHeight="700"
             styleClass="root">
 
@@ -31,18 +31,7 @@
 
     <center>
         <VBox alignment="CENTER" spacing="20.0">
-            <HBox fx:id="addCardContainer" alignment="CENTER"/>
-
-            <HBox alignment="CENTER" spacing="10" styleClass="search-bar" maxWidth="400">
-                <StackPane>
-                    <TextField fx:id="searchField" styleClass="search-field"/>
-                    <ImageView fx:id="searchIcon" fitWidth="16" fitHeight="16" preserveRatio="true">
-                        <image>
-                            <Image url="@/search.png"/>
-                        </image>
-                    </ImageView>
-                </StackPane>
-            </HBox>
+            <Label text="Communities" styleClass="page-title"/>
 
             <ScrollPane fitToWidth="true" prefHeight="500" styleClass="transparent-scroll-pane">
                 <GridPane fx:id="communitiesGrid" alignment="CENTER" hgap="20" vgap="20">

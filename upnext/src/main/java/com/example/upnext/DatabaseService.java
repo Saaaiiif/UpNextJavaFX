@@ -123,4 +123,45 @@ public class DatabaseService {
             e.printStackTrace();
         }
     }
+
+    public Community getCommunityById(int id) {
+        String query = "SELECT id, name, image, description FROM communities WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                byte[] image = rs.getBytes("image");
+                String description = rs.getString("description");
+                return new Community(id, name, image, description);
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to get community by id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Artist> getArtistsByCommunityId(int communityId) {
+        List<Artist> artists = new ArrayList<>();
+        String query = "SELECT id_artist, artist_name, artist_image FROM artists WHERE id_community = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, communityId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id_artist");
+                String name = rs.getString("artist_name");
+                byte[] image = rs.getBytes("artist_image");
+                artists.add(new Artist(id, name, image, communityId));
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to get artists by community id: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return artists;
+    }
 }

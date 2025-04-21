@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Tooltip?>
 
 <DialogPane xmlns:fx="http://javafx.com/fxml" 
             fx:controller="com.example.upnext.AddCommunityController"
@@ -30,11 +31,19 @@
                 
                 <Label text="Name:" styleClass="dialog-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <TextField fx:id="nameField" styleClass="dialog-field" 
-                          GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                          GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <tooltip>
+                        <Tooltip text="Required field" styleClass="error-tooltip"/>
+                    </tooltip>
+                </TextField>
                 
                 <Label text="Image:" styleClass="dialog-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                 <Button text="Choose Image" styleClass="image-upload-button" 
-                       onAction="#handleImageUpload" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                       onAction="#handleImageUpload" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                    <tooltip>
+                        <Tooltip text="Required field" styleClass="error-tooltip"/>
+                    </tooltip>
+                </Button>
             </GridPane>
             
             <ImageView fx:id="imagePreview" fitWidth="100" fitHeight="100" preserveRatio="true"/>

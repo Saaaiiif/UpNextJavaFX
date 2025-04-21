@@ -13,6 +13,7 @@ module com.example.upnext {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires org.json;
 
     opens com.example.upnext to javafx.fxml;
     exports com.example.upnext;

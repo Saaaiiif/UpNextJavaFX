@@ -32,6 +32,10 @@ import java.nio.file.Files;
 import java.io.ByteArrayInputStream;
 import javafx.scene.control.Dialog;
 import javafx.scene.Cursor;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 
 public class MainController {
 
@@ -49,31 +53,50 @@ public class MainController {
     private TextField searchField;
 
     @FXML
+    private HBox addCardContainer;
+
+    @FXML
+    private Button communitiesButton;
+
+    private VBox addCard; // Add class-level reference
+
+    // Field for window operations
+    private Stage stage;
+
+    @FXML
     public void initialize() {
         Font.loadFont(getClass().getResourceAsStream("/Feather.ttf"), 18);
         Image logo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/logo.png")));
         logoImage.setImage(logo);
+
+        // Add right-click handler to Communities button if it exists
+        if (communitiesButton != null) {
+            communitiesButton.setOnMouseClicked(event -> {
+                if (event.getButton() == javafx.scene.input.MouseButton.SECONDARY) {
+                    navigateToUserCommunitiesView();
+                }
+            });
+        }
     }
 
     @FXML
     private void handleCommunitiesButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/communities-view.fxml"));
-            Stage stage = (Stage) logoImage.getScene().getWindow();
-            Scene scene = new Scene(loader.load(), 1200, 700);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/example/upnext/styles.css")).toExternalForm());
-            stage.setScene(scene);
-            stage.show();
+            SceneTransitionUtil.changeContentWithPreload(
+                "/com/example/upnext/communities-view.fxml", 
+                SceneTransitionUtil.TransitionType.FADE, 
+                MainController.class,
+                controller -> {
+                    controller.loadCommunities();
 
-            MainController controller = loader.getController();
-            controller.loadCommunities();
-
-            controller.searchField.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    controller.handleSearch();
+                    controller.searchField.textProperty().addListener(new ChangeListener<String>() {
+                        @Override
+                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                            controller.handleSearch();
+                        }
+                    });
                 }
-            });
+            );
         } catch (IOException e) {
             System.err.println("Failed to load communities-view.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -83,12 +106,12 @@ public class MainController {
     @FXML
     private void handleUpNextButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/hello-view.fxml"));
-            Stage stage = (Stage) logoImage.getScene().getWindow();
-            Scene scene = new Scene(loader.load(), 1200, 700);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/example/upnext/styles.css")).toExternalForm());
-            stage.setScene(scene);
-            stage.show();
+            SceneTransitionUtil.changeContentWithPreload(
+                "/com/example/upnext/hello-view.fxml", 
+                SceneTransitionUtil.TransitionType.SLIDE_RIGHT, 
+                MainController.class,
+                controller -> {} // No data loading needed for this view
+            );
         } catch (IOException e) {
             System.err.println("Failed to load hello-view.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -124,17 +147,14 @@ public class MainController {
         int maxColumns = 3;
 
         for (Community community : communities) {
-            // Create editable text field (hidden by default)
             TextField nameField = new TextField(community.getName());
             nameField.setVisible(false);
             nameField.setStyle("-fx-font-size: 16px; -fx-font-family: 'Feather Bold'; " +
                               "-fx-text-fill: #acacac; -fx-background-color: transparent; " +
                               "-fx-border-color: transparent; -fx-alignment: center;");
-            
-            // Create image view
+
             ImageView imageView = createCommunityImageView(community);
-            
-            // Create visible label
+
             Label nameLabel = new Label(community.getName());
             nameLabel.setStyle("-fx-text-fill: #acacac; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
 
@@ -143,7 +163,6 @@ public class MainController {
             communityBox.setAlignment(Pos.CENTER);
             communityBox.getStyleClass().add("community-box");
 
-            // Context menu setup
             ContextMenu contextMenu = new ContextMenu();
             MenuItem editItem = new MenuItem("Edit");
             MenuItem deleteItem = new MenuItem("Delete");
@@ -155,7 +174,6 @@ public class MainController {
                 nameField.requestFocus();
             });
 
-            // Handle text field changes
             nameField.setOnKeyPressed(event -> {
                 if (event.getCode().toString().equals("ENTER")) {
                     String newName = nameField.getText().trim();
@@ -170,7 +188,6 @@ public class MainController {
                 }
             });
 
-            // Handle image editing on double-click
             imageView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     FileChooser fileChooser = new FileChooser();
@@ -206,9 +223,9 @@ public class MainController {
                 contextMenu.show(communityBox, event.getScreenX(), event.getScreenY());
             });
 
+
             communitiesGrid.add(communityBox, column, row);
-            
-            // Grid position updates
+
             column++;
             if (column >= maxColumns) {
                 column = 0;
@@ -216,30 +233,32 @@ public class MainController {
             }
         }
 
-        // Add a "+" card as the last item
         addNewCommunityCard();
     }
 
     private void addNewCommunityCard() {
-        VBox addCard = new VBox();
-        addCard.setAlignment(Pos.CENTER);
-        addCard.setSpacing(10);
-        addCard.getStyleClass().add("community-box");
-        addCard.setCursor(Cursor.HAND);
-        
-        Label plusLabel = new Label("+");
-        plusLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: #BD2526;");
-        
-        Label addLabel = new Label("Add New Community");
-        addLabel.setStyle("-fx-text-fill: #acacac; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
-        
-        addCard.getChildren().addAll(plusLabel, addLabel);
-        addCard.setOnMouseClicked(e -> handleAddCommunity());
-        
-        // Add to the grid
-        int lastRow = communitiesGrid.getRowCount();
-        int lastColumn = communitiesGrid.getColumnCount();
-        communitiesGrid.add(addCard, lastColumn, lastRow);
+        if (addCardContainer == null) return;
+
+        addCardContainer.getChildren().clear();
+
+        if (addCard == null) {
+            addCard = new VBox();
+            addCard.setAlignment(Pos.CENTER);
+            addCard.setSpacing(10);
+            addCard.getStyleClass().add("community-box");
+            addCard.setCursor(Cursor.HAND);
+
+            Label plusLabel = new Label("+");
+            plusLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: #BD2526;");
+
+            Label addLabel = new Label("Add New Community");
+            addLabel.setStyle("-fx-text-fill: #acacac; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
+
+            addCard.getChildren().addAll(plusLabel, addLabel);
+            addCard.setOnMouseClicked(e -> handleAddCommunity());
+        }
+
+        addCardContainer.getChildren().add(addCard);
     }
 
     private ImageView createCommunityImageView(Community community) {
@@ -253,17 +272,16 @@ public class MainController {
         imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
 
-        // Add circular clip and shadow
         Circle clip = new Circle(50, 50, 50);
         imageView.setClip(clip);
-        
+
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(10);
         dropShadow.setOffsetX(0);
         dropShadow.setOffsetY(0);
         dropShadow.setColor(javafx.scene.paint.Color.rgb(0, 0, 0, 0.3));
         imageView.setEffect(dropShadow);
-        
+
         return imageView;
     }
 
@@ -271,27 +289,73 @@ public class MainController {
     private void handleAddCommunity() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/add-community-dialog.fxml"));
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(loader.load());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-            
+            Dialog<Community> dialog = new Dialog<>();
+            dialog.setTitle("Add New Community");
+
+            DialogPane dialogPane = loader.load();
+            dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
             AddCommunityController controller = loader.getController();
-            Optional<ButtonType> result = dialog.showAndWait();
-            
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Community newCommunity = controller.getNewCommunity();
-                if (newCommunity != null) {
-                    DatabaseService dbService = new DatabaseService();
-                    dbService.addCommunityWithId(
-                        newCommunity.getId(),
-                        newCommunity.getName(),
-                        newCommunity.getImage()
-                    );
-                    loadCommunities(); // Refresh the list
+            dialog.setResultConverter(buttonType -> {
+                if (buttonType == ButtonType.OK) {
+                    return controller.getNewCommunity();
                 }
+                return null;
+            });
+
+            Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+            okButton.disableProperty().bind(
+                controller.validNameProperty().not()
+                    .or(controller.idTextProperty().isEmpty())
+                    .or(controller.validImageProperty().not())
+            );
+
+            dialog.setDialogPane(dialogPane);
+            Optional<Community> result = dialog.showAndWait();
+
+            if (result.isPresent()) {
+                Community newCommunity = result.get();
+                DatabaseService dbService = new DatabaseService();
+                dbService.addCommunityWithId(
+                    newCommunity.getId(),
+                    newCommunity.getName(),
+                    newCommunity.getImage()
+                );
+                loadCommunities();
             }
         } catch (IOException e) {
+            showErrorAlert("Dialog Error", "Failed to load community dialog");
             e.printStackTrace();
         }
+    }
+
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void navigateToUserCommunitiesView() {
+        try {
+            SceneTransitionUtil.changeContentWithPreload(
+                "/com/example/upnext/user-communities-view.fxml", 
+                SceneTransitionUtil.TransitionType.ZOOM, 
+                UserCommunitiesController.class,
+                controller -> controller.loadCommunities()
+            );
+        } catch (IOException e) {
+            System.err.println("Failed to load user-communities-view.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sets the stage for window operations.
+     * @param stage The primary stage of the application
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

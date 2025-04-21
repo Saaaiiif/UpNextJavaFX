@@ -11,33 +11,36 @@ import java.io.IOException;
 import java.nio.file.Files;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextFormatter;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
 
 public class AddCommunityController {
     @FXML private TextField idField;
     @FXML private TextField nameField;
     @FXML private ImageView imagePreview;
-    
+
     private byte[] imageData;
     private DatabaseService dbService = new DatabaseService();
+    private BooleanProperty validName = new SimpleBooleanProperty(false);
+    private final BooleanProperty validImage = new SimpleBooleanProperty(false);
 
     @FXML
     public void initialize() {
-        // Remove auto-generation and add validation
         setupIdValidation();
+        setupNameValidation();
     }
 
     private void setupIdValidation() {
-        // Restrict to numbers only
         idField.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*")) {
                 return change;
             }
             return null;
         }));
-        
-        // Validate on focus loss
+
         idField.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal) { // When focus lost
+            if (!newVal) {
                 validateId();
             }
         });
@@ -63,14 +66,13 @@ public class AddCommunityController {
     }
 
     private String generateUniqueId() {
-        // Generate 8-digit unique ID
         int min = 10000000;
         int max = 99999999;
         int generatedId;
         do {
             generatedId = (int) (Math.random() * (max - min + 1) + min);
         } while (dbService.idExists(generatedId));
-        
+
         return String.valueOf(generatedId);
     }
 
@@ -80,15 +82,17 @@ public class AddCommunityController {
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
-        
+
         Window window = imagePreview.getScene().getWindow();
         File file = fileChooser.showOpenDialog(window);
-        
+
         if (file != null) {
             try {
                 imageData = Files.readAllBytes(file.toPath());
                 imagePreview.setImage(new Image(file.toURI().toString()));
+                validImage.set(true);
             } catch (IOException e) {
+                validImage.set(false);
                 e.printStackTrace();
             }
         }
@@ -98,14 +102,34 @@ public class AddCommunityController {
     private void handleGenerateId() {
         idField.setText(generateUniqueId());
     }
-    
+
     public Community getNewCommunity() {
-        if (nameField.getText().isEmpty()) return null;
-        
+        if (nameField.getText() == null || nameField.getText().trim().isEmpty()) {
+            return null;
+        }
+
         return new Community(
             Integer.parseInt(idField.getText()),
-            nameField.getText(),
+            nameField.getText().trim(),
             imageData
         );
+    }
+
+    private void setupNameValidation() {
+        nameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            validName.set(!newVal.trim().isEmpty());
+        });
+    }
+
+    public BooleanProperty validNameProperty() {
+        return validName;
+    }
+
+    public StringProperty idTextProperty() {
+        return idField.textProperty();
+    }
+
+    public BooleanProperty validImageProperty() {
+        return validImage;
     }
 } 
