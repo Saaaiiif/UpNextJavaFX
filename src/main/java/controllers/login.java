@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import edu.up_next.entities.User;
 import edu.up_next.tools.MyConnexion;
@@ -23,22 +24,15 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.stage.Stage;
 
 public class login {
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
-    @FXML
-    private Label EmailError;
-    @FXML
-    private Label PasswordError;
-    @FXML
-    private Hyperlink RegisterLink;
-    @FXML
-    private TextField email;
-    @FXML
-    private PasswordField password;
-    @FXML
-    private Hyperlink resetPassword;
+
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private Label EmailError;
+    @FXML private Label PasswordError;
+    @FXML private Hyperlink RegisterLink;
+    @FXML private TextField email;
+    @FXML private PasswordField password;
+    @FXML private Hyperlink resetPassword;
 
     @FXML
     void Login(ActionEvent event) {
@@ -64,7 +58,7 @@ public class login {
         try {
             MyConnexion db = new MyConnexion();
             Connection conn = db.getConnection();
-            String query = "SELECT id, email, password, firstname, lastname, roles, speciality, description, image, num, is_active, is_verified FROM user WHERE email = ?";
+            String query = "SELECT id, email, password, firstname, lastname, roles, speciality, description, image, num, is_active, is_verified, reset_code, reset_code_expiry FROM user WHERE email = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, emailInput);
             ResultSet rs = stmt.executeQuery();
@@ -73,7 +67,7 @@ public class login {
                 String hashedPassword = rs.getString("password");
                 BCrypt.Result result = BCrypt.verifyer().verify(passwordInput.toCharArray(), hashedPassword);
                 if (result.verified) {
-                    // Create User object
+                    // Create User object with new fields
                     User user = new User(
                             rs.getInt("id"),
                             rs.getString("email"),
@@ -86,13 +80,14 @@ public class login {
                             rs.getString("image"),
                             rs.getBoolean("is_verified"),
                             rs.getInt("num"),
-                            rs.getBoolean("is_active")
+                            rs.getBoolean("is_active"),
+                            rs.getString("reset_code"),
+                            rs.getTimestamp("reset_code_expiry") != null ? rs.getTimestamp("reset_code_expiry").toLocalDateTime() : null
                     );
 
                     PasswordError.setText("Login successful!");
                     PasswordError.setTextFill(Color.GREEN);
                     PasswordError.setVisible(true);
-
                     System.out.println("✅ User logged in successfully!");
                     System.out.println("👤 Email: " + emailInput);
                     System.out.println("🕒 Login time: " + java.time.LocalDateTime.now());
@@ -109,6 +104,7 @@ public class login {
                 EmailError.setTextFill(Color.RED);
                 EmailError.setVisible(true);
             }
+
             rs.close();
             stmt.close();
             conn.close();
@@ -122,7 +118,6 @@ public class login {
 
     private void redirectToHome(ActionEvent event, User user) {
         try {
-            // Load the home FXML file
             URL fxmlLocation = getClass().getResource("/home.fxml");
             if (fxmlLocation == null) {
                 System.err.println("Error: /home.fxml not found in resources");
@@ -138,7 +133,6 @@ public class login {
             home controller = loader.getController();
             controller.setUser(user);
 
-            // Get the current stage
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene scene = new Scene(homeRoot);
             stage.setScene(scene);
@@ -174,7 +168,22 @@ public class login {
 
     @FXML
     void goToResetPassword(ActionEvent event) {
-        // TODO: Implement reset password redirect
+        try {
+            URL fxmlLocation = getClass().getResource("/resetPassword.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /resetPassword.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading reset password page: " + e.getMessage());
+        }
     }
 
     @FXML

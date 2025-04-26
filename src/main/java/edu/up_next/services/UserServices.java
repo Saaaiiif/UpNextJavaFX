@@ -117,7 +117,27 @@ public class UserServices implements IService<User> {
             System.out.println("Error updating user: " + e.getMessage());
         }
     }
-
+    // New method to update user profile without email and password
+    public void updateUserProfile(User user) {
+        try {
+            String sql = "UPDATE user SET roles = ?, firstname = ?, lastname = ?, speciality = ?, description = ?, image = ?, is_verified = ?, num = ?, is_active = ? WHERE id = ?";
+            PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(sql);
+            stmt.setString(1, user.getRoles());
+            stmt.setString(2, user.getFirstname());
+            stmt.setString(3, user.getLastname());
+            stmt.setString(4, user.getSpeciality());
+            stmt.setString(5, user.getDescription());
+            stmt.setString(6, user.getImage());
+            stmt.setBoolean(7, user.isIs_verified());
+            stmt.setInt(8, user.getNum());
+            stmt.setBoolean(9, user.isIs_active());
+            stmt.setInt(10, user.getId());
+            stmt.executeUpdate();
+            System.out.println("User profile with id " + user.getId() + " has been updated in the database (email and password unchanged).");
+        } catch (SQLException e) {
+            System.out.println("Error updating user profile: " + e.getMessage());
+        }
+    }
 
     @Override
     public List<User> getAllData() {

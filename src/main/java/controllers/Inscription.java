@@ -55,14 +55,11 @@ public class Inscription {
     @FXML
     private Label charCountLabel;
 
-
     @FXML private VBox passwordRulesBox;
     @FXML private Label lengthLabel, letterLabel, digitLabel;
 
     private File selectedImageFile;
     private final UserServices us = new UserServices();
-
-
 
     @FXML
     void SignUp(ActionEvent event) {
@@ -143,7 +140,7 @@ public class Inscription {
         try {
             // Copy image if selected
             if (selectedImageFile != null) {
-                File destDir = new File("D:/PI java/up-next/uploads");
+                File destDir = new File("D:/PI java/up-next/uploads");//a changer with the symfony folder
                 if (!destDir.exists()) destDir.mkdirs();
 
                 imageName = System.currentTimeMillis() + "_" + selectedImageFile.getName();
@@ -173,6 +170,19 @@ public class Inscription {
 
             System.out.println("User added successfully!");
 
+            // Navigate to login page after successful registration
+            URL fxmlLocation = getClass().getResource("/login.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /login.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
             imagePathLabel.setText("Registration failed. Check the data.");
@@ -200,9 +210,23 @@ public class Inscription {
 
     @FXML
     void goToLogin(ActionEvent event) {
-
+        try {
+            URL fxmlLocation = getClass().getResource("/login.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /login.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading login page: " + e.getMessage());
+        }
     }
-
 
     @FXML
     void select(ActionEvent event) {
@@ -240,8 +264,6 @@ public class Inscription {
             }
         });
 
-        // Only show the password rules when the field is focused (clicked)
-
         // Toggle visibility based on which field is focused
         ChangeListener<Boolean> focusListener = (obs, oldVal, newVal) -> {
             if (password.isFocused()) {
@@ -258,12 +280,9 @@ public class Inscription {
         });
     }
 
-
     private void validatePassword(String password) {
-        lengthLabel.setText(password.length() >= 6 ? "✅ At least 6 characters" : "❌ At least 6 characters");
+        lengthLabel.setText(password.length() >= 8 ? "✅ At least 8 characters" : "❌ At least 8 characters");
         letterLabel.setText(password.matches(".*[a-zA-Z].*") ? "✅ At least 1 letter" : "❌ At least 1 letter");
         digitLabel.setText(password.matches(".*\\d.*") ? "✅ At least 1 number" : "❌ At least 1 number");
     }
-
 }
-

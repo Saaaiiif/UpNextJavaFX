@@ -17,7 +17,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditProfile">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
@@ -120,7 +119,7 @@
                                   </font>
                               </Button>
                               <!-- Edit Profile Button -->
-                              <Button fx:id="SaveChanges" layoutX="375.0" layoutY="648.0" onAction="#UpdateProfile" prefHeight="40.0" prefWidth="209.0" style="-fx-background-color: #FF0000; -fx-background-radius: 20;" text="Save changes" textFill="WHITE">
+                              <Button fx:id="SaveChanges" layoutX="324.0" layoutY="648.0" onAction="#UpdateProfile" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #FF0000; -fx-background-radius: 20;" text="Save changes" textFill="WHITE">
                                   <font>
                                       <Font name="System" size="14.0" />
                                   </font>
@@ -140,7 +139,7 @@
                               <Font name="System" size="12.0" />
                            </font>
                         </Label>
-                        <Button fx:id="UploadImage" layoutX="146.0" layoutY="211.0" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent; -fx-text-fill: #FF0000;" text="+Upload new image" />
+                        <Button fx:id="UploadImage" layoutX="146.0" layoutY="211.0" onAction="#uploadimage" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent; -fx-text-fill: #FF0000;" text="+Upload new image" />
                         <ComboBox fx:id="speciality" editable="true" layoutX="329.0" layoutY="203.0" onAction="#select" prefHeight="30.0" prefWidth="203.0" promptText="chose your speciality" />
                         <TextField fx:id="number" layoutX="421.0" layoutY="266.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="145.0" promptText="phone number">
                            <cursor>
@@ -156,6 +155,11 @@
                         <ComboBox fx:id="pay" editable="true" layoutX="327.0" layoutY="266.0" onAction="#select" prefHeight="38.0" prefWidth="82.0" promptText="+" style="-fx-border-radius: 50;" />
                         <Label fx:id="FirstnameError" layoutX="330.0" layoutY="160.0" text="Label" textFill="RED" visible="false" />
                         <Label fx:id="LastnameError" layoutX="549.0" layoutY="160.0" text="Label" textFill="RED" visible="false" />
+                        <Button fx:id="Cancel" layoutX="523.0" layoutY="648.0" onAction="#backToProfile" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #9e9e9e; -fx-background-radius: 20;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font name="System" size="14.0" />
+                           </font>
+                        </Button>
                           </children>
                       </AnchorPane>
                   </children>

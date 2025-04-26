@@ -17,12 +17,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class profile {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
-    @FXML private Label AuthenticatedUser;
+    @FXML private Text AuthenticatedUser;
     @FXML private Label AuthenticatedUser1;
     @FXML private Label AuthenticatedUser11;
     @FXML private ImageView verifiedTik;
@@ -47,6 +48,8 @@ public class profile {
     @FXML private TextField specialityField;
     @FXML private Label specialityLabel;
     @FXML private TextField AddressField;
+    @FXML private Hyperlink HomeLink;
+    @FXML private Hyperlink QuizLink;
 
     private User currentUser;
 
@@ -61,21 +64,15 @@ public class profile {
             return;
         }
 
-        // Set full name in sidebar
         AuthenticatedUser.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
+        AuthenticatedUser1.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
 
-        // Set full name at the top of the profile
-        AuthenticatedUser1.setText(currentUser.getFirstname()+" "+currentUser.getLastname());
-
-
-        // Show verified icon if user is verified
         if (verifiedTik != null) {
             verifiedTik.setVisible(currentUser.isIs_verified());
         } else {
             System.err.println("Warning: verifiedTik is null. Check fx:id in profile.fxml");
         }
 
-        // Set profile image (sidebar and profile section)
         String imagePath = currentUser.getImage();
         if (imagePath != null && !imagePath.isEmpty()) {
             File imageFile = new File("D:/PI java/up-next/uploads/" + imagePath);
@@ -94,19 +91,15 @@ public class profile {
             File imageFile = new File("D:/PI java/up-next/src/main/resources/user.png");
         }
 
-        // Populate profile fields
         firstnameField.setText(currentUser.getFirstname());
         lastnameField.setText(currentUser.getLastname());
         emailField.setText(currentUser.getEmail());
 
-        // Clean up the role string (e.g., ["ROLE_ARTIST"] -> "Artist")
         String role = currentUser.getRoles();
         if (role != null && !role.isEmpty()) {
-            // Remove square brackets and "ROLE_" prefix
-            String cleanedRole = role.replaceAll("[\\[\\]]", "") // Remove [ and ]
-                    .replace("ROLE_", "") // Remove ROLE_ prefix
-                    .toLowerCase(); // Convert to lowercase
-            // Capitalize the first letter
+            String cleanedRole = role.replaceAll("[\\[\\]]", "")
+                    .replace("ROLE_", "")
+                    .toLowerCase();
             cleanedRole = cleanedRole.substring(0, 1).toUpperCase() + cleanedRole.substring(1);
             roleField.setText(cleanedRole);
         } else {
@@ -116,7 +109,6 @@ public class profile {
         phoneField.setText(String.valueOf(currentUser.getNum()));
         descriptionField.setText(currentUser.getDescription() != null ? currentUser.getDescription() : "");
 
-        // Show speciality field only for ROLE_ARTIST
         String roles = currentUser.getRoles();
         boolean isArtist = roles != null && roles.contains("ROLE_ARTIST");
         specialityLabel.setVisible(isArtist);
@@ -125,10 +117,7 @@ public class profile {
             specialityField.setText(currentUser.getSpeciality() != null ? currentUser.getSpeciality() : "");
         }
 
-        // Underline ProfileLink to indicate active page
         ProfileLink.setUnderline(true);
-
-        // TODO: Populate location fields (countryField, cityField, AddressField) once added to database
     }
 
     @FXML
@@ -141,6 +130,10 @@ public class profile {
             }
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Parent root = loader.load();
+
+            EditProfile editProfileController = loader.getController();
+            editProfileController.setUser(currentUser);
+
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -214,6 +207,35 @@ public class profile {
     @FXML
     void goToProfile(ActionEvent event) {
         // Already on profile page, no action needed
+    }
+
+    @FXML
+    void GoToQuiz(ActionEvent event) {
+    }
+
+    @FXML
+    void goToHome(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/home.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /home.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+
+            // Pass the current user to the home controller
+            home homeController = loader.getController();
+            homeController.setUser(currentUser);
+
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading home page: " + e.getMessage());
+        }
     }
 
     @FXML

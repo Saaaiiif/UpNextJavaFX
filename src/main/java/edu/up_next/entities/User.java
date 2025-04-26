@@ -1,4 +1,5 @@
 package edu.up_next.entities;
+import java.time.LocalDateTime;
 import java.util.List;
 public class User {
 
@@ -16,6 +17,9 @@ public class User {
     private int num;
     private boolean is_active;
     private boolean is_verified;
+    // New fields for password reset
+    private String resetCode;
+    private LocalDateTime resetCodeExpiry;
 
     public User(int id, String email, String roles, String s, String firstname, String lastname, String speciality) {
         this.id = id;
@@ -125,6 +129,14 @@ public class User {
         this.is_active = is_active;
     }
 
+
+
+    public String getResetCode() { return resetCode; }
+    public void setResetCode(String resetCode) { this.resetCode = resetCode; }
+
+    public LocalDateTime getResetCodeExpiry() { return resetCodeExpiry; }
+    public void setResetCodeExpiry(LocalDateTime resetCodeExpiry) { this.resetCodeExpiry = resetCodeExpiry; }
+
     public User() {
     }
 
@@ -142,6 +154,26 @@ public class User {
         this.num = num;
         this.is_active = is_active;
     }
+    // Constructor
+    public User(int id, String email, String roles, String password, String firstname, String lastname,
+                String speciality, String description, String image, boolean is_verified, int num, boolean is_active,
+                String resetCode, LocalDateTime resetCodeExpiry) {
+        this.id = id;
+        this.email = email;
+        this.roles = roles;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.speciality = speciality;
+        this.description = description;
+        this.image = image;
+        this.is_verified = is_verified;
+        this.num = num;
+        this.is_active = is_active;
+        this.resetCode = resetCode;
+        this.resetCodeExpiry = resetCodeExpiry;
+    }
+
 
     @Override
     public String toString() {

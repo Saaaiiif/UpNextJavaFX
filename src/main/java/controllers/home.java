@@ -37,6 +37,8 @@ public class home {
     @FXML private Button adminDashboardButton;
     @FXML private Text authentifiedFirstname;
     @FXML private TextField search;
+    @FXML private Hyperlink HomeLink;
+    @FXML private Hyperlink QuizLink;
 
     private User currentUser;
 
@@ -51,13 +53,9 @@ public class home {
             return;
         }
 
-        // Set greeting
-        authentifiedFirstname.setText( currentUser.getFirstname());
-
-        // Set full name
+        authentifiedFirstname.setText(currentUser.getFirstname());
         AuthenticatedUser.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
 
-        // Set profile image
         String imagePath = currentUser.getImage();
         if (imagePath != null && !imagePath.isEmpty()) {
             File imageFile = new File("D:/PI java/up-next/uploads/" + imagePath);
@@ -71,16 +69,13 @@ public class home {
             System.out.println("No image path provided for user");
         }
 
-        // Handle roles
         String roles = currentUser.getRoles();
         boolean isAdmin = roles != null && roles.contains("ROLE_ADMIN");
         boolean isArtist = roles != null && roles.contains("ROLE_ARTIST");
 
-        // Show admin button only for ROLE_ADMIN
         adminDashboardButton.setVisible(isAdmin);
         adminDashboardButton.setManaged(isAdmin);
 
-        // Show add event/product buttons only for ROLE_ARTIST
         AddEvent.setVisible(isArtist);
         AddEvent.setManaged(isArtist);
         AddProduct.setVisible(isArtist);
@@ -125,6 +120,16 @@ public class home {
             e.printStackTrace();
             System.err.println("❌ Error loading login page: " + e.getMessage());
         }
+    }
+
+    @FXML
+    void GoToQuiz(ActionEvent event) {
+    }
+
+    @FXML
+    void goToHome(ActionEvent event) {
+        // Already on home page, but ensure UI is updated
+        updateUI();
     }
 
     @FXML

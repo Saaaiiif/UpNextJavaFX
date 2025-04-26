@@ -25,7 +25,7 @@
          <children>
             <AnchorPane prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-radius: 50;">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="234.0">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="234.0">
                      <fill>
                         <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
                            <stops>
@@ -78,30 +78,30 @@
                   <Text layoutX="820.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <Label fx:id="EmailError" layoutX="496.0" layoutY="268.0" opacity="0.46" text="Label" textFill="RED" visible="false" />
                   <Label fx:id="PasswordError" layoutX="499.0" layoutY="338.0" opacity="0.46" text="Label" textFill="RED" visible="false" />
-                  <ImageView fitHeight="51.0" fitWidth="47.0" layoutX="6.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="51.0" fitWidth="47.0" layoutX="6.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@profile.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="77.0" fitWidth="66.0" layoutX="-4.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="77.0" fitWidth="66.0" layoutX="-4.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@product.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="-2.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="-2.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@event.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="-6.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="-6.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@verified.png" />
                      </image>
                   </ImageView>
-                  <Line endX="105.80000305175781" layoutX="114.0" layoutY="300.0" opacity="0.15" startX="-100.0" />
-                  <Line endX="105.80000305175781" layoutX="118.0" layoutY="362.0" opacity="0.15" startX="-100.0" />
-                  <Line endX="105.80000305175781" layoutX="115.0" layoutY="426.0" opacity="0.15" startX="-100.0" />
-                  <Line endX="105.80000305175781" layoutX="117.0" layoutY="490.0" opacity="0.15" startX="-100.0" />
+                  <Line endX="105.80000305175781" layoutX="114.0" layoutY="372.0" opacity="0.15" startX="-100.0" />
+                  <Line endX="105.80000305175781" layoutX="118.0" layoutY="431.0" opacity="0.15" startX="-100.0" />
+                  <Line endX="105.80000305175781" layoutX="115.0" layoutY="490.0" opacity="0.15" startX="-100.0" />
+                  <Line endX="105.80000305175781" layoutX="117.0" layoutY="606.0" opacity="0.15" startX="-100.0" />
                   <Line endX="511.99993896484375" layoutX="370.0" layoutY="323.0" opacity="0.24" startX="-115.99998474121094" />
                   <ImageView fx:id="ProfileImage" fitHeight="174.0" fitWidth="174.0" layoutX="27.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -136,22 +136,22 @@
                         <Image url="@search.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="ProfileLink" layoutX="52.0" layoutY="257.0" onAction="#goToProfile" text="Profile" textFill="WHITE">
+                  <Hyperlink fx:id="ProfileLink" layoutX="52.0" layoutY="323.0" onAction="#goToProfile" text="Profile" textFill="WHITE">
                      <font>
                         <Font name="Dubai Medium" size="20.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="ProductLink" layoutX="56.0" layoutY="316.0" onAction="#GoToProduct" text="Products" textFill="WHITE">
+                  <Hyperlink fx:id="ProductLink" layoutX="56.0" layoutY="380.0" onAction="#GoToProduct" text="Products" textFill="WHITE">
                      <font>
                         <Font name="Dubai Medium" size="20.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="EventLink" layoutX="60.0" layoutY="376.0" onAction="#GoToEvent" text="Events" textFill="WHITE">
+                  <Hyperlink fx:id="EventLink" layoutX="60.0" layoutY="438.0" onAction="#GoToEvent" text="Events" textFill="WHITE">
                      <font>
                         <Font name="Dubai Medium" size="20.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink fx:id="VerifiedArtistLink" layoutX="60.0" layoutY="443.0" onAction="#GoToVerifiedArtist" text="Verified Artists" textFill="WHITE">
+                  <Hyperlink fx:id="QuizLink" layoutX="60.0" layoutY="557.0" onAction="#GoToQuiz" text="Quiz" textFill="WHITE">
                      <font>
                         <Font name="Dubai Medium" size="20.0" />
                      </font>
@@ -161,6 +161,28 @@
                         <Font name="Dubai Medium" size="22.0" />
                      </font>
                   </Hyperlink>
+                  <Line endX="105.80000305175781" layoutX="119.0" layoutY="547.0" opacity="0.15" startX="-100.0" />
+                  <Hyperlink fx:id="VerifiedArtistLink1" layoutX="63.0" layoutY="501.0" onAction="#GoToVerifiedArtist" text="Verified Artists" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Medium" size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Line endX="105.80000305175781" layoutX="115.0" layoutY="312.0" opacity="0.15" startX="-100.0" />
+                  <Hyperlink fx:id="HomeLink" layoutX="53.0" layoutY="271.0" onAction="#goToHome" text="Home" textFill="WHITE">
+                     <font>
+                        <Font name="Dubai Medium" size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <ImageView fitHeight="38.0" fitWidth="40.0" layoutX="12.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@home.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="51.0" fitWidth="63.0" layoutX="9.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@quize.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>
