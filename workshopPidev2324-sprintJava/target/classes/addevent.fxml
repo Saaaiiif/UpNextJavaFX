@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="817.0" prefWidth="900.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Addevent">
+
+   <children>
+
+      <!-- Partie gauche (bande rouge décorative) -->
+      <Pane prefHeight="824.0" prefWidth="300" styleClass="red-pane">
+         <children>
+            <Button layoutX="109.0" layoutY="435.0" mnemonicParsing="false" styleClass="button-pane" text="home" />
+         </children></Pane>
+
+      <!-- Formulaire -->
+      <VBox alignment="TOP_CENTER" layoutX="300.0" layoutY="28.0" prefHeight="530.0" prefWidth="600" spacing="20" styleClass="container">
+
+
+      <!-- Grille des champs en 2 colonnes -->
+         <GridPane hgap="20" vgap="10">
+            <columnConstraints>
+               <ColumnConstraints percentWidth="50.0" />
+               <ColumnConstraints percentWidth="50.0" />
+            </columnConstraints>
+
+            <!-- Ligne 1 -->
+            <TextField fx:id="host_id" promptText="Host ID" styleClass="text-field" GridPane.rowIndex="1" />
+            <TextField fx:id="guest_id" promptText="Guest ID" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- Ligne 2 -->
+            <TextField fx:id="title" promptText="Title" styleClass="text-field" GridPane.rowIndex="5" />
+            <TextField fx:id="location" editable="false" promptText="Location" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <!-- Ligne 3 -->
+            <DatePicker fx:id="start_date" prefHeight="31.0" prefWidth="233.0" promptText="Start Date" styleClass="date-picker" GridPane.rowIndex="8" />
+            <DatePicker fx:id="end_date" promptText="End Date" styleClass="date-picker" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+            <!-- Ligne 4 -->
+            <TextField fx:id="ticket_price" promptText="Ticket Price" styleClass="text-field" GridPane.rowIndex="11" />
+            <TextField fx:id="count_ticket" promptText="Count Ticket" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Label text="User" />
+            <Label text="Guest" GridPane.columnIndex="1" />
+            <Label text="Title" GridPane.rowIndex="4" />
+            <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Start Date" GridPane.rowIndex="7" />
+            <Label text="End Date" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="TicketCount" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label text="Ticket Price" GridPane.rowIndex="10" />
+            <Label text="Upload Image" GridPane.rowIndex="13" />
+            <Label fx:id="titleErrorLabel" styleClass="error" text="Title Required!" visible="false" GridPane.rowIndex="6" />
+            <Label fx:id="locationErrorLabel" styleClass="error" text="Location Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="dateErrorLabel" prefWidth="317.0" styleClass="error" text="The start date must be before the end date!" visible="false" GridPane.rowIndex="9" />
+            <Label fx:id="priceErrorLabel" styleClass="error" text="Price Required!" visible="false" GridPane.rowIndex="12" />
+            <Label fx:id="quantityErrorLabel" styleClass="error" text="Quantity Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+
+            <!-- Ligne 5 -->
+         </GridPane>
+
+         <!-- Image et bouton -->
+         <HBox alignment="CENTER" spacing="20">
+            <ImageView fx:id="image" fitHeight="46.0" fitWidth="120" preserveRatio="true" />
+            <Button onMouseClicked="#getImage" styleClass="button-img" text="+ Choose Image" />
+
+         </HBox>
+         <Label fx:id="imageErrorLabel" styleClass="error" text="No image selected. An image will make the event more attractive!" textFill="#d42525" visible="false" />
+         <Label alignment="BOTTOM_LEFT" text="Event Description" />
+         <TextField fx:id="description" promptText="Description" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+      
+               <!-- Bouton save -->
+               <Button maxWidth="200" onMouseClicked="#save" styleClass="red-button" text="Save">
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                  <padding>
+                     <Insets right="20.0" />
+                  </padding>
+                  <HBox.margin>
+                     <Insets right="20.0" />
+                  </HBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#choose_location" text="Choose location">
+                  <HBox.margin>
+                     <Insets right="20.0" />
+                  </HBox.margin>
+               </Button>
+      
+               <!-- Bouton liste -->
+               <Button maxWidth="200" onMouseClicked="#show_list" text="Show List">
+                  <padding>
+                     <Insets left="20.0" />
+                  </padding>
+                  <HBox.margin>
+                     <Insets right="15.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+         <Label fx:id="successLabel" styleClass="success" text="Event added successfully!" textFill="#499c15" visible="false" />
+      </VBox>
+   </children>
+</AnchorPane>

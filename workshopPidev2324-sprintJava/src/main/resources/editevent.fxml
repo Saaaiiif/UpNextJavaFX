@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="618.0" prefWidth="780.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Editevent">
+   <children>
+      <Pane prefHeight="832.0" prefWidth="826.0" styleClass="reddish-pane">
+         <children>
+            <VBox alignment="CENTER" layoutX="113.0" layoutY="15.0" prefWidth="600" spacing="20">
+               <children>
+                  <GridPane hgap="20" vgap="10">
+                     <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                     </columnConstraints>
+                     <children>
+                        <TextField fx:id="user_id" promptText="Host ID" styleClass="text-field" GridPane.rowIndex="1" />
+                        <TextField fx:id="guest_id" promptText="Guest ID" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="title" promptText="Title" styleClass="text-field" GridPane.rowIndex="3" />
+                        <TextField fx:id="localisation" editable="false" promptText="Location" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="start_date" promptText="Start Date" styleClass="date-picker" GridPane.rowIndex="6" />
+                        <DatePicker fx:id="end_date" promptText="End Date" styleClass="date-picker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="ticket_price" promptText="Ticket Price" styleClass="text-field" GridPane.rowIndex="9" />
+                        <TextField fx:id="count_ticket" promptText="Count Ticket" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label text="User" />
+                        <Label text="Guest" GridPane.columnIndex="1" />
+                        <Label text="Title" GridPane.rowIndex="2" />
+                        <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Start Date" GridPane.rowIndex="5" />
+                        <Label text="End Date" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="TicketCount" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label text="Ticket Price" GridPane.rowIndex="8" />
+                        <Label text="Upload Image" GridPane.rowIndex="12" />
+                        <Label fx:id="titleErrorLabel" styleClass="error" text="Title Required!" visible="false" GridPane.rowIndex="4" />
+                        <Label fx:id="locationErrorLabel" styleClass="error" text="Location Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="dateErrorLabel" prefWidth="317.0" styleClass="error" text="The start date must be before the end date!" visible="false" GridPane.rowIndex="7" />
+                        <Label fx:id="priceErrorLabel" styleClass="error" text="Price Required!" visible="false" GridPane.rowIndex="10" />
+                        <Label fx:id="quantityErrorLabel" styleClass="error" text="Quantity Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                     </children>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                  </GridPane>
+                  <HBox alignment="CENTER" spacing="20">
+                     <children>
+                        <ImageView fx:id="image" fitHeight="100" fitWidth="120" preserveRatio="true" />
+                        <Button onMouseClicked="#getImage" styleClass="button-img" text="+ Choose Image" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="imageErrorLabel" styleClass="error" text="No image selected. An image will make the event more attractive!" textFill="#d42525" visible="false" />
+                  <Label alignment="BOTTOM_LEFT" text="Event Description" />
+                  <TextField fx:id="description" promptText="Description" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button maxWidth="200" onMouseClicked="#update_event" styleClass="red-button" text="update">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#choose_location" text="Choose location">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button maxWidth="200" onAction="#return_list" onMouseClicked="#return_list" text="Show List" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label fx:id="usuccessLabel" layoutX="335.0" layoutY="785.0" styleClass="success" text="Event updated successfully!" textFill="#499c15" visible="false" />
+         </children></Pane>
+   </children>
+</AnchorPane>

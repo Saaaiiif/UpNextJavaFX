@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e22eb570-64e7-4081-8b10-1205696d8e8f" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="17 (2)" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2vak7U6XzWlUy0ZXsWsTYcbUImE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MainFX.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven.projectUp_next [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "Maven.workshoppidev [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/GMI/IdeaProjects/Up-Next2",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\resources" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\resources\css" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="controllers" />
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controllers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="workshopPidev2324-sprintJava" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="workshopPidev2324-sprintJava" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e22eb570-64e7-4081-8b10-1205696d8e8f" name="Changes" comment="" />
+      <created>1744390407183</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744390407183</updated>
+      <workItem from="1744390407189" duration="1817000" />
+      <workItem from="1744392574817" duration="3000" />
+      <workItem from="1744392604492" duration="573000" />
+      <workItem from="1744393330998" duration="3113000" />
+      <workItem from="1744452688077" duration="18664000" />
+      <workItem from="1744534110164" duration="20780000" />
+      <workItem from="1744559751161" duration="5554000" />
+      <workItem from="1744617315618" duration="1493000" />
+      <workItem from="1744633159841" duration="10799000" />
+      <workItem from="1744668484337" duration="20837000" />
+      <workItem from="1744708266684" duration="6309000" />
+      <workItem from="1745136713038" duration="7705000" />
+      <workItem from="1745155265203" duration="10537000" />
+      <workItem from="1745326336214" duration="3583000" />
+      <workItem from="1745329964690" duration="51000" />
+      <workItem from="1745330625499" duration="898000" />
+      <workItem from="1745659587395" duration="17081000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

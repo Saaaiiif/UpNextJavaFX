@@ -1,0 +1,176 @@
+/* Style global pour l'application */
+/* Quand une ligne est sélectionnée dans le TableView */
+.table .table-row-cell:filled:selected,
+.table .table-row-cell:filled:selected:hover {
+    -fx-background-color: #fae0e2; /* rouge pastel, tu peux changer */
+    -fx-text-fill: #333;
+}
+
+/* Pour éviter l'effet bleu lors du focus clavier */
+.table .table-row-cell:focused {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #f8f8f8;
+    -fx-text-fill: #333;
+}
+
+/* Style appliqué à AnchorPane avec styleClass="container" */
+.container-edit{
+    -fx-background-color: transparent ;
+    -fx-padding: 20px 20px 20px 40px;}
+
+    .button-pane {
+        -fx-background-color: transparent;
+        -fx-text-fill: #ffffff;
+        -fx-font-size: 16px;
+        -fx-background-radius: 50px;
+        -fx-padding: 10 20;
+        -fx-border-color: transparent;
+        -fx-cursor: hand;
+    }
+.reddish-pane {
+    -fx-background-color: white
+}
+    .red-pane {
+        -fx-background-color: linear-gradient(
+                from 0% 0% to 100% 100%,
+                #ff827e 25%,
+                #ff7067 25%,
+                #ff5c50 50%,
+                #ff3f2f 75%,
+                #ed3333 100%
+        );
+    }
+
+    /* Style pour TableView */
+
+    .table {
+        -fx-background-color: white;
+        -fx-border-radius: 20px;
+        -fx-background-radius: 20px;
+        -fx-padding: 10px;
+    }
+
+    /* Colonnes du TableView */
+
+    .table .column-header {
+        --fx-background-color: white;
+        -fx-text-fill: #333; /* texte plus foncé si fond clair */
+        -fx-border-color: transparent;
+    }
+
+    /* Cellules du TableView */
+
+    .table .table-cell {
+        -fx-background-color: #f5f5f5;
+        -fx-border-radius: 12px;
+        -fx-background-radius: 12px;
+        -fx-padding: 10px;
+        -fx-text-fill: #333;
+        -fx-font-weight: normal;
+    }
+
+    /* Style personnalisé pour le bouton avec styleClass="modifier-btn" */
+
+    .modifier-btn {
+        -fx-background-color: #e53935;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-background-radius: 20px;
+        -fx-border-radius: 20px;
+        -fx-padding: 8px 18px;
+        -fx-cursor: hand;
+    }
+
+    .modifier-btn:hover {
+        -fx-background-color: #d32f2f;
+    }
+
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333;
+}
+.container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px 20px 20px 40px;}
+/* Style général des champs de saisie */
+
+.text-field, .date-picker, .combo-box {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+}
+
+/* Quand on clique (focus) sur le champ */
+.text-field:focused, .date-picker:focused {
+    -fx-background-color: #e8e8e8;
+}
+
+/* Zone de description si tu la passes en TextArea plus tard */
+.text-area {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Bouton principal (ex: "Save" ou "Sign Up") */
+.button {
+    -fx-background-color: #e50914;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.button-pane {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10 20;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+.button-img {
+    -fx-background-color: white;
+    -fx-text-fill: #666666;         /* texte gris */
+    -fx-font-size: 16px;            /* texte plus petit */
+    -fx-font-family: "Montserrat";       /* ou autre police moderne */
+    -fx-background-radius: 50px;
+    -fx-padding: 8 16;              /* un peu plus compact */
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-border-color: white;        /* bordure blanche */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50px;
+    -fx-font-weight: normal;
+}
+
+
+
+.button:hover {
+    -fx-background-color: #da969a;
+}
+/* Appliquer un style spécifique aux Labels */
+.label {
+    -fx-font-family: "Montserrat", sans-serif; /* Police Montserrat */
+    -fx-font-weight: bold;                    /* Texte en gras */
+    -fx-font-size: 12px;                       /* Taille petite */
+    -fx-text-fill: #b1acac;                    /* Couleur gris */
+}
+.error {
+    -fx-text-fill: red;
+}
+.success {
+    -fx-text-fill: green;
+}

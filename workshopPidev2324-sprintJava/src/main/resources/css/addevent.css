@@ -1,0 +1,79 @@
+
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333;
+}
+.container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px 20px 20px 40px;}
+/* Style général des champs de saisie */
+
+.text-field, .date-picker, .combo-box {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+}
+
+/* Quand on clique (focus) sur le champ */
+.text-field:focused, .date-picker:focused {
+    -fx-background-color: #e8e8e8;
+}
+
+/* Zone de description si tu la passes en TextArea plus tard */
+.text-area {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Bouton principal (ex: "Save" ou "Sign Up") */
+.button {
+    -fx-background-color: #e50914;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.button-pane {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10 20;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+.button-img {
+    -fx-background-color: white;
+    -fx-text-fill: #666666;         /* texte gris */
+    -fx-font-size: 16px;            /* texte plus petit */
+    -fx-font-family: "Montserrat";       /* ou autre police moderne */
+    -fx-background-radius: 50px;
+    -fx-padding: 8 16;              /* un peu plus compact */
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-border-color: white;        /* bordure blanche */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50px;
+    -fx-font-weight: normal;
+}
+
+
+
+.button:hover {
+    -fx-background-color: #da969a;
+}
+/* Appliquer un style spécifique aux Labels */
+.label {
+    -fx-font-family: "Montserrat", sans-serif; /* Police Montserrat */
+    -fx-font-weight: bold;                    /* Texte en gras */
+    -fx-font-size: 12px;                       /* Taille petite */
+    -fx-text-fill: #b1acac;                    /* Couleur gris */
+}

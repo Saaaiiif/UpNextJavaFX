@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="814.0" prefWidth="1110.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Reservationlist">
+   <children>
+      <Pane layoutY="-6.0" prefHeight="819.0" prefWidth="939.0" styleClass="red-pane">
+         <children>
+            <Button layoutX="71.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#back_list" styleClass="button-pane" text="Back to list" />
+         </children>
+      </Pane>
+      <VBox alignment="CENTER" layoutX="285.0" prefHeight="813.0" prefWidth="654.0" styleClass="container">
+         <children>
+            <TableView fx:id="table_view" prefHeight="504.0" prefWidth="532.0" styleClass="table">
+               <columns>
+                  <TableColumn fx:id="col_evename" prefWidth="173.5999755859375" styleClass="table .column-header" text="Event" />
+                  <TableColumn fx:id="col_tickets" prefWidth="218.39996337890625" styleClass="table .column-header" text="Tickets" />
+                  <TableColumn fx:id="col_sum" prefWidth="186.4000244140625" styleClass="table .column-header" text="Total price" />
+               </columns>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#delete_reser" styleClass="modifier-btn" text="Delete">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#edit_reser" styleClass="modifier-btn" text="Edit">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
