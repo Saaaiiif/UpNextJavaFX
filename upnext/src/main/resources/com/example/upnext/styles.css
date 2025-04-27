@@ -1,5 +1,13 @@
+/* Dark mode (default) */
 .root {
     -fx-background-image: url("backg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+/* Light mode */
+.root.light-mode {
+    -fx-background-image: url("backgLIGHT.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
@@ -14,6 +22,10 @@
     -fx-cursor: hand;
 }
 
+.light-mode .nav-label {
+    -fx-text-fill: #000000;
+}
+
 .nav-label:hover {
     -fx-text-fill: #BD2526;
 }
@@ -26,6 +38,11 @@
     -fx-cursor: hand;
     -fx-transition: all 0.2s ease-in-out;
     -fx-alignment: center;
+}
+
+.light-mode .community-box {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .community-box:hover {
@@ -52,6 +69,10 @@
     -fx-alignment: center;
 }
 
+.light-mode .name-label {
+    -fx-text-fill: #000000;
+}
+
 /* Search bar container */
 .search-bar {
     -fx-padding: 5px;
@@ -61,6 +82,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
     -fx-alignment: center;
     -fx-max-width: 100px;
+}
+
+.light-mode .search-bar {
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 /* Search text field */
@@ -74,6 +100,12 @@
     -fx-border-color: #555555;
     -fx-border-width: 1px;
     -fx-pref-width: 150px;
+}
+
+.light-mode .search-field {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #000000;
+    -fx-border-color: #cccccc;
 }
 
 .search-field:focused {
@@ -144,6 +176,13 @@
     -fx-transition: all 0.3s ease;
 }
 
+/* Specific style for TextArea to ensure proper background color */
+.dialog-field.text-area {
+    -fx-control-inner-background: #444444;
+    -fx-background-color: #444444;
+    -fx-text-fill: #ffffff;
+}
+
 .image-upload-button {
     -fx-background-color: #BD2526;
     -fx-text-fill: white;
@@ -186,6 +225,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
+}
+
+.light-mode .user-community-box {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 /* Add to existing styles */
@@ -251,11 +295,19 @@
     -fx-max-width: 800px;
 }
 
+.light-mode .community-detail-container {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+}
+
 .community-detail-title {
     -fx-font-family: 'Feather Bold';
     -fx-font-size: 28px;
     -fx-text-fill: #ffffff;
     -fx-padding: 10px 0;
+}
+
+.light-mode .community-detail-title {
+    -fx-text-fill: #000000;
 }
 
 .section-title {
@@ -265,6 +317,17 @@
     -fx-padding: 5px 0;
 }
 
+.page-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px 0;
+}
+
+.light-mode .page-title {
+    -fx-text-fill: #000000;
+}
+
 .description-container {
     -fx-background-color: rgba(50, 50, 50, 0.5);
     -fx-background-radius: 10px;
@@ -272,11 +335,19 @@
     -fx-max-width: 700px;
 }
 
+.light-mode .description-container {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+}
+
 .description-text {
     -fx-font-family: 'Feather';
     -fx-font-size: 16px;
     -fx-text-fill: #acacac;
     -fx-line-spacing: 5px;
+}
+
+.light-mode .description-text {
+    -fx-text-fill: #000000;
 }
 
 .artist-box {
@@ -289,6 +360,11 @@
     -fx-min-width: 180px;
     -fx-max-width: 180px;
     -fx-background-color: rgba(50, 50, 50, 0.3);
+}
+
+.light-mode .artist-box {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
 
 .artist-box:hover {
@@ -311,11 +387,19 @@
     -fx-alignment: center;
 }
 
+.light-mode .track-name {
+    -fx-text-fill: #000000;
+}
+
 .artist-name {
     -fx-font-family: 'Feather';
     -fx-font-size: 16px;
-    -fx-text-fill: #acacac;
+    -fx-text-fill: #FFFFFF;
     -fx-alignment: center;
+}
+
+.light-mode .artist-name {
+    -fx-text-fill: #000000;
 }
 
 .player-button {
@@ -356,11 +440,19 @@
     -fx-cursor: move;
 }
 
+.light-mode .title-bar {
+    -fx-background-color: rgba(230, 230, 230, 0.9);
+}
+
 .title-label {
     -fx-font-family: 'Feather Bold';
     -fx-font-size: 16px;
     -fx-text-fill: #acacac;
     -fx-padding: 0 10px;
+}
+
+.light-mode .title-label {
+    -fx-text-fill: #000000;
 }
 
 .window-control-button {
@@ -374,6 +466,10 @@
     -fx-border-color: transparent;
 }
 
+.light-mode .window-control-button {
+    -fx-text-fill: #555555;
+}
+
 .window-control-button:hover {
     -fx-background-color: rgba(255, 255, 255, 0.1);
 }
@@ -385,4 +481,73 @@
 #closeButton:hover {
     -fx-background-color: #BD2526;
     -fx-text-fill: white;
+}
+
+#themeToggleButton:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.2);
+    -fx-text-fill: #BD2526;
+}
+
+/* Session Selection Dialog Styles */
+.dialog-pane {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #444444;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.light-mode .dialog-pane {
+    -fx-background-color: rgba(240, 240, 240, 0.9);
+    -fx-border-color: #cccccc;
+}
+
+.dialog-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 24px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+}
+
+.light-mode .dialog-title {
+    -fx-text-fill: #000000;
+}
+
+.dialog-text {
+    -fx-font-family: 'Feather';
+    -fx-font-size: 16px;
+    -fx-text-fill: #acacac;
+    -fx-alignment: center;
+}
+
+.light-mode .dialog-text {
+    -fx-text-fill: #000000;
+}
+
+.session-button {
+    -fx-background-color: #333333;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.light-mode .session-button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000000;
+}
+
+.session-button:hover {
+    -fx-background-color: #BD2526;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.session-button:pressed {
+    -fx-background-color: #9a1a1b;
 }

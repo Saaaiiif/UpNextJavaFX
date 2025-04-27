@@ -13,13 +13,33 @@ public class DatabaseService {
         List<Community> communities = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT id, name, image FROM communities")) {
+             ResultSet rs = stmt.executeQuery("SELECT id, name, image, description FROM communities")) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 byte[] image = rs.getBytes("image");
-                communities.add(new Community(id, name, image));
+                String description = rs.getString("description");
+                communities.add(new Community(id, name, image, description));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return communities;
+    }
+
+    public List<Community> getCommunitiesWithStatus2() {
+        List<Community> communities = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT id, name, image, description FROM communities WHERE status = 2")) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                byte[] image = rs.getBytes("image");
+                String description = rs.getString("description");
+                communities.add(new Community(id, name, image, description));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,7 +49,7 @@ public class DatabaseService {
 
     public List<Community> searchCommunities(String searchTerm) {
         List<Community> communities = new ArrayList<>();
-        String query = "SELECT id, name, image FROM communities WHERE name LIKE ?";
+        String query = "SELECT id, name, image, description FROM communities WHERE name LIKE ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, "%" + searchTerm + "%");
@@ -39,7 +59,8 @@ public class DatabaseService {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 byte[] image = rs.getBytes("image");
-                communities.add(new Community(id, name, image));
+                String description = rs.getString("description");
+                communities.add(new Community(id, name, image, description));
             }
         } catch (SQLException e) {
             System.err.println("Failed to search communities: " + e.getMessage());
@@ -98,6 +119,19 @@ public class DatabaseService {
         }
     }
 
+    public void updateCommunityDescription(int id, String description) {
+        String query = "UPDATE communities SET description = ? WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, description);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to update community description: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public boolean idExists(int id) {
         String query = "SELECT id FROM communities WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -111,12 +145,17 @@ public class DatabaseService {
     }
 
     public void addCommunityWithId(int id, String name, byte[] image) {
-        String query = "INSERT INTO communities (id, name, image) VALUES (?, ?, ?)";
+        addCommunityWithId(id, name, image, "");
+    }
+
+    public void addCommunityWithId(int id, String name, byte[] image, String description) {
+        String query = "INSERT INTO communities (id, name, image, description) VALUES (?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             stmt.setString(2, name);
             stmt.setBytes(3, image);
+            stmt.setString(4, description);
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Failed to add community: " + e.getMessage());

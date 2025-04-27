@@ -2,6 +2,7 @@ package com.example.upnext;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -18,17 +19,23 @@ import javafx.beans.property.StringProperty;
 public class AddCommunityController {
     @FXML private TextField idField;
     @FXML private TextField nameField;
+    @FXML private TextArea descriptionField;
     @FXML private ImageView imagePreview;
 
     private byte[] imageData;
     private DatabaseService dbService = new DatabaseService();
     private BooleanProperty validName = new SimpleBooleanProperty(false);
+    private BooleanProperty validDescription = new SimpleBooleanProperty(false);
     private final BooleanProperty validImage = new SimpleBooleanProperty(false);
+    private BooleanProperty validId = new SimpleBooleanProperty(false);
 
     @FXML
     public void initialize() {
         setupIdValidation();
         setupNameValidation();
+        setupDescriptionValidation();
+        validId.set(false); // Ensure OK button is disabled until Generate button is clicked
+        validImage.set(true); // Set validImage to true by default
     }
 
     private void setupIdValidation() {
@@ -49,17 +56,21 @@ public class AddCommunityController {
     private void validateId() {
         String input = idField.getText();
         if (input.length() != 8 || !input.matches("\\d{8}")) {
-            showError("ID must be exactly 8 digits");
+            // Generate a new ID without showing an alert
             idField.setText(generateUniqueId());
+            validId.set(true); // Set validId to true when a valid ID is generated
         } else if (dbService.idExists(Integer.parseInt(input))) {
             showError("ID already exists");
             idField.setText(generateUniqueId());
+            validId.set(true); // Set validId to true when a valid ID is generated
+        } else {
+            validId.set(true); // Set validId to true for valid IDs
         }
     }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid ID");
+        alert.setTitle("Validation Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -101,6 +112,7 @@ public class AddCommunityController {
     @FXML
     private void handleGenerateId() {
         idField.setText(generateUniqueId());
+        validId.set(true);
     }
 
     public Community getNewCommunity() {
@@ -108,16 +120,30 @@ public class AddCommunityController {
             return null;
         }
 
+        String description = descriptionField.getText() != null ? descriptionField.getText().trim() : "";
+
+        // Limit description to 500 characters
+        if (description.length() > 500) {
+            description = description.substring(0, 500);
+        }
+
         return new Community(
             Integer.parseInt(idField.getText()),
             nameField.getText().trim(),
-            imageData
+            imageData,
+            description
         );
     }
 
     private void setupNameValidation() {
         nameField.textProperty().addListener((obs, oldVal, newVal) -> {
             validName.set(!newVal.trim().isEmpty());
+        });
+    }
+
+    private void setupDescriptionValidation() {
+        descriptionField.textProperty().addListener((obs, oldVal, newVal) -> {
+            validDescription.set(!newVal.trim().isEmpty());
         });
     }
 
@@ -132,4 +158,12 @@ public class AddCommunityController {
     public BooleanProperty validImageProperty() {
         return validImage;
     }
-} 
+
+    public BooleanProperty validDescriptionProperty() {
+        return validDescription;
+    }
+
+    public BooleanProperty validIdProperty() {
+        return validId;
+    }
+}

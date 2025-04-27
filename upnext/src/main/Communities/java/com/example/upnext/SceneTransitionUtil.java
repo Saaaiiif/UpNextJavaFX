@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,6 +35,16 @@ public class SceneTransitionUtil {
 
     // Executor service for background tasks
     private static final ExecutorService executor = Executors.newCachedThreadPool();
+
+    /**
+     * Shuts down the executor service and releases resources.
+     * This should be called when the application is shutting down.
+     */
+    public static void shutdown() {
+        if (executor != null && !executor.isShutdown()) {
+            executor.shutdownNow();
+        }
+    }
 
     /**
      * Sets the root layout controller.
@@ -227,6 +236,13 @@ public class SceneTransitionUtil {
         FXMLLoader loader = new FXMLLoader(SceneTransitionUtil.class.getResource(fxmlPath));
         Parent newContent = loader.load();
 
+        // Check if we're in light mode and apply the class to the new content
+        if (rootController.getStage() != null && 
+            rootController.getStage().getScene() != null && 
+            rootController.getStage().getScene().getRoot().getStyleClass().contains("light-mode")) {
+            newContent.getStyleClass().add("light-mode");
+        }
+
         // Apply animation to the current content before switching
         if (!contentArea.getChildren().isEmpty()) {
             Node currentContent = contentArea.getChildren().get(0);
@@ -320,6 +336,13 @@ public class SceneTransitionUtil {
                         dataTask.setOnSucceeded(dataEvent -> {
                             // Now that data is loaded, transition to the new content
                             Platform.runLater(() -> {
+                                // Check if we're in light mode and apply the class to the new content
+                                if (rootController.getStage() != null && 
+                                    rootController.getStage().getScene() != null && 
+                                    rootController.getStage().getScene().getRoot().getStyleClass().contains("light-mode")) {
+                                    newContent.getStyleClass().add("light-mode");
+                                }
+
                                 contentArea.getChildren().clear();
                                 contentArea.getChildren().add(newContent);
 
@@ -429,6 +452,13 @@ public class SceneTransitionUtil {
                     dataTask.setOnSucceeded(dataEvent -> {
                         // Now that data is loaded, transition to the new content
                         Platform.runLater(() -> {
+                            // Check if we're in light mode and apply the class to the new content
+                            if (rootController.getStage() != null && 
+                                rootController.getStage().getScene() != null && 
+                                rootController.getStage().getScene().getRoot().getStyleClass().contains("light-mode")) {
+                                newContent.getStyleClass().add("light-mode");
+                            }
+
                             contentArea.getChildren().clear();
                             contentArea.getChildren().add(newContent);
 

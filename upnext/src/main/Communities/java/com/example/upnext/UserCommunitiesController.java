@@ -1,23 +1,16 @@
 package com.example.upnext;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import javafx.scene.shape.Circle;
 import javafx.scene.effect.DropShadow;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.text.Font;
-import javafx.scene.input.MouseButton;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -72,14 +65,25 @@ public class UserCommunitiesController {
     @FXML
     private void handleCommunitiesButtonClick() {
         try {
-            SceneTransitionUtil.changeContentWithPreload(
-                "/com/example/upnext/communities-view.fxml", 
-                SceneTransitionUtil.TransitionType.SLIDE_LEFT, 
-                MainController.class,
-                controller -> controller.loadCommunities()
-            );
+            // Check the session type to determine which view to show
+            SessionType currentSession = SessionManager.getInstance().getSessionType();
+
+            if (currentSession == SessionType.ADMIN) {
+                // Admin users see the communities-view
+                SceneTransitionUtil.changeContentWithPreload(
+                    "/com/example/upnext/communities-view.fxml", 
+                    SceneTransitionUtil.TransitionType.SLIDE_LEFT, 
+                    MainController.class,
+                    controller -> controller.loadCommunities()
+                );
+            } else {
+                // User and Artist users stay on user-communities-view
+                // No need to navigate since we're already here
+                // Just reload the communities to refresh the view
+                loadCommunities();
+            }
         } catch (IOException e) {
-            System.err.println("Failed to load communities-view.fxml: " + e.getMessage());
+            System.err.println("Failed to load communities view: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -87,7 +91,7 @@ public class UserCommunitiesController {
 
     public void loadCommunities() {
         DatabaseService dbService = new DatabaseService();
-        List<Community> communities = dbService.getCommunities();
+        List<Community> communities = dbService.getCommunitiesWithStatus2();
         displayCommunities(communities);
     }
 
@@ -102,7 +106,8 @@ public class UserCommunitiesController {
             ImageView imageView = createCommunityImageView(community);
 
             Label nameLabel = new Label(community.getName());
-            nameLabel.setStyle("-fx-text-fill: #acacac; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
+            nameLabel.getStyleClass().add("name-label");
+            nameLabel.setStyle("-fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
 
             VBox communityBox = new VBox(imageView, nameLabel);
             communityBox.setSpacing(10);

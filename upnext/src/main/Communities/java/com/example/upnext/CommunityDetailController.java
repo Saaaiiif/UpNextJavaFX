@@ -91,7 +91,8 @@ public class CommunityDetailController {
 
     private void loadSpotifyTrack(String artistName) {
         // Run in a background thread to avoid freezing the UI
-        new Thread(() -> {
+        // Use a daemon thread to ensure it doesn't prevent application shutdown
+        Thread spotifyThread = new Thread(() -> {
             String artistId = SpotifyService.getArtistId(artistName);
             if (artistId != null) {
                 Map<String, String> trackInfo = SpotifyService.getTopTrack(artistId);
@@ -152,7 +153,11 @@ public class CommunityDetailController {
                     }
                 });
             }
-        }).start();
+        });
+
+        // Set as daemon thread so it doesn't prevent application shutdown
+        spotifyThread.setDaemon(true);
+        spotifyThread.start();
     }
 
     private void loadSpotifyPlayer() {
@@ -235,7 +240,7 @@ public class CommunityDetailController {
             ImageView imageView = createArtistImageView(artist);
 
             Label nameLabel = new Label(artist.getName());
-            nameLabel.setStyle("-fx-text-fill: #acacac; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
+            nameLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-family: 'Feather Bold'");
 
             VBox artistBox = new VBox(imageView, nameLabel);
             artistBox.setSpacing(10);
@@ -321,14 +326,28 @@ public class CommunityDetailController {
             // Pause the player before navigating away
             pauseSpotifyPlayer();
 
-            MainController controller = SceneTransitionUtil.changeContent(
-                "/com/example/upnext/communities-view.fxml", 
-                SceneTransitionUtil.TransitionType.SLIDE_LEFT, 
-                MainController.class
-            );
-            controller.loadCommunities();
+            // Check the session type to determine which view to show
+            SessionType currentSession = SessionManager.getInstance().getSessionType();
+
+            if (currentSession == SessionType.ADMIN) {
+                // Admin users see the communities-view
+                MainController controller = SceneTransitionUtil.changeContent(
+                    "/com/example/upnext/communities-view.fxml", 
+                    SceneTransitionUtil.TransitionType.SLIDE_LEFT, 
+                    MainController.class
+                );
+                controller.loadCommunities();
+            } else {
+                // User and Artist users see the user-communities-view
+                UserCommunitiesController controller = SceneTransitionUtil.changeContent(
+                    "/com/example/upnext/user-communities-view.fxml", 
+                    SceneTransitionUtil.TransitionType.SLIDE_LEFT, 
+                    UserCommunitiesController.class
+                );
+                controller.loadCommunities();
+            }
         } catch (IOException e) {
-            System.err.println("Failed to load communities-view.fxml: " + e.getMessage());
+            System.err.println("Failed to load communities view: " + e.getMessage());
             e.printStackTrace();
         }
     }

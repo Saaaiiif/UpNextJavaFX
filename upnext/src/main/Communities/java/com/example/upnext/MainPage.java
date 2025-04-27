@@ -6,13 +6,46 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class MainPage extends Application {
+    /**
+     * Shows the session selection dialog to choose between admin and user sessions.
+     * 
+     * @throws IOException if the FXML file cannot be loaded
+     */
+    private void showSessionSelectionDialog() throws IOException {
+        // Create the dialog Stage
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Select Session Type");
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("session-selection-dialog.fxml"));
+        javafx.scene.Parent dialogRoot = loader.load();
+
+        // Set the scene
+        Scene dialogScene = new Scene(dialogRoot);
+        dialogScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+        dialogStage.setScene(dialogScene);
+
+        // Set the controller
+        SessionSelectionController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
+        // Show the session selection dialog first
+        showSessionSelectionDialog();
+
         // Set the application icon
         Image appIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/logo.png")));
         stage.getIcons().add(appIcon);
@@ -53,5 +86,18 @@ public class MainPage extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void stop() {
+        // Ensure all resources are released when the application is stopped
+        SceneTransitionUtil.shutdown();
+
+        // Call the superclass implementation
+        try {
+            super.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -22,8 +22,10 @@
                         <Insets left="10" right="10" />
                     </HBox.margin>
                 </ImageView>
-                <Label text="UpNext!" styleClass="title-label" />
+                <Label text="UpNext" styleClass="title-label" />
             </HBox>
+            <Button fx:id="logoutButton" text="Logout" styleClass="window-control-button" onAction="#handleLogoutButtonClick" />
+            <Button fx:id="themeToggleButton" text="☀" styleClass="window-control-button" />
             <Button fx:id="minimizeButton" text="—" styleClass="window-control-button" />
             <Button fx:id="closeButton" text="✕" styleClass="window-control-button" />
         </HBox>
