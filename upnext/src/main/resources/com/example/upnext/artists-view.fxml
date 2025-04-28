@@ -2,20 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ScrollPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.upnext.CommunitiesController"
+            fx:controller="com.example.upnext.ArtistsController"
             prefWidth="1200" prefHeight="700"
             styleClass="root">
 
@@ -33,32 +29,10 @@
 
     <center>
         <VBox alignment="CENTER" spacing="20.0">
-            <HBox fx:id="addCardContainer" alignment="CENTER"/>
-
-            <HBox alignment="CENTER" spacing="20">
-                <HBox alignment="CENTER" spacing="10" styleClass="search-bar" maxWidth="400">
-                    <StackPane>
-                        <TextField fx:id="searchField" styleClass="search-field"/>
-                        <ImageView fx:id="searchIcon" fitWidth="16" fitHeight="16" preserveRatio="true" styleClass="search-icon">
-                            <image>
-                                <Image url="@/search.png"/>
-                            </image>
-                        </ImageView>
-                    </StackPane>
-                </HBox>
-
-                <HBox alignment="CENTER" spacing="10" styleClass="filter-bar">
-                    <Label text="Filter by status:" styleClass="filter-label"/>
-                    <HBox alignment="CENTER" spacing="5">
-                        <CheckBox fx:id="statusFilter0" text="Unverified" styleClass="status-checkbox"/>
-                        <CheckBox fx:id="statusFilter1" text="Pending" styleClass="status-checkbox"/>
-                        <CheckBox fx:id="statusFilter2" text="Verified" styleClass="status-checkbox"/>
-                    </HBox>
-                </HBox>
-            </HBox>
+            <Label text="All Artists" styleClass="page-title"/>
 
             <ScrollPane fitToWidth="true" prefHeight="500" styleClass="transparent-scroll-pane">
-                <GridPane fx:id="communitiesGrid" alignment="CENTER" hgap="20" vgap="20">
+                <GridPane fx:id="artistsGrid" alignment="CENTER" hgap="20" vgap="20">
                     <padding>
                         <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
                     </padding>

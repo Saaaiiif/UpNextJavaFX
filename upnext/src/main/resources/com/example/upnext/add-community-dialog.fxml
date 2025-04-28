@@ -21,12 +21,13 @@
 
 
     <content>
-        <VBox spacing="15" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <VBox spacing="15" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
             <!-- Custom Title Bar -->
-            <HBox alignment="CENTER_RIGHT" styleClass="title-bar">
+            <HBox fx:id="titleBar" alignment="CENTER_RIGHT" styleClass="title-bar" maxWidth="Infinity" prefWidth="600">
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <Label text="Add New Community" styleClass="title-label" />
                 </HBox>
+                <Button fx:id="closeButton" text="✕" styleClass="window-control-button" onAction="#handleClose"/>
             </HBox>
             <GridPane hgap="15" vgap="15" alignment="CENTER" prefWidth="450" VBox.vgrow="ALWAYS">
                 <padding>

@@ -16,11 +16,12 @@
     <top>
         <!-- Navigation Bar -->
         <HBox spacing="20" alignment="CENTER_LEFT"
-              style=" -fx-padding: 10 20;">
+              styleClass="nav-bar">
             <ImageView fx:id="logoImage" fitHeight="45" fitWidth="45" preserveRatio="true"/>
-            <Button text="/UpNext" styleClass="nav-label" onAction="#handleUpNextButtonClick" />
-            <Label text="/Artists" styleClass="nav-label" />
+            <Button text="Up/Next" styleClass="nav-label" onAction="#handleUpNextButtonClick" />
+            <Button fx:id="artistsButton" text="/Artists" styleClass="nav-label" onAction="#handleArtistsButtonClick" />
             <Button fx:id="communitiesButton" text="/Communities" styleClass="nav-label" onAction="#handleCommunitiesButtonClick" />
+            <Button fx:id="createCommunityButton" text="/Create Your Community" styleClass="nav-label" onAction="#handleCreateCommunityButtonClick" visible="false" />
         </HBox>
     </top>
 
