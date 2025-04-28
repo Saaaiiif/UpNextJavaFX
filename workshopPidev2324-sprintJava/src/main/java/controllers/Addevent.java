@@ -1,18 +1,17 @@
 package controllers;
 
 import edu.up_next.entities.Event;
+import edu.up_next.entities.User;
 import edu.up_next.services.EventServices;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -38,6 +37,27 @@ public class Addevent implements Initializable {
         FileChooser fileChooser = new FileChooser();//ouutil JavaFX pour ouvrir une fenêtre de sélection de fichiers.
         private File selectedImageFile;//stocke le fichier image choisi par l'utilisateur.
         private String eventImageFileName;
+
+        @FXML
+        private Hyperlink home;
+
+        @FXML
+        private Hyperlink EventLink;
+
+        @FXML
+        private Hyperlink Logout;
+
+        @FXML
+        private Hyperlink ProductLink;
+
+        @FXML
+        private ImageView ProfileImage;
+
+        @FXML
+        private Hyperlink ProfileLink;
+
+        @FXML
+        private Hyperlink VerifiedArtistLink;
 
 
         @FXML
@@ -200,7 +220,7 @@ public class Addevent implements Initializable {
         void show_list(MouseEvent event) {
                 try {
                         Parent root = FXMLLoader.load(getClass().getResource("/eventlist.fxml"));
-                        title.getScene().setRoot(root);
+                        ((Hyperlink) event.getSource()).getScene().setRoot(root);
                 }catch (IOException e){
                         e.printStackTrace(); // ou affiche une alerte
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -301,6 +321,53 @@ public class Addevent implements Initializable {
                         new Alert(Alert.AlertType.ERROR, "Impossible de charger la fenêtre de localisation").showAndWait();
                 }
         }
+
+
+        @FXML
+        void profile(MouseEvent event) {
+                try {
+                        Parent root = FXMLLoader.load(getClass().getResource("/profile.fxml"));
+                        ((Hyperlink) event.getSource()).getScene().setRoot(root);
+                }catch (IOException e){
+                        e.printStackTrace(); // ou affiche une alerte
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erreur");
+                        alert.setHeaderText("Chargement échoué");
+                        alert.setContentText("Impossible de charger la page Eventlist.fxml");
+                        alert.showAndWait();
+                }
+        }
+        @FXML
+        void Logout(ActionEvent event) {
+                try {
+                        URL fxmlLocation = getClass().getResource("/login.fxml");
+                        if (fxmlLocation == null) {
+                                System.err.println("Error: /login.fxml not found in resources");
+                                return;
+                        }
+                        FXMLLoader loader = new FXMLLoader(fxmlLocation);
+                        Parent root = loader.load();
+                        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println("❌ Error loading login page: " + e.getMessage());
+                }
+        }
+        @FXML
+        void back(MouseEvent event) {
+                Scene previousScene = NavigationManager.pop();
+                if (previousScene != null) {
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.setScene(previousScene);
+                        stage.show();
+                } else {
+                        System.out.println("🚫 Pas de page précédente.");
+                }
+        }
+
 
 
 }

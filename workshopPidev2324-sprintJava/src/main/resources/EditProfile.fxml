@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditProfile">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+          <children>
+              <AnchorPane prefHeight="400.0" prefWidth="600.0">
+                  <children>
+                      <AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-radius: 50;">
+                          <children>
+                              <Rectangle arcHeight="2.0" arcWidth="5.0" fill="#ffffff00" height="545.0" layoutX="142.0" layoutY="89.0" stroke="#b7b7b7" strokeType="INSIDE" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="675.0" />
+                              <!-- Sidebar (reused from home.fxml) -->
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" height="700.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="61.0">
+                                  <fill>
+                                      <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+                                          <stops>
+                                              <Stop>
+                                                  <color>
+                                                      <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                                                  </color>
+                                              </Stop>
+                                              <Stop offset="1.0">
+                                                  <color>
+                                                      <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                                                  </color>
+                                              </Stop>
+                                          </stops>
+                                      </LinearGradient>
+                                  </fill>
+                              </Rectangle>
+                              <!-- Top Bar -->
+                              <ImageView fitHeight="38.0" fitWidth="155.0" layoutX="739.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@up-next.png" />
+                                  </image>
+                              </ImageView>
+                              <!-- Profile Content -->
+                              <!-- Firstname and Lastname -->
+                              <Label layoutX="331.0" layoutY="107.0" text="Firstname" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="firstnameField" editable="false" layoutX="322.0" layoutY="130.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 50;" />
+                              <Label layoutX="545.0" layoutY="107.0" text="Lastname" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="lastnameField" editable="false" layoutX="537.0" layoutY="129.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 50;" />
+                              <!-- Speciality (visible only for ROLE_ARTIST) -->
+                              <Label fx:id="specialityLabel" layoutX="331.0" layoutY="184.0" text="Speciality" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <!-- Phone Number -->
+                              <Label layoutX="329.0" layoutY="244.0" text="Phone number" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <!-- Description -->
+                              <Label layoutX="329.0" layoutY="325.0" text="Description" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <!-- Location Section -->
+                              <Label layoutX="321.0" layoutY="469.0" text="Location" textFill="#888888">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Label>
+                              <!-- TODO: Add Country, City, and Zip Code fields to the database table -->
+                              <Label layoutX="323.0" layoutY="504.0" text="Country" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="countryField" editable="false" layoutX="322.0" layoutY="519.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #CCCCCC; -fx-border-width: 0 0 1 0;" />
+                              <Label layoutX="542.0" layoutY="500.0" text="City" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="cityField" editable="false" layoutX="537.0" layoutY="519.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #CCCCCC; -fx-border-width: 0 0 1 0;" />
+                              <Label layoutX="322.0" layoutY="553.0" text="Address" textFill="#888888">
+                                  <font>
+                                      <Font name="System" size="12.0" />
+                                  </font>
+                              </Label>
+                              <TextField fx:id="AddressField" editable="false" layoutX="322.0" layoutY="574.0" prefHeight="30.0" prefWidth="359.0" style="-fx-background-color: transparent; -fx-border-color: #CCCCCC; -fx-border-width: 0 0 1 0;" />
+                              <!-- Add Location Button -->
+                              <Button fx:id="addLocationButton" layoutX="545.0" layoutY="465.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-text-fill: #FF0000;" text="+Add location">
+                                  <!-- TODO: Integrate Google Maps API to allow location selection
+                                        1. Add Google Maps JavaScript API dependency
+                                        2. Use a WebView to display the map
+                                        3. On selection, update countryField, cityField, and zipField -->
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Button>
+                              <!-- Edit Profile Button -->
+                              <Button fx:id="SaveChanges" layoutX="375.0" layoutY="648.0" onAction="#UpdateProfile" prefHeight="40.0" prefWidth="209.0" style="-fx-background-color: #FF0000; -fx-background-radius: 20;" text="Save changes" textFill="WHITE">
+                                  <font>
+                                      <Font name="System" size="14.0" />
+                                  </font>
+                              </Button>
+                              <ImageView fx:id="ProfileImage1" fitHeight="104.0" fitWidth="98.0" layoutX="174.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@user.png" />
+                                  </image>
+                                  <clip>
+                                      <Circle centerX="50.0" centerY="50.0" radius="50.0" />
+                                  </clip>
+                              </ImageView>
+                              <Line endX="268.4000244140625" layoutX="416.0" layoutY="466.0" opacity="0.15" startX="-100.0" />
+                        <TextField fx:id="descriptionField" editable="false" layoutX="329.0" layoutY="350.0" prefHeight="87.0" prefWidth="359.0" style="-fx-background-radius: 20;" />
+                        <Label fx:id="counter" layoutX="632.0" layoutY="437.0" text="lable" textFill="#888888">
+                           <font>
+                              <Font name="System" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="UploadImage" layoutX="146.0" layoutY="211.0" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent; -fx-text-fill: #FF0000;" text="+Upload new image" />
+                        <ComboBox fx:id="speciality" editable="true" layoutX="329.0" layoutY="203.0" onAction="#select" prefHeight="30.0" prefWidth="203.0" promptText="chose your speciality" />
+                        <TextField fx:id="number" layoutX="421.0" layoutY="266.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="145.0" promptText="phone number">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <ComboBox fx:id="pay" editable="true" layoutX="327.0" layoutY="266.0" onAction="#select" prefHeight="38.0" prefWidth="82.0" promptText="+" style="-fx-border-radius: 50;" />
+                        <Label fx:id="FirstnameError" layoutX="330.0" layoutY="160.0" text="Label" textFill="RED" visible="false" />
+                        <Label fx:id="LastnameError" layoutX="549.0" layoutY="160.0" text="Label" textFill="RED" visible="false" />
+                          </children>
+                      </AnchorPane>
+                  </children>
+              </AnchorPane>
+          </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

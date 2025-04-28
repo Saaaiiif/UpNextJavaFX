@@ -1,5 +1,8 @@
 package controllers;
 
+import com.google.cloud.vision.v1.*;
+import com.google.protobuf.ByteString;
+
 import edu.up_next.entities.Event;
 import edu.up_next.services.EventServices;
 import javafx.collections.FXCollections;
@@ -7,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,6 +45,10 @@ public class Eventlist {
     @FXML
     public void initialize() {
         try {
+            // Initialiser le client Google Cloud Vision
+            visionClient = GoogleCloudConfig.createVisionClient();
+            System.out.println("Client Google Cloud Vision initialisé.");
+
             List<Event> events = es.getAllData();
             ObservableList<Event> data = FXCollections.observableArrayList(events);
             table_view.setItems(data);
@@ -165,6 +174,40 @@ public class Eventlist {
 
 
     public void back_list(MouseEvent mouseEvent) {
+    }
+
+    public void show_list(MouseEvent event) {
+    }
+    @FXML
+    void Logout(ActionEvent event) {
+        try {
+            URL fxmlLocation = getClass().getResource("/profile.fxml");
+            if (fxmlLocation == null) {
+                System.err.println("Error: /login.fxml not found in resources");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Parent root = loader.load();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Error loading login page: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void back(MouseEvent event) {
+        Scene previousScene = NavigationManager.pop();
+        if (previousScene != null) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(previousScene);
+            stage.show();
+        } else {
+            System.out.println("🚫 Pas de page précédente.");
+        }
     }
 }
 

@@ -10,7 +10,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventlist.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle("Events");

@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e22eb570-64e7-4081-8b10-1205696d8e8f" name="Changes" comment="" />
+    <list default="true" id="e22eb570-64e7-4081-8b10-1205696d8e8f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Addevent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Addevent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Eventlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Eventlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/up_next/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/up_next/tests/MainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/addevent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/addevent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/eventlist.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/eventlist.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/addevent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/addevent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Addevent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/Addevent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Eventlist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocationPicker$JSBridge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocationPicker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Reservationlist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tests/MainFX.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tests/TestClasse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tools/MyConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/eventlist.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/eventlist.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,12 +36,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Class" />
         <option value="FxmlFile" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenRunner">
     <option name="jreName" value="17 (2)" />
@@ -32,33 +57,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainFX.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Maven.projectUp_next [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "Maven.workshoppidev [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/GMI/IdeaProjects/Up-Next2",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainFX.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.projectUp_next [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.workshoppidev [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gestion-event&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Téléchargements/Nouveau dossier/workshopPidev2324-sprintJava/src/main/resources&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="controllers" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\resources" />
-      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next" />
-      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\models" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\interfaces" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\tools" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\services" />
+      <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\java\edu\up_next\entities" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Téléchargements\Nouveau dossier\workshopPidev2324-sprintJava\src\main\resources\css" />
@@ -118,7 +149,10 @@
       <workItem from="1745326336214" duration="3583000" />
       <workItem from="1745329964690" duration="51000" />
       <workItem from="1745330625499" duration="898000" />
-      <workItem from="1745659587395" duration="17081000" />
+      <workItem from="1745659587395" duration="24643000" />
+      <workItem from="1745761532763" duration="15508000" />
+      <workItem from="1745844000313" duration="4967000" />
+      <workItem from="1745849388194" duration="356000" />
     </task>
     <servers />
   </component>

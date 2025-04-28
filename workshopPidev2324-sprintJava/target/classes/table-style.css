@@ -1,0 +1,17 @@
+.custom-table .column-header-background {
+    -fx-background-color: #e8857a; /* red */
+}
+
+.custom-table .column-header {
+    -fx-text-fill: #e6e0e0;
+    -fx-font-weight: bold;
+}
+
+.custom-table .table-row-cell {
+    -fx-border-color: #eee;
+    -fx-padding: 8;
+}
+
+.custom-table .table-cell {
+    -fx-padding: 8;
+}
