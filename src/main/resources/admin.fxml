@@ -2,9 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -20,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="622.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Admin">
+<AnchorPane prefHeight="622.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminHome">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -47,7 +44,7 @@
                            </fill>
                         </Rectangle>
                         <Accordion layoutX="26.0" layoutY="14.0" />
-                        <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="93.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="65.59999999999991">
+                        <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="61.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="159.9999999999999">
                            <font>
                               <Font name="Dubai Light" size="16.0" />
                            </font>
@@ -175,14 +172,7 @@
                               <Image url="@car.png" />
                            </image>
                         </ImageView>
-                        <BarChart fx:id="usersChart" layoutX="269.0" layoutY="324.0" prefHeight="338.0" prefWidth="563.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
+
                      </children>
                   </AnchorPane>
                </children>

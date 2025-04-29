@@ -1,10 +1,10 @@
 package edu.up_next.services;
 
-
 import edu.up_next.entities.User;
 import edu.up_next.interfaces.IService;
 import edu.up_next.tools.MyConnexion;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserServices implements IService<User> {
-
 
     @Override
     public void addUser(User user) {
@@ -31,19 +30,15 @@ public class UserServices implements IService<User> {
         }
     }
 
-
     public void addUser1(User user) {
         try {
-
-
-
             String requet = "INSERT INTO user (id, email, roles, password, firstname, lastname, speciality, description, image, is_verified, num, is_active) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(requet);
             stmt.setInt(1, user.getId());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getRoles());  // Store roles as a JSON string
+            stmt.setString(3, user.getRoles());
             stmt.setString(4, user.getPassword());
             stmt.setString(5, user.getFirstname());
             stmt.setString(6, user.getLastname());
@@ -56,12 +51,11 @@ public class UserServices implements IService<User> {
 
             stmt.executeUpdate();
             System.out.println("User " + user.getFirstname() + " has been added to the database");
-
         } catch (SQLException e) {
             throw new RuntimeException("Error adding user: " + e.getMessage());
         }
     }
-    //check if the email iss unique
+
     public boolean emailExists(String email) {
         try {
             String query = "SELECT COUNT(*) FROM user WHERE email = ?";
@@ -80,16 +74,15 @@ public class UserServices implements IService<User> {
     @Override
     public void deleteUser(User user) {
         try {
-            String sql = "DELETE FROM user WHERE id = ?"; // Using id to delete the user
+            String sql = "DELETE FROM user WHERE id = ?";
             PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(sql);
-            stmt.setInt(1, user.getId()); // Set the user id as parameter
+            stmt.setInt(1, user.getId());
             stmt.executeUpdate();
             System.out.println("User with id " + user.getId() + " has been deleted from the database.");
         } catch (SQLException e) {
             System.out.println("Error deleting user: " + e.getMessage());
         }
     }
-
 
     @Override
     public void updateUser(User user) {
@@ -99,7 +92,7 @@ public class UserServices implements IService<User> {
             PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(sql);
 
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getRoles()); // Assuming roles are stored as a JSON string
+            stmt.setString(2, user.getRoles());
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getFirstname());
             stmt.setString(5, user.getLastname());
@@ -109,7 +102,7 @@ public class UserServices implements IService<User> {
             stmt.setBoolean(9, user.isIs_verified());
             stmt.setInt(10, user.getNum());
             stmt.setBoolean(11, user.isIs_active());
-            stmt.setInt(12, user.getId()); // Use user id to identify the record to update
+            stmt.setInt(12, user.getId());
 
             stmt.executeUpdate();
             System.out.println("User with id " + user.getId() + " has been updated in the database.");
@@ -117,7 +110,7 @@ public class UserServices implements IService<User> {
             System.out.println("Error updating user: " + e.getMessage());
         }
     }
-    // New method to update user profile without email and password
+
     public void updateUserProfile(User user) {
         try {
             String sql = "UPDATE user SET roles = ?, firstname = ?, lastname = ?, speciality = ?, description = ?, image = ?, is_verified = ?, num = ?, is_active = ? WHERE id = ?";
@@ -168,46 +161,117 @@ public class UserServices implements IService<User> {
             throw new RuntimeException("Error fetching users: " + e.getMessage(), e);
         }
 
-        // Print each user on a new line
         for (User user : users) {
             System.out.println(user);
         }
 
         return users;
     }
-//Search
-public List<User> searchUsers(String keyword) {
-    List<User> users = new ArrayList<>();
-    try {
-        String sql = "SELECT * FROM user WHERE firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR roles LIKE ?";
-        PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(sql);
-
-        // Use wildcards (%) to enable partial matching
-        String searchPattern = "%" + keyword + "%";
-        stmt.setString(1, searchPattern);
-        stmt.setString(2, searchPattern);
-        stmt.setString(3, searchPattern);
-        stmt.setString(4, searchPattern);
-
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            users.add(mapResultSetToUser(rs));
+    public List<User> getVerifiedArtists() throws SQLException {
+        List<User> verifiedArtists = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE is_verified = true AND roles LIKE '%ROLE_ARTIST%'";
+        try (Connection conn = new MyConnexion().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setRoles(rs.getString("roles"));
+                user.setPassword(rs.getString("password"));
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
+                user.setSpeciality(rs.getString("speciality"));
+                user.setDescription(rs.getString("description"));
+                user.setImage(rs.getString("image"));
+                user.setIs_verified(rs.getBoolean("is_verified"));
+                user.setNum(rs.getInt("num"));
+                user.setIs_active(rs.getBoolean("is_active"));
+                verifiedArtists.add(user);
+            }
         }
-    } catch (SQLException e) {
-        throw new RuntimeException("Error searching users: " + e.getMessage());
+        return verifiedArtists;
     }
-    return users;
-}
 
-    // 🏗 Map ResultSet to User Object
+    public List<User> searchUsers(String searchTerm) throws SQLException {
+        List<User> users = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = new MyConnexion().getConnection();
+            String query = "SELECT id, firstname, lastname, email, roles, image FROM user WHERE firstname LIKE ? OR lastname LIKE ?";
+            stmt = conn.prepareStatement(query);
+            String likeTerm = "%" + searchTerm + "%";
+            stmt.setString(1, likeTerm);
+            stmt.setString(2, likeTerm);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setRoles(rs.getString("roles"));
+                user.setImage(rs.getString("image"));
+                users.add(user);
+            }
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return users;
+    }
+
+    public List<User> searchUsers1(String keyword) {
+        List<User> users = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM user WHERE firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR roles LIKE ?";
+            PreparedStatement stmt = new MyConnexion().getConnection().prepareStatement(sql);
+
+            String searchPattern = "%" + keyword + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+            stmt.setString(3, searchPattern);
+            stmt.setString(4, searchPattern);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                users.add(mapResultSetToUser(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching users: " + e.getMessage());
+        }
+        return users;
+    }
+
     private User mapResultSetToUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
         user.setEmail(rs.getString("email"));
-
-        // ✅ Store roles as a string
         user.setRoles(rs.getString("roles"));
-
         user.setPassword(rs.getString("password"));
         user.setFirstname(rs.getString("firstname"));
         user.setLastname(rs.getString("lastname"));
@@ -221,11 +285,10 @@ public List<User> searchUsers(String keyword) {
         return user;
     }
 
-//advanced search
     public List<User> advancedSearch(String role, Boolean isActive, String keyword) {
         List<User> users = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM user WHERE 1=1"; // Base query
+            String sql = "SELECT * FROM user WHERE 1=1";
 
             if (role != null && !role.isEmpty()) sql += " AND roles LIKE ?";
             if (isActive != null) sql += " AND is_active = ?";
@@ -253,27 +316,23 @@ public List<User> searchUsers(String keyword) {
         return users;
     }
 
-//trie
-public List<User> getSortedUsers(String sortBy, String order) {
-    List<User> users = new ArrayList<>();
-    try {
-        String validColumns = "firstname, lastname, email, id";
-        if (!validColumns.contains(sortBy)) sortBy = "id"; // Prevent SQL injection
+    public List<User> getSortedUsers(String sortBy, String order) {
+        List<User> users = new ArrayList<>();
+        try {
+            String validColumns = "firstname, lastname, email, id";
+            if (!validColumns.contains(sortBy)) sortBy = "id";
 
-        String sql = "SELECT * FROM user ORDER BY " + sortBy + " " + (order.equalsIgnoreCase("DESC") ? "DESC" : "ASC");
+            String sql = "SELECT * FROM user ORDER BY " + sortBy + " " + (order.equalsIgnoreCase("DESC") ? "DESC" : "ASC");
 
-        Statement stmt = new MyConnexion().getConnection().createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+            Statement stmt = new MyConnexion().getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-        while (rs.next()) {
-            users.add(mapResultSetToUser(rs));
+            while (rs.next()) {
+                users.add(mapResultSetToUser(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error sorting users: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        throw new RuntimeException("Error sorting users: " + e.getMessage());
+        return users;
     }
-    return users;
 }
-
-
-}
-

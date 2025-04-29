@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -54,7 +55,7 @@
                         <Image url="@up-next.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="search" layoutX="257.0" layoutY="18.0" minWidth="-Infinity" prefHeight="38.0" prefWidth="434.0" promptText="search" style="-fx-border-radius: 50; -fx-background-radius: 50;">
+                  <TextField fx:id="search" layoutX="257.0" layoutY="18.0" minWidth="-Infinity" onAction="#ActivateSearchResult" prefHeight="38.0" prefWidth="434.0" promptText="search" style="-fx-border-radius: 50; -fx-background-radius: 50;">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
@@ -183,6 +184,18 @@
                         <Image url="@quize.png" />
                      </image>
                   </ImageView>
+                  <VBox fx:id="searchResult" layoutX="266.0" layoutY="56.0" prefHeight="241.0" prefWidth="410.0" style="-fx-background-color: #ffff; -fx-background-radius: 30; -fx-border-color: e8e8e8;" visible="false">
+                     <children>
+                        <Text fx:id="result" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="10.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import edu.up_next.tools.MyConnexion;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NewPassword {
@@ -27,10 +29,13 @@ public class NewPassword {
     @FXML private PasswordField confirme;
     @FXML private Label errorLabel;
     @FXML private Button resetPassword;
+    @FXML private VBox passwordRulesBox;
+    @FXML private Label lengthLabel;
+    @FXML private Label letterLabel;
+    @FXML private Label digitLabel;
 
     private String email;
 
-    // Add the setEmail method to receive the email from VerifyCode
     public void setEmail(String email) {
         this.email = email;
     }
@@ -38,7 +43,6 @@ public class NewPassword {
     @FXML
     void resetPassword(ActionEvent event) {
         errorLabel.setVisible(false);
-
         String newPasswordText = newPassword.getText();
         String confirmPasswordText = confirme.getText();
 
@@ -48,15 +52,14 @@ public class NewPassword {
             errorLabel.setVisible(true);
             return;
         }
-
         if (!newPasswordText.equals(confirmPasswordText)) {
             errorLabel.setText("Passwords do not match.");
             errorLabel.setVisible(true);
             return;
         }
-
-        if (newPasswordText.length() < 8) {
-            errorLabel.setText("Password must be at least 8 characters.");
+        // Check password strength
+        if (!isPasswordStrong(newPasswordText)) {
+            errorLabel.setText("Password does not meet requirements.");
             errorLabel.setVisible(true);
             return;
         }
@@ -66,7 +69,6 @@ public class NewPassword {
             MyConnexion db = new MyConnexion();
             Connection conn = db.getConnection();
 
-            // Update password and clear reset code
             String query = "UPDATE user SET password = ?, reset_code = NULL, reset_code_expiry = NULL WHERE email = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             String hashedPassword = BCrypt.withDefaults().hashToString(13, newPasswordText.toCharArray());
@@ -81,7 +83,6 @@ public class NewPassword {
                 alert.setContentText("Your password has been reset successfully. You can now log in with your new password.");
                 alert.showAndWait();
 
-                // Navigate to login page
                 goToLogin(event);
             } else {
                 errorLabel.setText("Failed to reset password. Try again.");
@@ -123,5 +124,35 @@ public class NewPassword {
         assert confirme != null : "fx:id=\"confirme\" was not injected: check your FXML file 'newPassword.fxml'.";
         assert errorLabel != null : "fx:id=\"errorLabel\" was not injected: check your FXML file 'newPassword.fxml'.";
         assert resetPassword != null : "fx:id=\"resetPassword\" was not injected: check your FXML file 'newPassword.fxml'.";
+        assert passwordRulesBox != null : "fx:id=\"passwordRulesBox\" was not injected: check your FXML file 'newPassword.fxml'.";
+        assert lengthLabel != null : "fx:id=\"lengthLabel\" was not injected: check your FXML file 'newPassword.fxml'.";
+        assert letterLabel != null : "fx:id=\"letterLabel\" was not injected: check your FXML file 'newPassword.fxml'.";
+        assert digitLabel != null : "fx:id=\"digitLabel\" was not injected: check your FXML file 'newPassword.fxml'.";
+
+        // Toggle visibility of passwordRulesBox based on focus
+        ChangeListener<Boolean> focusListener = (obs, oldVal, newVal) -> {
+            passwordRulesBox.setVisible(newPassword.isFocused());
+        };
+        newPassword.focusedProperty().addListener(focusListener);
+
+        // Update validation live as user types
+        newPassword.textProperty().addListener((obs, oldText, newText) -> {
+            validatePassword(newText);
+        });
+
+        // Initially hide the passwordRulesBox
+        passwordRulesBox.setVisible(false);
+    }
+
+    private void validatePassword(String password) {
+        lengthLabel.setText(password.length() >= 8 ? "✅ At least 8 characters" : "❌ At least 8 characters");
+        letterLabel.setText(password.matches(".*[a-zA-Z].*") ? "✅ At least 1 letter" : "❌ At least 1 letter");
+        digitLabel.setText(password.matches(".*\\d.*") ? "✅ At least 1 number" : "❌ At least 1 number");
+    }
+
+    private boolean isPasswordStrong(String password) {
+        return password.length() >= 8 &&
+                password.matches(".*[a-zA-Z].*") &&
+                password.matches(".*\\d.*");
     }
 }

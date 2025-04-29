@@ -178,15 +178,19 @@ public class ResetPasswordRequest {
             message.setSubject("Password Reset Code - Up Next");
 
             // Customize the email body with HTML
+            // Customize the email body with HTML
             String htmlContent = "<html>" +
-                    "<body style='font-family: Arial, sans-serif; color: #333;'>" +
-                    "<h2 style='color: #ff3333;'>Password Reset Request</h2>" +
-                    "<p>Dear <strong>" + firstName + " " + lastName + "</strong>,</p>" +
-                    "<p>We received a request to reset your password for your Up Next account. " +
-                    "Please use the following code to reset your password:</p>" +
-                    "<h3 style='color: #ff3333;'>" + code + "</h3>" +
-                    "<p>This code is valid for <strong>10 minutes</strong>. If you did not request a password reset, please ignore this email.</p>" +
-                    "<p>Thank you,<br>The Up Next Team</p>" +
+                    "<body style='font-family: Arial, sans-serif; color: #333; text-align: center; margin: 0; padding: 20px;'>" +
+                    "<div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;'>" +
+                    "<h2 style='color: #ff3333; margin-bottom: 20px;'>Password Reset Request</h2>" +
+                    "<p style='font-size: 16px; margin-bottom: 10px;'>Dear <strong>" + firstName + " " + lastName + "</strong>,</p>" +
+                    "<p style='font-size: 14px; margin-bottom: 20px;'>We received a request to reset your password for your Up Next account. Please use the following code to reset your password:</p>" +
+                    "<div style='display: inline-block; padding: 15px 30px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; margin: 20px 0;'>" +
+                    "<h3 style='color: #ff3333; font-size: 24px; margin: 0;'>" + code + "</h3>" +
+                    "</div>" +
+                    "<p style='font-size: 14px; margin-top: 20px;'>This code is valid for <strong>10 minutes</strong>. If you did not request a password reset, please ignore this email.</p>" +
+                    "<p style='font-size: 14px; margin-top: 30px;'>Thank you,<br>The Up Next Team</p>" +
+                    "</div>" +
                     "</body>" +
                     "</html>";
 
