@@ -10,6 +10,7 @@ public class Community {
     private String description;
     private int status;
     private String social;
+    private String genre;
     private List<String> keywords;
 
     public Community(int id, String name, byte[] image) {
@@ -19,6 +20,7 @@ public class Community {
         this.description = "";
         this.status = 2; // Default status
         this.social = ""; // Default empty social link
+        this.genre = ""; // Default empty genre
         this.keywords = new ArrayList<>();
     }
 
@@ -29,6 +31,7 @@ public class Community {
         this.description = description;
         this.status = 2; // Default status
         this.social = ""; // Default empty social link
+        this.genre = ""; // Default empty genre
         this.keywords = new ArrayList<>();
     }
 
@@ -39,6 +42,7 @@ public class Community {
         this.description = description;
         this.status = status;
         this.social = ""; // Default empty social link
+        this.genre = ""; // Default empty genre
         this.keywords = new ArrayList<>();
     }
 
@@ -49,6 +53,18 @@ public class Community {
         this.description = description;
         this.status = status;
         this.social = social;
+        this.genre = ""; // Default empty genre
+        this.keywords = new ArrayList<>();
+    }
+
+    public Community(int id, String name, byte[] image, String description, int status, String social, String genre) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.status = status;
+        this.social = social;
+        this.genre = genre;
         this.keywords = new ArrayList<>();
     }
 
@@ -109,5 +125,13 @@ public class Community {
             this.keywords = new ArrayList<>();
         }
         this.keywords.add(keyword);
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

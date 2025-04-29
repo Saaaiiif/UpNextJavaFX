@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -68,6 +69,14 @@
                         <Tooltip text="Required field - Maximum 500 characters" styleClass="error-tooltip"/>
                     </tooltip>
                 </TextArea>
+
+                <Label text="Genre:" styleClass="dialog-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="genreComboBox" styleClass="dialog-field, combo-box"
+                         GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                    <tooltip>
+                        <Tooltip text="Required field - Select a genre for this community" styleClass="error-tooltip"/>
+                    </tooltip>
+                </ComboBox>
             </GridPane>
 
             <ImageView fx:id="imagePreview" fitWidth="100" fitHeight="100" preserveRatio="true"/>

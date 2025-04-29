@@ -3,19 +3,13 @@ package com.example.upnext;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.web.WebView;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -23,25 +17,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CommunityDetailController {
+public class ArtistDetailController {
 
     @FXML
     private ImageView logoImage;
 
     @FXML
-    private ImageView communityImage;
+    private ImageView artistImage;
 
     @FXML
-    private Label communityName;
+    private Label artistName;
 
     @FXML
-    private Label communityDescription;
+    private Label artistDescription;
 
     @FXML
-    private Label keywordsLabel;
-
-    @FXML
-    private GridPane artistsGrid;
+    private GridPane communitiesGrid;
 
     @FXML
     private ImageView trackCoverImage;
@@ -65,31 +56,15 @@ public class CommunityDetailController {
     private Button artistsButton;
 
     @FXML
-    private Label followersCountLabel;
+    private Label monthlyListenersLabel;
 
     @FXML
-    private Button mediaPlayerButton;
+    private Label keywordsLabel;
 
-    @FXML
-    private Button commentsButton;
-
-    @FXML
-    private VBox mediaPlayerContent;
-
-    @FXML
-    private VBox commentsContent;
-
-    @FXML
-    private VBox commentsContainer;
-
-    @FXML
-    private TextField commentTextField;
-
-    private int communityId;
+    private int artistId;
     private String currentTrackId;
     private boolean isPlaying = false;
     private boolean isDarkMode = true; // Default is dark mode
-    private InstagramService instagramService = new InstagramService();
 
     @FXML
     public void initialize() {
@@ -101,8 +76,8 @@ public class CommunityDetailController {
         isDarkMode = SessionManager.getInstance().isDarkMode();
 
         // Highlight the current page's navigation label
-        if (communitiesButton != null) {
-            communitiesButton.getStyleClass().add("active");
+        if (artistsButton != null) {
+            artistsButton.getStyleClass().add("active");
         }
 
         // Register as a theme change listener
@@ -117,11 +92,10 @@ public class CommunityDetailController {
     private void handleThemeChange(boolean isDarkMode) {
         this.isDarkMode = isDarkMode;
         // No need to update UI directly, as the root layout will handle that
-        // This ensures that any new dialogs or views created by this controller will use the correct theme
     }
 
-    public void loadCommunityDetails(int communityId) {
-        this.communityId = communityId;
+    public void loadArtistDetails(int artistId) {
+        this.artistId = artistId;
         DatabaseService dbService = new DatabaseService();
 
         // Set default text for nowPlayingLabel
@@ -136,33 +110,17 @@ public class CommunityDetailController {
             spotifyWebView.getParent().getStyleClass().add("spotify-player-hidden");
         }
 
-        // Initialize the media player button as active and comments button as inactive
-        mediaPlayerButton.getStyleClass().add("active-toggle");
-        commentsButton.getStyleClass().remove("active-toggle");
+        // Load artist details
+        Artist artist = dbService.getArtistById(artistId);
+        if (artist != null) {
+            displayArtistDetails(artist);
 
-        // Show media player content and hide comments content by default
-        mediaPlayerContent.setVisible(true);
-        mediaPlayerContent.setManaged(true);
-        commentsContent.setVisible(false);
-        commentsContent.setManaged(false);
+            // Load related communities
+            List<Community> communities = dbService.getCommunitiesByArtistId(artistId);
+            displayCommunities(communities);
 
-        // Show "Now Playing" label by default since media player content is visible
-        nowPlayingLabel.setVisible(true);
-        nowPlayingLabel.setManaged(true);
-
-        // Load community details
-        Community community = dbService.getCommunityById(communityId);
-        if (community != null) {
-            displayCommunityDetails(community);
-
-            // Load related artists
-            List<Artist> artists = dbService.getArtistsByCommunityId(communityId);
-            displayArtists(artists);
-
-            // Load Spotify track for the first artist if available
-            if (!artists.isEmpty()) {
-                loadSpotifyTrack(artists.get(0).getName());
-            }
+            // Load Spotify track for the artist
+            loadSpotifyTrack(artist.getName());
         }
     }
 
@@ -172,7 +130,18 @@ public class CommunityDetailController {
         Thread spotifyThread = new Thread(() -> {
             String artistId = SpotifyService.getArtistId(artistName);
             if (artistId != null) {
-                Map<String, String> trackInfo = SpotifyService.getRandomTrack(artistId);
+                // Get followers count
+                int followers = SpotifyService.getArtistFollowers(artistId);
+                if (followers > 0) {
+                    // Update UI on the JavaFX application thread
+                    javafx.application.Platform.runLater(() -> {
+                        String formattedCount = SpotifyService.formatListenerCount(followers);
+                        monthlyListenersLabel.setText("(" + formattedCount + " followers)");
+                    });
+                }
+
+                // Get latest track instead of top track
+                Map<String, String> trackInfo = SpotifyService.getLatestTrack(artistId);
                 if (trackInfo != null) {
                     currentTrackId = trackInfo.get("id");
 
@@ -181,7 +150,9 @@ public class CommunityDetailController {
                         // Update track info
                         trackNameLabel.setText(trackInfo.get("name"));
                         artistNameLabel.setText(trackInfo.get("artist"));
-                        nowPlayingLabel.setText("Now Playing");
+
+                        // Always display "Latest Release" regardless of the release type
+                        nowPlayingLabel.setText("Latest Release");
 
                         // Show the WebView and restore the drop shadow effect
                         spotifyWebView.setVisible(true);
@@ -282,71 +253,41 @@ public class CommunityDetailController {
         }
     }
 
-    private void displayCommunityDetails(Community community) {
-        // Set community name
-        communityName.setText(community.getName());
+    private void displayArtistDetails(Artist artist) {
+        // Set artist name
+        artistName.setText(artist.getName());
 
-        // Set community image
-        byte[] imageData = community.getImage();
+        // Set artist image
+        byte[] imageData = artist.getImage();
         if (imageData != null) {
             // Load image with size constraints to prevent loading overly large images
-            // This improves performance for large images while maintaining display quality
             Image image = new Image(new ByteArrayInputStream(imageData), 500, 500, true, true);
-            communityImage.setImage(image);
+            artistImage.setImage(image);
         }
 
-        // Fetch and display Instagram followers count if social link is available
-        String socialLink = community.getSocial();
-        if (socialLink != null && !socialLink.isEmpty() && socialLink.contains("instagram.com")) {
-            // Clear previous followers count
-            followersCountLabel.setText("");
+        // Get artist description from database
+        DatabaseService dbService = new DatabaseService();
+        String description = dbService.getArtistDescription(artist.getId());
 
-            // Use a separate thread to avoid blocking the UI
-            new Thread(() -> {
-                try {
-                    int followersCount = instagramService.getFollowerCount(socialLink);
-                    if (followersCount >= 0) {
-                        String formattedCount = instagramService.formatFollowerCount(followersCount);
-                        // Update the UI on the JavaFX application thread
-                        javafx.application.Platform.runLater(() -> {
-                            followersCountLabel.setText("(" + formattedCount + " followers)");
-                        });
-                    }
-                } catch (Exception e) {
-                    System.err.println("Error fetching Instagram followers: " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }).start();
-        } else {
-            // No Instagram link available
-            followersCountLabel.setText("");
-        }
-
-        // Set community description
-        String description = community.getDescription();
         if (description != null && !description.isEmpty()) {
-            communityDescription.setText(description);
+            artistDescription.setText(description);
 
-            // Extract and display keywords if not already available
-            if (community.getKeywords() == null || community.getKeywords().isEmpty()) {
-                extractAndDisplayKeywords(community);
-            } else {
-                displayKeywords(community.getKeywords());
-            }
+            // Extract and display keywords
+            extractAndDisplayKeywords(description);
         } else {
-            communityDescription.setText("No description available");
+            // Set default description if none is available
+            artistDescription.setText("Information about " + artist.getName() + " will be displayed here.");
             keywordsLabel.setText("");
         }
     }
 
     /**
-     * Extracts keywords from the community description using OpenAI API
+     * Extracts keywords from the artist description using OpenAI API
      * and displays them as hashtags.
      *
-     * @param community The community to extract keywords from
+     * @param description The description to extract keywords from
      */
-    private void extractAndDisplayKeywords(Community community) {
-        String description = community.getDescription();
+    private void extractAndDisplayKeywords(String description) {
         if (description == null || description.isEmpty()) {
             keywordsLabel.setText("");
             return;
@@ -367,14 +308,6 @@ public class CommunityDetailController {
 
                 OpenAIService openAIService = new OpenAIService(apiKey);
                 List<String> keywords = openAIService.extractKeywords(description);
-
-                // Update the community with the extracted keywords
-                community.setKeywords(keywords);
-
-                // Update the database with the extracted keywords
-                DatabaseService dbService = new DatabaseService();
-                // Note: You would need to add a method to DatabaseService to save keywords
-                // dbService.updateCommunityKeywords(community.getId(), keywords);
 
                 // Update the UI on the JavaFX application thread
                 javafx.application.Platform.runLater(() -> {
@@ -411,13 +344,13 @@ public class CommunityDetailController {
         keywordsLabel.setText(hashtagText);
     }
 
-    private void displayArtists(List<Artist> artists) {
-        artistsGrid.getChildren().clear();
+    private void displayCommunities(List<Community> communities) {
+        communitiesGrid.getChildren().clear();
 
-        if (artists.isEmpty()) {
-            Label noArtistsLabel = new Label("No related artists found");
-            noArtistsLabel.getStyleClass().add("no-artists-label");
-            artistsGrid.add(noArtistsLabel, 0, 0);
+        if (communities.isEmpty()) {
+            Label noCommunitiesLabel = new Label("No related communities found");
+            noCommunitiesLabel.getStyleClass().add("no-communities-label");
+            communitiesGrid.add(noCommunitiesLabel, 0, 0);
             return;
         }
 
@@ -425,35 +358,35 @@ public class CommunityDetailController {
         int row = 0;
         int maxColumns = 3;
 
-        for (Artist artist : artists) {
-            ImageView imageView = createArtistImageView(artist);
+        for (Community community : communities) {
+            ImageView imageView = createCommunityImageView(community);
 
-            Label nameLabel = new Label(artist.getName());
+            Label nameLabel = new Label(community.getName());
             nameLabel.getStyleClass().add("artist-name-label");
 
-            VBox artistBox = new VBox(imageView, nameLabel);
-            artistBox.setSpacing(10);
-            artistBox.setAlignment(Pos.CENTER);
-            artistBox.getStyleClass().add("artist-box");
+            VBox communityBox = new VBox(imageView, nameLabel);
+            communityBox.setSpacing(10);
+            communityBox.setAlignment(Pos.CENTER);
+            communityBox.getStyleClass().add("artist-box");
 
-            // Add click handler to navigate to artist detail view
-            final int artistId = artist.getId();
-            artistBox.setOnMouseClicked(event -> {
+            // Add click handler to navigate to community detail view
+            final int communityId = community.getId();
+            communityBox.setOnMouseClicked(event -> {
                 try {
-                    // Navigate to artist detail view
-                    ArtistDetailController controller = SceneTransitionUtil.changeContent(
-                            "/com/example/upnext/artist-detail-view.fxml",
+                    // Navigate to community detail view
+                    CommunityDetailController controller = SceneTransitionUtil.changeContent(
+                            "/com/example/upnext/community-detail-view.fxml",
                         SceneTransitionUtil.TransitionType.FADE, 
-                        ArtistDetailController.class
+                        CommunityDetailController.class
                     );
-                    controller.loadArtistDetails(artistId);
+                    controller.loadCommunityDetails(communityId);
                 } catch (IOException e) {
-                    System.err.println("Failed to load artist-detail-view.fxml: " + e.getMessage());
+                    System.err.println("Failed to load community-detail-view.fxml: " + e.getMessage());
                     e.printStackTrace();
                 }
             });
 
-            artistsGrid.add(artistBox, column, row);
+            communitiesGrid.add(communityBox, column, row);
 
             column++;
             if (column >= maxColumns) {
@@ -463,12 +396,11 @@ public class CommunityDetailController {
         }
     }
 
-    private ImageView createArtistImageView(Artist artist) {
+    private ImageView createCommunityImageView(Community community) {
         ImageView imageView = new ImageView();
-        byte[] imageData = artist.getImage();
+        byte[] imageData = community.getImage();
         if (imageData != null) {
             // Load image with size constraints to prevent loading overly large images
-            // This improves performance for large images while maintaining display quality
             Image image = new Image(new ByteArrayInputStream(imageData), 150, 150, true, true);
             imageView.setImage(image);
         }
@@ -584,14 +516,14 @@ public class CommunityDetailController {
             // Pause the player before navigating away
             pauseSpotifyPlayer();
 
-            UserCommunitiesController controller = SceneTransitionUtil.changeContent(
-                    "/com/example/upnext/user-communities-view.fxml",
+            ArtistsController controller = SceneTransitionUtil.changeContent(
+                    "/com/example/upnext/artists-view.fxml",
                 SceneTransitionUtil.TransitionType.SLIDE_RIGHT, 
-                UserCommunitiesController.class
+                ArtistsController.class
             );
-            controller.loadCommunities();
+            controller.loadArtists();
         } catch (IOException e) {
-            System.err.println("Failed to load user-communities-view.fxml: " + e.getMessage());
+            System.err.println("Failed to load artists-view.fxml: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -603,158 +535,5 @@ public class CommunityDetailController {
      */
     public void setThemeMode(boolean isDarkMode) {
         this.isDarkMode = isDarkMode;
-    }
-
-    /**
-     * Handles the media player button click.
-     * Shows the media player content and hides the comments content.
-     */
-    @FXML
-    private void handleMediaPlayerButtonClick() {
-        // Show media player content
-        mediaPlayerContent.setVisible(true);
-        mediaPlayerContent.setManaged(true);
-
-        // Hide comments content
-        commentsContent.setVisible(false);
-        commentsContent.setManaged(false);
-
-        // Show "Now Playing" label
-        nowPlayingLabel.setVisible(true);
-        nowPlayingLabel.setManaged(true);
-
-        // Update button styles
-        mediaPlayerButton.getStyleClass().add("active-toggle");
-        commentsButton.getStyleClass().remove("active-toggle");
-    }
-
-    /**
-     * Handles the comments button click.
-     * Shows the comments content and hides the media player content.
-     */
-    @FXML
-    private void handleCommentsButtonClick() {
-        // Show comments content
-        commentsContent.setVisible(true);
-        commentsContent.setManaged(true);
-
-        // Hide media player content
-        mediaPlayerContent.setVisible(false);
-        mediaPlayerContent.setManaged(false);
-
-        // Hide "Now Playing" label
-        nowPlayingLabel.setVisible(false);
-        nowPlayingLabel.setManaged(false);
-
-        // Update button styles
-        commentsButton.getStyleClass().add("active-toggle");
-        mediaPlayerButton.getStyleClass().remove("active-toggle");
-
-        // Load comments if not already loaded
-        loadComments();
-    }
-
-    /**
-     * Handles the post comment button click.
-     * Adds a new comment to the community.
-     */
-    @FXML
-    private void handlePostCommentButtonClick() {
-        String commentText = commentTextField.getText().trim();
-        if (commentText.isEmpty()) {
-            return;
-        }
-
-        // Get the current username from SessionManager (or use "Anonymous" if not available)
-        String username = "Anonymous";
-
-        // Add the comment to the database
-        DatabaseService dbService = new DatabaseService();
-        int commentId = dbService.addComment(communityId, commentText, username);
-
-        if (commentId != -1) {
-            // Clear the text field
-            commentTextField.clear();
-
-            // Reload comments to show the new comment
-            loadComments();
-        }
-    }
-
-    /**
-     * Loads comments for the current community.
-     */
-    private void loadComments() {
-        // Clear existing comments
-        commentsContainer.getChildren().clear();
-
-        // Get comments from the database
-        DatabaseService dbService = new DatabaseService();
-        List<Comment> comments = dbService.getCommentsByCommunityId(communityId);
-
-        // Check if we're in admin mode
-        boolean isAdmin = SessionManager.getInstance().isAdminSession();
-
-        if (comments.isEmpty()) {
-            // Show a message if there are no comments
-            Label noCommentsLabel = new Label("No comments yet. Be the first to comment!");
-            noCommentsLabel.getStyleClass().add("no-comments-label");
-            commentsContainer.getChildren().add(noCommentsLabel);
-        } else {
-            // Add each comment to the container
-            for (Comment comment : comments) {
-                // Create a VBox for the comment
-                VBox commentBox = new VBox(5);
-                commentBox.getStyleClass().add("comment-box");
-
-                // Create a label for the username
-                Label usernameLabel = new Label(comment.getUsername());
-                usernameLabel.getStyleClass().add("comment-username");
-
-                // Create a label for the comment text
-                Label commentLabel = new Label(comment.getComment());
-                commentLabel.getStyleClass().add("comment-text");
-                commentLabel.setWrapText(true);
-
-                // Add the labels to the comment box
-                commentBox.getChildren().addAll(usernameLabel, commentLabel);
-
-                // If admin, add context menu for comment management
-                if (isAdmin) {
-                    // Create context menu
-                    ContextMenu contextMenu = new ContextMenu();
-                    MenuItem deleteItem = new MenuItem("Delete Comment");
-                    contextMenu.getItems().add(deleteItem);
-
-                    // Set action for delete item
-                    deleteItem.setOnAction(e -> {
-                        // Delete the comment from the database
-                        boolean success = dbService.deleteComment(comment.getId());
-                        if (success) {
-                            // Reload comments to reflect the changes
-                            loadComments();
-                        } else {
-                            // Show error alert if deletion failed
-                            Alert alert = new Alert(AlertType.ERROR);
-                            alert.setTitle("Error");
-                            alert.setHeaderText("Delete Failed");
-                            alert.setContentText("Failed to delete the comment. Please try again.");
-                            alert.showAndWait();
-                        }
-                    });
-
-                    // Store the comment in the user data for reference
-                    commentBox.setUserData(comment);
-
-                    // Show context menu on right-click
-                    commentBox.setOnContextMenuRequested(event -> {
-                        contextMenu.show(commentBox, event.getScreenX(), event.getScreenY());
-                    });
-                }
-
-                // Add the comment box to the container
-                commentsContainer.getChildren().add(commentBox);
-            }
-        }
     }
 }

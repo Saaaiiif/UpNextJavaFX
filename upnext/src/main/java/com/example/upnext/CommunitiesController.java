@@ -32,10 +32,21 @@ import java.io.ByteArrayInputStream;
 import javafx.scene.control.Dialog;
 import javafx.scene.Cursor;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.input.MouseButton;
+import javafx.scene.chart.PieChart;
+import javafx.scene.paint.Color;
+import javafx.animation.Timeline;
+import javafx.animation.KeyValue;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 
 public class CommunitiesController {
     @FXML
@@ -71,13 +82,25 @@ public class CommunitiesController {
     @FXML
     private CheckBox statusFilter2;
 
+    @FXML
+    private ComboBox<String> genreComboBox;
+
+    @FXML
+    private VBox statusSummaryBox;
+
     private VBox addCard; // Add class-level reference
 
     private boolean isDarkMode = true; // Default is dark mode
 
     @FXML
     public void initialize() {
-        Font.loadFont(getClass().getResourceAsStream("/Feather.ttf"), 18);
+        // Load font first to ensure it's available for the pie chart
+        Font font = Font.loadFont(getClass().getResourceAsStream("/Feather.ttf"), 18);
+        if (font == null) {
+            System.err.println("Failed to load Feather.ttf font");
+        }
+
+        // Load logo image
         Image logo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/logo.png")));
         logoImage.setImage(logo);
 
@@ -114,6 +137,9 @@ public class CommunitiesController {
         statusFilter1.selectedProperty().addListener((observable, oldValue, newValue) -> handleSearch());
         statusFilter2.selectedProperty().addListener((observable, oldValue, newValue) -> handleSearch());
 
+        // Populate genre dropdown
+        populateGenreDropdown();
+
         // Register as a theme change listener
         SessionManager.getInstance().addThemeChangeListener(this::handleThemeChange);
 
@@ -121,6 +147,8 @@ public class CommunitiesController {
         if (communitiesButton != null) {
             communitiesButton.getStyleClass().add("active");
         }
+
+        // No need to apply CSS to the status summary box
 
         // Load communities
         loadCommunities();
@@ -215,6 +243,7 @@ public class CommunitiesController {
     @FXML
     private void handleSearch() {
         String searchTerm = searchField.getText().trim();
+        String selectedGenre = genreComboBox.getValue();
         DatabaseService dbService = new DatabaseService();
         List<Community> communities;
 
@@ -222,6 +251,13 @@ public class CommunitiesController {
             communities = dbService.searchCommunities(searchTerm);
         } else {
             communities = dbService.getCommunities();
+        }
+
+        // Filter by genre if a specific genre is selected
+        if (selectedGenre != null && !selectedGenre.equals("All Genres")) {
+            communities = communities.stream()
+                .filter(community -> selectedGenre.equals(community.getGenre()))
+                .collect(Collectors.toList());
         }
 
         // Filter by status based on checkbox selections
@@ -257,16 +293,36 @@ public class CommunitiesController {
         DatabaseService dbService = new DatabaseService();
         List<Community> communities = dbService.getCommunities();
 
+        // Apply genre filter if a specific genre is selected
+        String selectedGenre = genreComboBox != null ? genreComboBox.getValue() : null;
+        if (selectedGenre != null && !selectedGenre.equals("All Genres")) {
+            communities = communities.stream()
+                .filter(community -> selectedGenre.equals(community.getGenre()))
+                .collect(Collectors.toList());
+        }
+
         // Apply status filters if the checkboxes are initialized
         if (statusFilter0 != null && statusFilter1 != null && statusFilter2 != null) {
             communities = filterCommunitiesByStatus(communities);
         }
 
-        displayCommunities(communities);
+        displayCommunities(communities, true);
     }
 
     private void displayCommunities(List<Community> communities) {
+        displayCommunities(communities, false);
+    }
+
+    private void displayCommunities(List<Community> communities, boolean updateChart) {
         communitiesGrid.getChildren().clear();
+
+        // Update the status summary with ALL communities, not just filtered ones
+        if (updateChart) {
+            // Get all communities from database for status summary
+            DatabaseService dbService = new DatabaseService();
+            List<Community> allCommunities = dbService.getCommunities();
+            updateStatusSummary(allCommunities);
+        }
 
         int column = 0;
         int row = 0;
@@ -335,6 +391,8 @@ public class CommunitiesController {
                 ContextMenu contextMenu = new ContextMenu();
                 MenuItem editItem = new MenuItem("Edit Name/Image");
                 MenuItem editDescriptionItem = new MenuItem("Edit Description");
+                MenuItem editGenreItem = new MenuItem("Edit Genre");
+                MenuItem editSocialItem = new MenuItem("Edit Social");
                 MenuItem deleteItem = new MenuItem("Delete");
 
                 // Add verify option only if community is not already verified (status != 2)
@@ -343,9 +401,9 @@ public class CommunitiesController {
                 MenuItem unverifyItem = new MenuItem("Unverify Community");
 
                 if (community.getStatus() != 2) {
-                    contextMenu.getItems().addAll(editItem, editDescriptionItem, deleteItem, verifyItem);
+                    contextMenu.getItems().addAll(editItem, editDescriptionItem, editGenreItem, editSocialItem, deleteItem, verifyItem);
                 } else {
-                    contextMenu.getItems().addAll(editItem, editDescriptionItem, deleteItem, unverifyItem);
+                    contextMenu.getItems().addAll(editItem, editDescriptionItem, editGenreItem, editSocialItem, deleteItem, unverifyItem);
                 }
 
                 editItem.setOnAction(e -> {
@@ -401,6 +459,102 @@ public class CommunitiesController {
                     }
                 });
 
+                editGenreItem.setOnAction(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/edit-genre-dialog.fxml"));
+                        Dialog<String> dialog = new Dialog<>();
+                        dialog.setTitle("Edit Community Genre");
+
+                        DialogPane dialogPane = loader.load();
+                        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+                        dialogPane.setHeaderText(null); // Remove the default title bar
+
+                        EditGenreController controller = loader.getController();
+                        controller.setCommunityId(community.getId());
+                        controller.setGenre(community.getGenre());
+                        controller.setThemeMode(isDarkMode);
+
+                        dialog.setResultConverter(buttonType -> {
+                            if (buttonType == ButtonType.OK) {
+                                return controller.getGenre();
+                            }
+                            return null;
+                        });
+
+                        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+                        okButton.disableProperty().bind(controller.validGenreProperty().not());
+
+                        dialog.setDialogPane(dialogPane);
+
+                        // Set the dialog to use StageStyle.UNDECORATED
+                        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+                        stage.initStyle(StageStyle.UNDECORATED);
+
+                        Optional<String> result = dialog.showAndWait();
+
+                        if (result.isPresent()) {
+                            String newGenre = result.get();
+                            if (!newGenre.equals(community.getGenre())) {
+                                DatabaseService dbService = new DatabaseService();
+                                dbService.updateCommunityGenre(community.getId(), newGenre);
+                                community.setGenre(newGenre);
+                                // Reload communities to reflect the changes
+                                loadCommunities();
+                            }
+                        }
+                    } catch (IOException ex) {
+                        showErrorAlert("Dialog Error", "Failed to load genre dialog");
+                        ex.printStackTrace();
+                    }
+                });
+
+                editSocialItem.setOnAction(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/edit-social-dialog.fxml"));
+                        Dialog<String> dialog = new Dialog<>();
+                        dialog.setTitle("Edit Social Media Link");
+
+                        DialogPane dialogPane = loader.load();
+                        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+                        dialogPane.setHeaderText(null); // Remove the default title bar
+
+                        EditSocialController controller = loader.getController();
+                        controller.setCommunityId(community.getId());
+                        controller.setSocial(community.getSocial());
+                        controller.setThemeMode(isDarkMode);
+
+                        dialog.setResultConverter(buttonType -> {
+                            if (buttonType == ButtonType.OK) {
+                                return controller.getSocial();
+                            }
+                            return null;
+                        });
+
+                        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+                        okButton.disableProperty().bind(controller.validSocialProperty().not());
+
+                        dialog.setDialogPane(dialogPane);
+
+                        // Set the dialog to use StageStyle.UNDECORATED
+                        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+                        stage.initStyle(StageStyle.UNDECORATED);
+
+                        Optional<String> result = dialog.showAndWait();
+
+                        if (result.isPresent()) {
+                            String newSocial = result.get();
+                            if (!newSocial.equals(community.getSocial())) {
+                                DatabaseService dbService = new DatabaseService();
+                                dbService.updateCommunitySocial(community.getId(), newSocial);
+                                community.setSocial(newSocial);
+                            }
+                        }
+                    } catch (IOException ex) {
+                        showErrorAlert("Dialog Error", "Failed to load social media dialog");
+                        ex.printStackTrace();
+                    }
+                });
+
                 nameField.setOnKeyPressed(event -> {
                     if (event.getCode().toString().equals("ENTER")) {
                         String newName = nameField.getText().trim();
@@ -416,7 +570,13 @@ public class CommunitiesController {
                 });
 
                 imageContainer.setOnMouseClicked(event -> {
+                    // Only respond to left clicks
+                    if (event.getButton() != MouseButton.PRIMARY) {
+                        return;
+                    }
+
                     if (event.getClickCount() == 2) {
+                        // Double-click: edit image
                         FileChooser fileChooser = new FileChooser();
                         fileChooser.getExtensionFilters().addAll(
                             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
@@ -433,6 +593,19 @@ public class CommunitiesController {
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
+                        }
+                    } else if (event.getClickCount() == 1) {
+                        // Single-click: navigate to community detail view
+                        try {
+                            CommunityDetailController controller = SceneTransitionUtil.changeContent(
+                                    "/com/example/upnext/community-detail-view.fxml",
+                                SceneTransitionUtil.TransitionType.FADE,
+                                CommunityDetailController.class
+                            );
+                            controller.loadCommunityDetails(community.getId());
+                        } catch (IOException ex) {
+                            showErrorAlert("Navigation Error", "Failed to navigate to community details");
+                            ex.printStackTrace();
                         }
                     }
                 });
@@ -481,6 +654,11 @@ public class CommunitiesController {
 
                 // Set single click handler to view community details
                 imageContainer.setOnMouseClicked(event -> {
+                    // Only respond to left clicks
+                    if (event.getButton() != MouseButton.PRIMARY) {
+                        return;
+                    }
+
                     // Navigate to community detail view
                     try {
                         CommunityDetailController controller = SceneTransitionUtil.changeContent(
@@ -530,7 +708,12 @@ public class CommunitiesController {
             addLabel.getStyleClass().add("add-label");
 
             addCard.getChildren().addAll(plusLabel, addLabel);
-            addCard.setOnMouseClicked(e -> handleAddCommunity());
+            addCard.setOnMouseClicked(e -> {
+                // Only respond to left clicks
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    handleAddCommunity();
+                }
+            });
         }
 
         addCardContainer.getChildren().add(addCard);
@@ -626,6 +809,7 @@ public class CommunitiesController {
                     .or(controller.validIdProperty().not())
                     .or(controller.validImageProperty().not())
                     .or(controller.validDescriptionProperty().not())
+                    .or(controller.validGenreProperty().not())
             );
 
             dialog.setDialogPane(dialogPane);
@@ -643,7 +827,10 @@ public class CommunitiesController {
                     newCommunity.getId(),
                     newCommunity.getName(),
                     newCommunity.getImage(),
-                    newCommunity.getDescription()
+                    newCommunity.getDescription(),
+                    newCommunity.getStatus(),
+                    newCommunity.getSocial(),
+                    newCommunity.getGenre()
                 );
                 loadCommunities();
             }
@@ -668,5 +855,131 @@ public class CommunitiesController {
      */
     public void setThemeMode(boolean isDarkMode) {
         this.isDarkMode = isDarkMode;
+    }
+
+    /**
+     * Populates the genre dropdown with genres from the database.
+     */
+    private void populateGenreDropdown() {
+        DatabaseService dbService = new DatabaseService();
+        List<String> genres = dbService.getAllGenres();
+
+        // Add "All Genres" option at the beginning
+        ObservableList<String> genreOptions = FXCollections.observableArrayList();
+        genreOptions.add("All Genres");
+        genreOptions.addAll(genres);
+
+        genreComboBox.setItems(genreOptions);
+        genreComboBox.getSelectionModel().selectFirst(); // Select "All Genres" by default
+    }
+
+    /**
+     * Handles genre filter selection.
+     */
+    @FXML
+    private void handleGenreFilter() {
+        handleSearch();
+    }
+
+    // Constants for status labels
+    private static final String STATUS_UNVERIFIED = "Unverified";
+    private static final String STATUS_PENDING = "Pending";
+    private static final String STATUS_VERIFIED = "Verified";
+
+    /**
+     * Updates the status summary with community status data.
+     * 
+     * @param communities The list of communities to analyze
+     */
+    private void updateStatusSummary(List<Community> communities) {
+        if (statusSummaryBox == null) return;
+
+        // Count communities by status
+        int unverifiedCount = 0;
+        int pendingCount = 0;
+        int verifiedCount = 0;
+
+        for (Community community : communities) {
+            int status = community.getStatus();
+            if (status == 0) {
+                unverifiedCount++;
+            } else if (status == 1) {
+                pendingCount++;
+            } else if (status == 2) {
+                verifiedCount++;
+            }
+        }
+
+        // Update the status summary
+        updateStatusSummary(verifiedCount, pendingCount, unverifiedCount);
+    }
+
+    /**
+     * Updates the status summary with the given counts.
+     * 
+     * @param verified The number of verified communities
+     * @param pending The number of pending communities
+     * @param unverified The number of unverified communities
+     */
+    private void updateStatusSummary(int verified, int pending, int unverified) {
+        statusSummaryBox.getChildren().clear();
+
+        int total = verified + pending + unverified;
+        if (total == 0) return;
+
+        int delayIncrementMs = 150; // Delay between each bar (in milliseconds)
+
+        addAnimatedStatusBar("✔ Verified", verified, total, "#4CAF50", 0 * delayIncrementMs);     // Green
+        addAnimatedStatusBar("⏳ Pending", pending, total, "#FFC107", 1 * delayIncrementMs);      // Amber
+        addAnimatedStatusBar("❌ Unverified", unverified, total, "#F44336", 2 * delayIncrementMs); // Red
+    }
+
+    /**
+     * Adds an animated status bar to the status summary box.
+     * 
+     * @param label The label for the status bar
+     * @param value The value for the status bar
+     * @param total The total value for calculating the percentage
+     * @param colorHex The color for the status bar
+     * @param delayMs The delay before starting the animation (in milliseconds)
+     */
+    private void addAnimatedStatusBar(String label, int value, int total, String colorHex, int delayMs) {
+        double percent = (double) value / total;
+        int percentInt = (int) (percent * 100);
+
+        Label nameLabel = new Label(label);
+        nameLabel.getStyleClass().add("status-bar-name-label");
+
+        Region bar = new Region();
+        bar.setPrefHeight(8);
+        bar.setPrefWidth(0); // Start with width 0
+        bar.setOpacity(0);   // Start fully transparent
+        bar.setStyle("-fx-background-color: " + colorHex + "; -fx-background-radius: 5;");
+
+        Label percentLabel = new Label(percentInt + "%");
+        percentLabel.getStyleClass().add("status-bar-percent-label");
+
+        HBox row = new HBox(8, nameLabel, bar, percentLabel);
+        row.setAlignment(Pos.CENTER_LEFT);
+
+        statusSummaryBox.getChildren().add(row);
+
+        // Animate width and opacity
+        Timeline timeline = new Timeline();
+
+        double targetWidth = percent * 180; // Max width 180
+
+        KeyValue widthValue = new KeyValue(bar.prefWidthProperty(), targetWidth);
+        KeyValue fadeValue = new KeyValue(bar.opacityProperty(), 1.0); // Fade to fully visible
+
+        // Add delay to the animation
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(800), widthValue, fadeValue);
+
+        timeline.getKeyFrames().add(keyFrame);
+
+        // Set the delay before starting the animation
+        timeline.setDelay(Duration.millis(delayMs));
+
+        timeline.play();
     }
 }

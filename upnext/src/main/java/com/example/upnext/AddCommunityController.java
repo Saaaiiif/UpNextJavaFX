@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -22,18 +23,24 @@ import javafx.geometry.Pos;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.io.ByteArrayInputStream;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextFormatter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import java.util.List;
 
 public class AddCommunityController {
     @FXML private TextField idField;
     @FXML private TextField nameField;
     @FXML private TextArea descriptionField;
     @FXML private TextField socialField;
+    @FXML private ComboBox<String> genreComboBox;
     @FXML private ImageView imagePreview;
     @FXML private Button closeButton;
     @FXML private HBox titleBar;
@@ -49,6 +56,7 @@ public class AddCommunityController {
     private BooleanProperty validDescription = new SimpleBooleanProperty(false);
     private final BooleanProperty validImage = new SimpleBooleanProperty(false);
     private BooleanProperty validId = new SimpleBooleanProperty(false);
+    private BooleanProperty validGenre = new SimpleBooleanProperty(false);
     private boolean isDarkMode = true; // Default is dark mode
 
     @FXML
@@ -56,8 +64,11 @@ public class AddCommunityController {
         setupIdValidation();
         setupNameValidation();
         setupDescriptionValidation();
+        setupGenreValidation();
+        populateGenreDropdown();
         validId.set(false); // Ensure OK button is disabled until Generate button is clicked
         validImage.set(false); // Set validImage to false by default, requiring image selection
+        validGenre.set(false); // Set validGenre to false by default, requiring genre selection
 
         // Generate ID automatically
         handleGenerateId();
@@ -88,8 +99,30 @@ public class AddCommunityController {
         // Bind the create button's disabled property to the validation logic if it exists
         if (createButton != null) {
             createButton.disableProperty().bind(
-                validName.not().or(validDescription.not()).or(validImage.not()).or(validId.not())
+                validName.not().or(validDescription.not()).or(validImage.not()).or(validId.not()).or(validGenre.not())
             );
+        }
+    }
+
+    /**
+     * Populates the genre dropdown with genres from the database.
+     */
+    private void populateGenreDropdown() {
+        if (genreComboBox != null) {
+            List<String> genres = dbService.getAllGenres();
+            ObservableList<String> genreOptions = FXCollections.observableArrayList(genres);
+            genreComboBox.setItems(genreOptions);
+        }
+    }
+
+    /**
+     * Sets up validation for genre selection.
+     */
+    private void setupGenreValidation() {
+        if (genreComboBox != null) {
+            genreComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+                validGenre.set(newVal != null && !newVal.isEmpty());
+            });
         }
     }
 
@@ -186,6 +219,52 @@ public class AddCommunityController {
         }
     }
 
+    /**
+     * Handles the create image button click.
+     * Opens a dialog for generating an image using Stability AI.
+     */
+    @FXML
+    private void handleCreateImage() {
+        try {
+            // Load the generate image dialog FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/upnext/generate-image-dialog.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller
+            GenerateImageController controller = loader.getController();
+
+            // Create a new stage for the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.initStyle(StageStyle.UNDECORATED);
+            dialogStage.initOwner(imagePreview.getScene().getWindow());
+
+            // Create scene and set it on the stage
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+
+            // Apply the current theme
+            if (!SessionManager.getInstance().isDarkMode()) {
+                root.getStyleClass().add("light-mode");
+            }
+
+            // Show the dialog and wait for it to close
+            dialogStage.showAndWait();
+
+            // Get the generated image data
+            byte[] generatedImageData = controller.getGeneratedImageData();
+
+            // If an image was generated, use it
+            if (generatedImageData != null) {
+                imageData = generatedImageData;
+                imagePreview.setImage(new Image(new ByteArrayInputStream(imageData), 300, 300, true, true));
+                validImage.set(true);
+            }
+        } catch (IOException e) {
+            System.err.println("Error opening generate image dialog: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void handleGenerateId() {
         if (idField != null) {
@@ -208,19 +287,28 @@ public class AddCommunityController {
 
         String social = (socialField != null && socialField.getText() != null) ? socialField.getText().trim() : "";
 
+        String genre = (genreComboBox != null && genreComboBox.getValue() != null) ? genreComboBox.getValue() : "";
+
         // Check if idField is null before using it
         if (idField == null || idField.getText() == null) {
             return null;
         }
+
+        // Get the current session type
+        SessionType currentSession = SessionManager.getInstance().getSessionType();
+
+        // Set status to 1 for artist-created communities, 2 for admin-created communities
+        int status = (currentSession == SessionType.ARTIST) ? 1 : 2;
 
         Community community = new Community(
             Integer.parseInt(idField.getText()),
             nameField.getText().trim(),
             imageData,
             description,
-            1  // Status 1 for artist-created communities
+            status,  // Status 1 for artist-created communities, 2 for admin-created communities
+            social,
+            genre
         );
-        community.setSocial(social);
         return community;
     }
 
@@ -258,6 +346,10 @@ public class AddCommunityController {
 
     public BooleanProperty validIdProperty() {
         return validId;
+    }
+
+    public BooleanProperty validGenreProperty() {
+        return validGenre;
     }
 
     /**
@@ -335,7 +427,8 @@ public class AddCommunityController {
             // Add the new community to the database
             DatabaseService dbService = new DatabaseService();
             dbService.addCommunityWithId(newCommunity.getId(), newCommunity.getName(), newCommunity.getImage(), 
-                                        newCommunity.getDescription(), newCommunity.getStatus(), newCommunity.getSocial());
+                                        newCommunity.getDescription(), newCommunity.getStatus(), newCommunity.getSocial(),
+                                        newCommunity.getGenre());
 
             // Create a custom dialog with the same title bar style as other windows
             Stage dialogStage = new Stage();
@@ -379,7 +472,15 @@ public class AddCommunityController {
 
             // Add title and close button to title bar with spacing
             HBox.setHgrow(titleLabel, Priority.ALWAYS);
-            titleBar.getChildren().addAll(titleLabel, closeDialogButton);
+            titleBar.setAlignment(Pos.CENTER_RIGHT);
+
+            // Create a container for the title that aligns left
+            HBox titleContainer = new HBox();
+            titleContainer.setAlignment(Pos.CENTER_LEFT);
+            titleContainer.getChildren().add(titleLabel);
+            HBox.setHgrow(titleContainer, Priority.ALWAYS);
+
+            titleBar.getChildren().addAll(titleContainer, closeDialogButton);
 
             // Create content area
             VBox contentBox = new VBox();

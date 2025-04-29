@@ -153,7 +153,7 @@ public class ArtistsController {
     private void displayArtists(List<Artist> artists) {
         // Clear existing content
         artistsGrid.getChildren().clear();
-        
+
         // Reset grid constraints
         artistsGrid.getRowConstraints().clear();
         artistsGrid.getColumnConstraints().clear();
@@ -172,10 +172,10 @@ public class ArtistsController {
         for (Artist artist : artists) {
             // Create artist card
             VBox artistBox = createArtistCard(artist);
-            
+
             // Add to grid
             artistsGrid.add(artistBox, column, row);
-            
+
             // Update grid position
             column++;
             if (column >= MAX_COLUMNS) {
@@ -191,7 +191,7 @@ public class ArtistsController {
         imageView.setFitWidth(150);
         imageView.setFitHeight(150);
         imageView.setPreserveRatio(true);
-        
+
         // Set artist image if available
         if (artist.getImage() != null) {
             Image image = new Image(new ByteArrayInputStream(artist.getImage()));
@@ -201,25 +201,45 @@ public class ArtistsController {
             Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/logo.png")));
             imageView.setImage(defaultImage);
         }
-        
+
         // Apply rounded corners to the image
         imageView.getStyleClass().add("rounded-image-view");
-        
+
         // Create a container for the image
         javafx.scene.layout.StackPane imageContainer = new javafx.scene.layout.StackPane();
         imageContainer.setAlignment(Pos.CENTER);
         imageContainer.getChildren().add(imageView);
-        
+
         // Create label for artist name
         Label nameLabel = new Label(artist.getName());
         nameLabel.getStyleClass().add("name-label");
-        
+
         // Create artist card
         VBox artistBox = new VBox(imageContainer, nameLabel);
         artistBox.setSpacing(10);
         artistBox.setAlignment(Pos.CENTER);
         artistBox.getStyleClass().add("artist-box");
-        
+
+        // Add click handler to navigate to artist detail view
+        artistBox.setOnMouseClicked(event -> {
+            try {
+                // Navigate to artist detail view
+                ArtistDetailController controller = SceneTransitionUtil.changeContent(
+                        "/com/example/upnext/artist-detail-view.fxml",
+                    SceneTransitionUtil.TransitionType.FADE, 
+                    ArtistDetailController.class
+                );
+                controller.loadArtistDetails(artist.getId());
+            } catch (IOException e) {
+                System.err.println("Failed to load artist-detail-view.fxml: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+
+        // Add hover effect
+        artistBox.setOnMouseEntered(event -> artistBox.getStyleClass().add("artist-box-hover"));
+        artistBox.setOnMouseExited(event -> artistBox.getStyleClass().remove("artist-box-hover"));
+
         return artistBox;
     }
 }

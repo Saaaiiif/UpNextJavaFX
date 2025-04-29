@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.text.Font;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -41,6 +44,9 @@ public class UserCommunitiesController {
 
     @FXML
     private Button artistsButton;
+
+    @FXML
+    private ComboBox<String> genreComboBox;
 
     private boolean isDarkMode = true; // Default is dark mode
 
@@ -81,6 +87,9 @@ public class UserCommunitiesController {
                 }
             });
         }
+
+        // Populate genre dropdown
+        populateGenreDropdown();
 
         // Register as a theme change listener
         SessionManager.getInstance().addThemeChangeListener(this::handleThemeChange);
@@ -181,6 +190,7 @@ public class UserCommunitiesController {
     @FXML
     private void handleSearch() {
         String searchTerm = searchField.getText().trim();
+        String selectedGenre = genreComboBox.getValue();
         DatabaseService dbService = new DatabaseService();
         List<Community> communities;
 
@@ -194,6 +204,13 @@ public class UserCommunitiesController {
         } else {
             // If search field is empty, show all verified communities
             communities = dbService.getCommunitiesWithStatus2();
+        }
+
+        // Filter by genre if a specific genre is selected
+        if (selectedGenre != null && !selectedGenre.equals("All Genres")) {
+            communities = communities.stream()
+                .filter(community -> selectedGenre.equals(community.getGenre()))
+                .toList();
         }
 
         displayCommunities(communities);
@@ -282,5 +299,29 @@ public class UserCommunitiesController {
      */
     public void setThemeMode(boolean isDarkMode) {
         this.isDarkMode = isDarkMode;
+    }
+
+    /**
+     * Populates the genre dropdown with genres from the database.
+     */
+    private void populateGenreDropdown() {
+        DatabaseService dbService = new DatabaseService();
+        List<String> genres = dbService.getAllGenres();
+
+        // Add "All Genres" option at the beginning
+        ObservableList<String> genreOptions = FXCollections.observableArrayList();
+        genreOptions.add("All Genres");
+        genreOptions.addAll(genres);
+
+        genreComboBox.setItems(genreOptions);
+        genreComboBox.getSelectionModel().selectFirst(); // Select "All Genres" by default
+    }
+
+    /**
+     * Handles genre filter selection.
+     */
+    @FXML
+    private void handleGenreFilter() {
+        handleSearch();
     }
 }
