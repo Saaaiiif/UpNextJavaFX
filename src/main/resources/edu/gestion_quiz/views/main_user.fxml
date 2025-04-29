@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="edu.gestion_quiz.controllers.UserController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <spacing>10</spacing>
+    <Label text="Liste des Quiz disponibles" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <TableView fx:id="quizToAnswerTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="quizToAnswerTitreCol" text="Titre"/>
+            <TableColumn fx:id="quizToAnswerSujetCol" text="Sujet"/>
+            <TableColumn fx:id="quizToAnswerActionsCol" text="Actions"/>
+        </columns>
+    </TableView>
+</VBox> 
