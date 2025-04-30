@@ -76,7 +76,7 @@
                   <Font name="Dubai Medium" size="15.0" />
                </font>
             </Button>
-            <Hyperlink fx:id="RegisterLink" layoutX="269.0" layoutY="305.0" onAction="#goToRegister" text="Register" textFill="WHITE">
+            <Hyperlink fx:id="RegisterLink" layoutX="269.0" layoutY="305.0" onMouseClicked="#goToRegister" text="Register" textFill="WHITE">
                <font>
                   <Font name="Dubai Medium" size="16.0" />
                </font>

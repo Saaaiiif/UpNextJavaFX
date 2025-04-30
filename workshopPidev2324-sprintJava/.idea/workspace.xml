@@ -5,25 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e22eb570-64e7-4081-8b10-1205696d8e8f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Addevent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Addevent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Eventlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Eventlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/up_next/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/up_next/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/addevent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/addevent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/GoogleCloudConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Inscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Inscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/eventlist.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/eventlist.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/addevent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/addevent.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Addevent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/Addevent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Eventlist.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocationPicker$JSBridge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocationPicker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/Reservationlist.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tests/MainFX.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tests/TestClasse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/up_next/tools/MyConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/1745762488284_Capture d’écran 2023-11-25 151139.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/1745762723464_Capture d’écran 2023-11-25 151139.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/leaflet/leaflet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/leaflet/leaflet.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/eventlist.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/eventlist.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/1745762488284_Capture d’écran 2023-11-25 151139.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/images/1745762488284_Capture d’écran 2023-11-25 151139.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/1745762723464_Capture d’écran 2023-11-25 151139.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/images/1745762723464_Capture d’écran 2023-11-25 151139.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -153,6 +150,10 @@
       <workItem from="1745761532763" duration="15508000" />
       <workItem from="1745844000313" duration="4967000" />
       <workItem from="1745849388194" duration="356000" />
+      <workItem from="1745849966136" duration="9985000" />
+      <workItem from="1745932144335" duration="1174000" />
+      <workItem from="1745934021953" duration="4471000" />
+      <workItem from="1746028009956" duration="4000" />
     </task>
     <servers />
   </component>

@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 //import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -272,5 +273,7 @@ public class Inscription {
         digitLabel.setText(password.matches(".*\\d.*") ? "✅ At least 1 number" : "❌ At least 1 number");
     }
 
+    public void login(MouseEvent event) {
+    }
 }
 

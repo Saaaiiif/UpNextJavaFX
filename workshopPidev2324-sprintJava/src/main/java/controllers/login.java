@@ -18,6 +18,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.stage.Stage;
@@ -153,7 +154,7 @@ public class login {
     }
 
     @FXML
-    void goToRegister(ActionEvent event) {
+    void goToRegister(MouseEvent event) {
         try {
             URL fxmlLocation = getClass().getResource("/inscription.fxml");
             if (fxmlLocation == null) {
