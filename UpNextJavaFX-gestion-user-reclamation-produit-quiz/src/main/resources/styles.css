@@ -1,0 +1,1585 @@
+/* Dark mode (default) */
+.root {
+    -fx-background-image: url("backg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-font-smoothing-type: lcd;
+    -fx-text-alignment: center;
+}
+
+/* Light mode */
+.root.light-mode {
+    -fx-background-image: url("backgLIGHT.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-font-smoothing-type: lcd;
+    -fx-text-alignment: center;
+}
+
+.nav-label {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 20px;
+    -fx-text-fill: #acacac;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .nav-label {
+    -fx-text-fill: #000000;
+}
+
+.nav-label:hover {
+    -fx-text-fill: #BD2526;
+}
+
+.light-mode .nav-label:hover {
+    -fx-text-fill: #BD2526;
+}
+
+.nav-label.active {
+    -fx-text-fill: #BD2526;
+}
+
+.community-box {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 8px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-alignment: center;
+}
+
+/* Status-specific styles for community boxes */
+.community-box-status-0 {
+    -fx-border-color: transparent;
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 0, 0, 0.05), transparent);
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.7), 15, 0.5, 0, 0), 
+                innershadow(gaussian, rgba(255, 0, 0, 0.3), 10, 0.5, 0, 0);
+    -fx-border-width: 0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-padding: 10px;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.community-box-status-0:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.8), 20, 0.6, 0, 0),
+                innershadow(gaussian, rgba(255, 0, 0, 0.4), 12, 0.6, 0, 0);
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 0, 0, 0.08), transparent);
+}
+
+.community-box-status-1 {
+    -fx-border-color: transparent;
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 255, 0, 0.05), transparent);
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.7), 15, 0.5, 0, 0),
+                innershadow(gaussian, rgba(255, 215, 0, 0.3), 10, 0.5, 0, 0);
+    -fx-border-width: 0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-padding: 10px;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.community-box-status-1:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.8), 20, 0.6, 0, 0),
+                innershadow(gaussian, rgba(255, 215, 0, 0.4), 12, 0.6, 0, 0);
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 255, 0, 0.08), transparent);
+}
+
+.light-mode .community-box {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Light mode status-specific styles */
+.light-mode .community-box-status-0 {
+    -fx-background-color: linear-gradient(to bottom right, rgba(251, 3, 3, 0), rgba(0, 0, 0, 0));
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.6), 15, 0.5, 0, 0), 
+                innershadow(gaussian, rgba(255, 0, 0, 0.2), 10, 0.5, 0, 0);
+}
+
+.light-mode .community-box-status-0:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.7), 20, 0.6, 0, 0),
+                innershadow(gaussian, rgba(255, 0, 0, 0.3), 12, 0.6, 0, 0);
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 0, 0, 0.05), transparent);
+}
+
+.light-mode .community-box-status-1 {
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 215, 0, 0), rgba(0, 0, 0, 0));
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.6), 15, 0.5, 0, 0),
+                innershadow(gaussian, rgba(255, 215, 0, 0.2), 10, 0.5, 0, 0);
+}
+
+.light-mode .community-box-status-1:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.7), 20, 0.6, 0, 0),
+                innershadow(gaussian, rgba(255, 215, 0, 0.3), 12, 0.6, 0, 0);
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 215, 0, 0.05), transparent);
+}
+
+.community-box:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.round-image {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.round-image:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.rounded-image-view {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.no-artists-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .no-artists-label {
+    -fx-text-fill: #000000;
+}
+
+.artist-name-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .artist-name-label {
+    -fx-text-fill: #000000;
+}
+
+.community-name-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather';
+}
+
+.light-mode .community-name-label {
+    -fx-text-fill: #000000;
+}
+
+.name-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather Bold';
+    -fx-alignment: center;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .name-label {
+    -fx-text-fill: #000000;
+}
+
+/* Session information label */
+.session-info-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Feather';
+}
+
+.light-mode .session-info-label {
+    -fx-text-fill: #000000;
+}
+
+/* Editable name field for communities */
+.editable-name-field {
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather Bold';
+    -fx-text-fill: #acacac;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-alignment: center;
+}
+
+.light-mode .editable-name-field {
+    -fx-text-fill: #000000;
+}
+
+/* Plus sign in add community card */
+.plus-label {
+    -fx-font-size: 35px;
+    -fx-text-fill: #BD2526;
+}
+
+/* Add community label */
+.add-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .add-label {
+    -fx-text-fill: #000000;
+}
+
+/* Search bar container */
+.search-bar {
+    -fx-padding: 2px;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-alignment: center;
+    -fx-max-width: 100px;
+}
+
+.light-mode .search-bar {
+    -fx-background-color: rgba(224, 224, 224, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Search text field */
+.search-field {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-padding: 4px 8px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #555555;
+    -fx-border-width: 1px;
+    -fx-pref-width: 150px;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.3);
+}
+
+.light-mode .search-field {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #000000;
+    -fx-border-color: #cccccc;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.3);
+}
+
+.search-field:focused {
+    -fx-border-color: #BD2526;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,120,215,0.2), 10, 0, 0, 0);
+}
+
+/* Search icon */
+.search-icon {
+    -fx-blend-mode: SCREEN;
+    -fx-opacity: 0.3;
+    -fx-effect: dropshadow(three-pass-box, rgb(0, 0, 0), 5, 0, 0, 0);
+}
+
+/* Search button */
+.search-button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 4px 8px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: #005bb5;
+}
+
+.search-button:pressed {
+    -fx-background-color: #004080;
+}
+
+/* Filter bar */
+.filter-bar {
+    -fx-padding: 5px 10px;
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-border-radius: 0px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-alignment: center;
+}
+
+.light-mode .filter-bar {
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.filter-label {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .filter-label {
+    -fx-text-fill: #000000;
+}
+
+/* Status checkboxes */
+.status-checkbox {
+    -fx-text-fill: #acacac;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Feather Bold';
+    -fx-cursor: hand;
+    -fx-padding: 2px 4px;
+    -fx-label-padding: 0 0 0 2px;
+}
+
+/* Action buttons */
+.action-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.action-button:hover {
+    -fx-background-color: #a01f20;
+}
+
+.action-button:pressed {
+    -fx-background-color: #8a1a1b;
+}
+
+.cancel-button {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #444444;
+}
+
+.cancel-button:pressed {
+    -fx-background-color: #333333;
+}
+
+.light-mode .status-checkbox {
+    -fx-text-fill: #000000;
+}
+
+.light-mode .action-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+}
+
+.light-mode .action-button:hover {
+    -fx-background-color: #a01f20;
+}
+
+.light-mode .action-button:pressed {
+    -fx-background-color: #8a1a1b;
+}
+
+.light-mode .cancel-button {
+    -fx-background-color: #666666;
+    -fx-text-fill: white;
+}
+
+.light-mode .cancel-button:hover {
+    -fx-background-color: #555555;
+}
+
+.light-mode .cancel-button:pressed {
+    -fx-background-color: #444444;
+}
+
+/* Primary button - used for main actions like Create Community */
+.primary-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Feather Bold';
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.primary-button:hover {
+    -fx-background-color: #a01f20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 3);
+}
+
+.primary-button:pressed {
+    -fx-background-color: #8a1a1b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.light-mode .primary-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+}
+
+.light-mode .primary-button:hover {
+    -fx-background-color: #a01f20;
+}
+
+.light-mode .primary-button:pressed {
+    -fx-background-color: #8a1a1b;
+}
+
+.status-checkbox .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #555555;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-pref-width: 14px;
+    -fx-pref-height: 14px;
+}
+
+.light-mode .status-checkbox .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #777777;
+}
+
+.status-checkbox:selected .box {
+    -fx-background-color: #BD2526;
+    -fx-border-color: #BD2526;
+    -fx-border-width: 0;
+}
+
+.status-checkbox:selected .mark {
+    -fx-background-color: #ffffff;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+.status-checkbox:hover .box {
+    -fx-border-color: #BD2526;
+    -fx-effect: none;
+}
+
+.add-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-family: 'Feather Bold';
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.add-button:hover {
+    -fx-background-color: #9a1a1b;
+}
+
+.add-button:pressed {
+    -fx-background-color: #7a1414;
+}
+
+/* Back button style */
+.back-button {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.back-button:hover {
+    -fx-background-color: #BD2526;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 3);
+}
+
+.back-button:pressed {
+    -fx-background-color: #a01f20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.light-mode .back-button {
+    -fx-background-color: #777777;
+    -fx-text-fill: white;
+}
+
+.light-mode .back-button:hover {
+    -fx-background-color: #BD2526;
+}
+
+.light-mode .back-button:pressed {
+    -fx-background-color: #a01f20;
+}
+
+/* Add these to existing styles */
+.dialog-header {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 20px;
+    -fx-text-fill: #acacac;
+}
+
+.light-mode .dialog-header {
+    -fx-text-fill: #000000;
+}
+
+.dialog-label {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-text-fill: #acacac;
+}
+
+.light-mode .dialog-label {
+    -fx-text-fill: #000000;
+}
+
+.dialog-field {
+    -fx-background-color: #444444;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #555555;
+    -fx-transition: all 0.3s ease;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-field {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #000000;
+    -fx-border-color: #cccccc;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+/* Specific style for TextArea to ensure proper background color */
+.dialog-field.text-area {
+    -fx-control-inner-background: #444444;
+    -fx-background-color: #444444;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-field.text-area {
+    -fx-control-inner-background: #f5f5f5;
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #000000;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.image-upload-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.light-mode .image-upload-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+}
+
+.image-upload-button:hover {
+    -fx-background-color: #9a1a1b;
+}
+
+.add-card {
+    -fx-border-color: #BD2526;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+}
+
+.add-card:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.1);
+}
+
+/* User community card style */
+.user-community-box {
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-alignment: center;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-background-color: rgba(50, 50, 50, 0.3);
+}
+
+.user-community-box:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.light-mode .user-community-box {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Add to existing styles */
+.error-tooltip {
+    -fx-text-fill: #ff4444;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+}
+
+.dialog-field.invalid {
+    -fx-border-color: #ff4444;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255,68,68,0.2), 5, 0, 0, 0);
+}
+
+/* ScrollPane styling */
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.transparent-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane > .scroll-bar {
+    -fx-background-color: rgba(50, 50, 50, 0.3);
+    -fx-background-radius: 5px;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+}
+
+.transparent-scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #BD2526;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 2, 0, 0;
+}
+
+.transparent-scroll-pane > .scroll-bar > .thumb:hover {
+    -fx-background-color: #9a1a1b;
+}
+
+.transparent-scroll-pane > .scroll-bar > .increment-button,
+.transparent-scroll-pane > .scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.transparent-scroll-pane > .scroll-bar > .increment-arrow,
+.transparent-scroll-pane > .scroll-bar > .decrement-arrow {
+    -fx-background-color: #BD2526;
+    -fx-shape: " ";
+    -fx-padding: 2px;
+}
+
+/* Community Detail View Styles */
+.community-detail-container {
+    -fx-background-color: rgba(30, 30, 30, 0.7);
+    -fx-background-radius: 15px;
+    -fx-padding: 20px;
+    -fx-max-width: 800px;
+}
+
+.light-mode .community-detail-container {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+}
+
+.community-detail-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px 0;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .community-detail-title {
+    -fx-text-fill: #000000;
+}
+
+.followers-count-label {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-text-fill: #BD2526;
+    -fx-padding: 5px 0;
+}
+
+.light-mode .followers-count-label {
+    -fx-text-fill: #BD2526;
+}
+
+.section-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 20px;
+    -fx-text-fill: #BD2526;
+    -fx-padding: 5px 0;
+    -fx-font-smoothing-type: lcd;
+}
+
+.page-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px 0;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .page-title {
+    -fx-text-fill: #000000;
+}
+
+.description-container {
+    -fx-background-color: rgba(50, 50, 50, 0.5);
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-max-width: 700px;
+}
+
+.light-mode .description-container {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+}
+
+.description-text {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-text-fill: #acacac;
+    -fx-line-spacing: 5px;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .description-text {
+    -fx-text-fill: #000000;
+}
+
+.keywords-text {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-text-fill: #BD2526;
+    -fx-padding: 5px 0;
+    -fx-font-style: italic;
+}
+
+.light-mode .keywords-text {
+    -fx-text-fill: #BD2526;
+}
+
+.artist-box {
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15px;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-alignment: center;
+    -fx-min-width: 180px;
+    -fx-max-width: 180px;
+    -fx-background-color: rgba(50, 50, 50, 0.3);
+}
+
+.light-mode .artist-box {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.artist-box:hover, .artist-box-hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
+/* Spotify Player Styles */
+.spotify-player-container {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+/* Toggle Button Styles */
+.toggle-button {
+    -fx-background-color: rgba(50, 50, 50, 0.5);
+    -fx-text-fill: #acacac;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.light-mode .toggle-button {
+    -fx-background-color: rgba(220, 220, 220, 0.8);
+    -fx-text-fill: #333333;
+}
+
+.toggle-button:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.3);
+    -fx-text-fill: #ffffff;
+}
+
+.light-mode .toggle-button:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.2);
+    -fx-text-fill: #000000;
+}
+
+.toggle-button.active-toggle {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+.light-mode .toggle-button.active-toggle {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+/* Comments Styles */
+.comments-container {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.comment-box {
+    -fx-background-color: rgba(50, 50, 50, 0.5);
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.light-mode .comment-box {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.comment-input-field {
+    -fx-background-color: rgba(50, 50, 50, 0.5);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 8px;
+    -fx-text-fill: #acacac;
+    -fx-font-family: 'Feather';
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: rgba(172, 172, 172, 0.6);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.light-mode .comment-input-field {
+    -fx-background-color: rgba(240, 240, 240, 0.8);
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.comment-post-button {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: white;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.comment-post-button:hover {
+    -fx-background-color: #9a1a1b;
+}
+
+.comment-post-button:pressed {
+    -fx-background-color: #7a1414;
+}
+
+.comment-username {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-text-fill: #BD2526;
+}
+
+.light-mode .comment-username {
+    -fx-text-fill: #BD2526;
+}
+
+.comment-text {
+    -fx-font-family: 'Feather';
+    -fx-font-size: 14px;
+    -fx-text-fill: #acacac;
+    -fx-wrap-text: true;
+}
+
+.light-mode .comment-text {
+    -fx-text-fill: #000000;
+}
+
+.no-comments-label {
+    -fx-font-family: 'Feather';
+    -fx-font-size: 14px;
+    -fx-text-fill: #acacac;
+    -fx-font-style: italic;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.light-mode .no-comments-label {
+    -fx-text-fill: #555555;
+}
+
+.track-name {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 18px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+}
+
+.light-mode .track-name {
+    -fx-text-fill: #000000;
+}
+
+.artist-name {
+    -fx-font-family: 'Feather';
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-alignment: center;
+}
+
+.light-mode .artist-name {
+    -fx-text-fill: #000000;
+}
+
+.player-button {
+    -fx-background-color: #1DB954; /* Spotify green */
+    -fx-text-fill: white;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+
+.player-button:hover {
+    -fx-background-color: #1ED760;
+}
+
+.player-button:pressed {
+    -fx-background-color: #1AA34A;
+}
+
+.player-button:disabled {
+    -fx-background-color: #565656;
+    -fx-text-fill: #888888;
+}
+
+/* Dialog message styling */
+.dialog-message {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 18px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.light-mode .dialog-message {
+    -fx-text-fill: #000000;
+}
+
+/* WebView styling to remove black box */
+.web-view {
+    -fx-background-color: transparent;
+    -fx-blend-mode: LIGHTEN;
+}
+
+.spotify-player-hidden {
+    -fx-effect: none;
+    -fx-background-color: transparent;
+}
+
+.spotify-player-visible {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+/* Navigation Bar Styles */
+.nav-bar {
+    -fx-padding: 10 20;
+}
+
+/* Custom Title Bar Styles */
+.title-bar {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-padding: 0px 0px;
+    -fx-alignment: center-left;
+    -fx-cursor: move;
+    -fx-min-height: 35px;
+    -fx-pref-height: 35px;
+    -fx-max-height: 35px;
+}
+
+.light-mode .title-bar {
+    -fx-background-color: rgba(230, 230, 230, 0.9);
+}
+
+.title-label {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 15px;
+    -fx-text-fill: #acacac;
+    -fx-padding: 0 10px 0 5px;
+}
+
+.light-mode .title-label {
+    -fx-text-fill: #000000;
+}
+
+.window-control-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.light-mode .window-control-button {
+    -fx-text-fill: #000000;
+}
+
+.window-control-button:hover {
+    -fx-background-color: transparent;
+}
+
+.light-mode .window-control-button:hover {
+    -fx-background-color: transparent;
+}
+
+#minimizeButton:hover {
+    -fx-text-fill: #f0f0f0;
+}
+
+.light-mode #minimizeButton:hover {
+    -fx-text-fill: #333333;
+}
+
+#closeButton:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: #BD2526;
+}
+
+.light-mode #closeButton:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: #BD2526;
+}
+
+#themeToggleButton:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.2);
+    -fx-text-fill: #BD2526;
+}
+
+.light-mode #themeToggleButton:hover {
+    -fx-background-color: rgba(189, 37, 38, 0.1);
+    -fx-text-fill: #BD2526;
+}
+
+/* Close button style for dynamically created buttons */
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.light-mode .close-button {
+    -fx-text-fill: #000000;
+}
+
+.close-button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: #BD2526;
+}
+
+/* Session Selection Dialog Styles */
+.dialog-pane {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-effect: none;
+}
+
+/* Hide the header panel completely */
+.dialog-pane > .header-panel {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+    -fx-visible: false;
+    -fx-managed: false;
+}
+
+.light-mode .dialog-pane {
+    -fx-background-color: rgba(240, 240, 240, 0.9);
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+/* Hide the header panel in light mode too */
+.light-mode .dialog-pane > .header-panel {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+    -fx-visible: false;
+    -fx-managed: false;
+}
+
+/* Remove padding from content area */
+.dialog-pane > .content {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.light-mode .dialog-pane > .content {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* Style the button bar */
+.dialog-pane > .button-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 10px;
+}
+
+.light-mode .dialog-pane > .button-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 10px;
+}
+
+.dialog-title {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-title {
+    -fx-text-fill: #000000;
+}
+
+.dialog-text {
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-text-fill: #acacac;
+    -fx-alignment: center;
+}
+
+.light-mode .dialog-text {
+    -fx-text-fill: #000000;
+}
+
+/* Button-85 style adapted for JavaFX - Rainbow glowing button */
+.button-85 {
+    -fx-padding: 0.6em 2em;
+    -fx-border-style: none;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-background-insets: 0;
+    -fx-border-width: 2px;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, 
+                      #BD2526, #9a1a1b, #8a1a1b, #6a0000, 
+                      #4a0000, #BD2526, #9a1a1b, #8a1a1b, #BD2526);
+    -fx-border-radius: 10px;
+    /* Multiple effects to create a more dynamic glow */
+    -fx-effect: dropshadow(gaussian, rgba(189, 37, 38, 0.7), 15, 0.5, 0, 0),
+                innershadow(gaussian, rgba(189, 37, 38, 0.3), 10, 0.5, 0, 0);
+    -fx-transition: all 0.3s ease-in-out;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .button-85 {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #333333;
+    -fx-font-smoothing-type: lcd;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, 
+                      #BD2526, #9a1a1b, #8a1a1b, #6a0000, 
+                      #4a0000, #BD2526, #9a1a1b, #8a1a1b, #BD2526);
+    -fx-effect: dropshadow(gaussian, rgba(189, 37, 38, 0.6), 15, 0.5, 0, 0),
+                innershadow(gaussian, rgba(189, 37, 38, 0.2), 10, 0.5, 0, 0);
+}
+
+.button-85:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    /* Enhanced glow effect on hover with darker red tint */
+    -fx-effect: dropshadow(gaussian, rgba(189, 37, 38, 0.8), 20, 0.7, 0, 0),
+                innershadow(gaussian, rgba(154, 26, 27, 0.4), 12, 0.6, 0, 0);
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, 
+                      #BD2526, #8a1a1b, #6a0000, #4a0000,
+                      #6a0000, #8a1a1b, #9a1a1b, #BD2526, #BD2526);
+}
+
+.light-mode .button-85:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-color: #e8e8e8;
+    -fx-effect: dropshadow(gaussian, rgba(189, 37, 38, 0.7), 20, 0.7, 0, 0),
+                innershadow(gaussian, rgba(154, 26, 27, 0.3), 12, 0.6, 0, 0);
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, 
+                      #BD2526, #9a1a1b, #8a1a1b, #6a0000,
+                      #4a0000, #BD2526, #9a1a1b, #8a1a1b, #BD2526);
+}
+
+.button-85:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-background-color: #000;
+    /* Intensified inner glow when pressed */
+    -fx-effect: innershadow(gaussian, rgba(138, 26, 27, 0.8), 15, 0.8, 0, 0);
+}
+
+.light-mode .button-85:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-background-color: #d0d0d0;
+    -fx-text-fill: #222222;
+    -fx-effect: innershadow(gaussian, rgba(138, 26, 27, 0.7), 15, 0.8, 0, 0);
+}
+
+/* Keep the original session-button style for backward compatibility */
+.session-button {
+    -fx-background-color: #333333;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 16px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .session-button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000000;
+    -fx-font-smoothing-type: lcd;
+}
+
+.session-button:hover {
+    -fx-background-color: #BD2526;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.session-button:pressed {
+    -fx-background-color: #9a1a1b;
+}
+
+/* Text smoothing class for enhanced text rendering */
+.text-smooth {
+    -fx-font-smoothing-type: lcd;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 1, 0, 0, 0);
+}
+
+/* ComboBox Styles */
+.dialog-field.combo-box {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 15px;
+    -fx-padding: 5px;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #555555;
+    -fx-transition: all 0.3s ease;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-field.combo-box {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #000000;
+    -fx-border-color: #cccccc;
+    -fx-font-smoothing-type: lcd;
+}
+
+.dialog-field.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-field.combo-box .list-cell {
+    -fx-text-fill: #000000;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.dialog-field.combo-box .list-view {
+    -fx-background-color: #444444;
+    -fx-border-color: #555555;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.light-mode .dialog-field.combo-box .list-view {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+}
+
+.dialog-field.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+.light-mode .dialog-field.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-field.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-field.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.dialog-field.combo-box .arrow {
+    -fx-background-color: #BD2526;
+}
+
+/* Context Menu Styles - Matching ComboBox */
+.context-menu {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-border-color: #555555;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .context-menu {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-font-smoothing-type: lcd;
+    -fx-padding: 5px 10px;
+}
+
+/* Ensure context menu text is white in dark mode */
+.context-menu .menu-item .label {
+    -fx-text-fill: white;
+}
+
+.light-mode .menu-item {
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-smoothing-type: lcd;
+}
+
+/* Ensure context menu text is black in light mode */
+.light-mode .context-menu .menu-item .label {
+    -fx-text-fill: #000000;
+}
+
+.menu-item:hover, .menu-item:focused {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+.light-mode .menu-item:hover, .light-mode .menu-item:focused {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+}
+
+/* PieChart Styles */
+.status-pie-chart {
+    -fx-background-color: transparent;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+    -fx-font-smoothing-type: lcd;
+}
+
+.status-pie-chart .chart-title {
+    -fx-text-fill: transparent;
+    -fx-font-size: 0px;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+.status-pie-chart .chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.status-pie-chart .chart-legend-item {
+    -fx-text-fill: #acacac;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+}
+
+.light-mode .status-pie-chart .chart-legend-item {
+    -fx-text-fill: #000000;
+}
+
+/* Status-specific legend item styles */
+.status-pie-chart .chart-legend-item.status-pie-chart-legend-unverified .text {
+    -fx-fill: #ff0000; /* Red for unverified */
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .status-pie-chart .chart-legend-item.status-pie-chart-legend-unverified .text {
+    -fx-fill: #e60000; /* Slightly darker red for light mode */
+}
+
+.status-pie-chart .chart-legend-item.status-pie-chart-legend-pending .text {
+    -fx-fill: #ffd700; /* Gold for pending */
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .status-pie-chart .chart-legend-item.status-pie-chart-legend-pending .text {
+    -fx-fill: #e6c200; /* Slightly darker gold for light mode */
+}
+
+.status-pie-chart .chart-legend-item.status-pie-chart-legend-verified .text {
+    -fx-fill: #4CAF50; /* Green for verified */
+    -fx-font-family: 'Feather Bold';
+}
+
+.light-mode .status-pie-chart .chart-legend-item.status-pie-chart-legend-verified .text {
+    -fx-fill: #3d8b40; /* Slightly darker green for light mode */
+}
+
+/* Status Bar Styles */
+.status-bar-name-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+}
+
+.light-mode .status-bar-name-label {
+    -fx-text-fill: #333333;
+}
+
+.status-bar-percent-label {
+    -fx-text-fill: white;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.light-mode .status-bar-percent-label {
+    -fx-text-fill: #333333;
+}
+
+/* Status-specific pie chart slice styles */
+.status-pie-chart-unverified {
+    -fx-pie-color: #ff0000; /* Red for unverified */
+}
+
+.light-mode .status-pie-chart-unverified {
+    -fx-pie-color: #e60000; /* Slightly darker red for light mode */
+}
+
+.status-pie-chart-pending {
+    -fx-pie-color: #ffd700; /* Gold for pending */
+}
+
+.light-mode .status-pie-chart-pending {
+    -fx-pie-color: #e6c200; /* Slightly darker gold for light mode */
+}
+
+.status-pie-chart-verified {
+    -fx-pie-color: #4CAF50; /* Green for verified */
+}
+
+.light-mode .status-pie-chart-verified {
+    -fx-pie-color: #3d8b40; /* Slightly darker green for light mode */
+}
+
+/* Dialog Button Styles */
+.dialog-pane .button {
+    -fx-background-color: #333333;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'Feather Bold';
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-font-smoothing-type: lcd;
+}
+
+.light-mode .dialog-pane .button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000000;
+    -fx-font-smoothing-type: lcd;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #BD2526;
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.dialog-pane .button:pressed {
+    -fx-background-color: #9a1a1b;
+}

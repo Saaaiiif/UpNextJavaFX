@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterProduit">
+    <style>
+        -fx-background-color: linear-gradient(to bottom right, #F5F5DC, #FAF0E6);
+    </style>
+    <children>
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="30.0" prefHeight="540.0" prefWidth="600.0" spacing="25.0">
+            <children>
+                <Label text="Ajouter une Nouvelle Œuvre" textFill="#3A2F2F">
+                    <font>
+                        <Font name="Georgia" size="28.0" />
+                    </font>
+                </Label>
+                <VBox spacing="15.0">
+                    <children>
+                        <Label text="Nom de l'Œuvre :" textFill="#3A2F2F">
+                            <font>
+                                <Font name="Georgia" size="16.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="nomField" promptText="Ex. 'Paysage d'automne'" prefWidth="500.0">
+                            <style>
+                                -fx-background-color: #FFFFFF;
+                                -fx-border-color: #D3C8A9;
+                                -fx-border-radius: 5px;
+                                -fx-font-family: "Georgia";
+                                -fx-font-size: 14px;
+                            </style>
+                        </TextField>
+                    </children>
+                </VBox>
+                <VBox spacing="15.0">
+                    <children>
+                        <Label text="Image de l'Œuvre :" textFill="#3A2F2F">
+                            <font>
+                                <Font name="Georgia" size="16.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                            <children>
+                                <Button fx:id="chooseImageButton" onAction="#handleChooseImage" text="Choisir un fichier">
+                                    <style>
+                                        -fx-background-color: #EDE4D3;
+                                        -fx-text-fill: #3A2F2F;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                        -fx-border-radius: 5px;
+                                    </style>
+                                </Button>
+                                <Button fx:id="importIaImageButton" onAction="#handleImportIaImage" text="Importer depuis IA">
+                                    <style>
+                                        -fx-background-color: #B3E6B3;
+                                        -fx-text-fill: #3A2F2F;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                        -fx-border-radius: 5px;
+                                    </style>
+                                </Button>
+                                <Label fx:id="imagePathLabel" text="Aucun fichier choisi" textFill="#3A2F2F">
+                                    <font>
+                                        <Font name="Georgia" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <HBox spacing="20.0">
+                    <children>
+                        <VBox spacing="15.0" prefWidth="240.0">
+                            <children>
+                                <Label text="Prix (DT) :" textFill="#3A2F2F">
+                                    <font>
+                                        <Font name="Georgia" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="prixField" promptText="Ex. 5000 DT" prefWidth="240.0">
+                                    <style>
+                                        -fx-background-color: #FFFFFF;
+                                        -fx-border-color: #D3C8A9;
+                                        -fx-border-radius: 5px;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                    </style>
+                                </TextField>
+                            </children>
+                        </VBox>
+                        <VBox spacing="15.0" prefWidth="240.0">
+                            <children>
+                                <Label text="Catégorie :" textFill="#3A2F2F">
+                                    <font>
+                                        <Font name="Georgia" size="16.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="categorieComboBox" prefWidth="240.0" promptText="Choisir une catégorie">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Dessin" />
+                                            <String fx:value="Peinture" />
+                                            <String fx:value="Sculpture" />
+                                            <String fx:value="Edition" />
+                                            <String fx:value="Photographie" />
+                                            <String fx:value="Art Numerique" />
+                                        </FXCollections>
+                                    </items>
+                                    <style>
+                                        -fx-background-color: #FFFFFF;
+                                        -fx-border-color: #D3C8A9;
+                                        -fx-border-radius: 5px;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                    </style>
+                                </ComboBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <VBox spacing="15.0">
+                    <children>
+                        <Label text="Description de l'Œuvre :" textFill="#3A2F2F">
+                            <font>
+                                <Font name="Georgia" size="16.0" />
+                            </font>
+                        </Label>
+                        <TextArea fx:id="descriptionArea" prefHeight="100.0" prefWidth="500.0" promptText="Décrivez l'œuvre en détail…" wrapText="true">
+                            <style>
+                                -fx-background-color: #FFFFFF;
+                                -fx-border-color: #D3C8A9;
+                                -fx-border-radius: 5px;
+                                -fx-font-family: "Georgia";
+                                -fx-font-size: 14px;
+                            </style>
+                        </TextArea>
+                    </children>
+                </VBox>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="ajouterButton" onAction="#handleAjouter" text="Ajouter l'Œuvre">
+                            <style>
+                                -fx-background-color: #FF9999; /* Rose pâle */
+                                -fx-text-fill: #FFFFFF;
+                                -fx-font-family: "Georgia";
+                                -fx-font-size: 14px;
+                                -fx-font-weight: bold;
+                                -fx-border-radius: 5px;
+                                -fx-padding: 10px 20px;
+                            </style>
+                        </Button>
+                        <Button fx:id="retourButton" onAction="#handleRetour" text="Revenir à la Liste">
+                            <style>
+                                -fx-background-color: #808080; /* Gris */
+                                -fx-text-fill: #FFFFFF;
+                                -fx-font-family: "Georgia";
+                                -fx-font-size: 14px;
+                                -fx-font-weight: bold;
+                                -fx-border-radius: 5px;
+                                -fx-padding: 10px 20px;
+                            </style>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

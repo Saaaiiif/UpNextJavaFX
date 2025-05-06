@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.event_reser_ouma.AdminEventManagement">
+   <children>
+      <ScrollPane fitToWidth="true" layoutX="262.0" layoutY="58.0" prefHeight="610.0" prefWidth="710.0" style="-fx-background-color:transparent; -fx-border-color: transparent;">
+         <content>
+            <VBox fx:id="eventList" spacing="15.0" style="-fx-background-color: transparent; -fx-padding: 10;">
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="716.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="244.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="71.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="159.9999999999999">
+         <font>
+            <Font name="Dubai Light" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="38.0" fitWidth="155.0" layoutX="853.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@up-next.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="47.0" layoutX="16.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@profile.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="8.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@event.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="4.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@verified.png" />
+         </image>
+      </ImageView>
+      <Line endX="105.80000305175781" layoutX="124.0" layoutY="264.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="128.0" layoutY="317.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="125.0" layoutY="412.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="127.0" layoutY="466.0" opacity="0.15" startX="-100.0" />
+      <ImageView fx:id="ProfileImage" fitHeight="126.0" fitWidth="142.0" layoutX="58.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@user.png" />
+         </image>
+      </ImageView>
+      <Hyperlink fx:id="ProfileLink" layoutX="57.0" layoutY="224.0" onAction="#goToProfile" text="Profile" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="UsersManagement" layoutX="61.0" layoutY="275.0" onAction="#GoToUsersManagement" text="Users management" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="EventLink" layoutX="66.0" layoutY="368.0" onAction="#GoToEvent" text="Events management" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="Reclamation" layoutX="66.0" layoutY="418.0" onAction="#GoToReclamationAdmin" text="Reclamations" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="Logout" layoutX="82.0" layoutY="643.0" onAction="#Logout" text="Logout" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="22.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="ProductLink" layoutX="62.0" layoutY="321.0" onAction="#GoToProduct" text="Products management" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Line endX="105.80000305175781" layoutX="127.0" layoutY="364.0" opacity="0.15" startX="-100.0" />
+      <Hyperlink fx:id="QuizManagement" layoutX="66.0" layoutY="470.0" onAction="#GoToQuizManagement" text="Quiz management" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="Carpooling" layoutX="65.0" layoutY="516.0" onAction="#GoToCarpooling" text="Carpooling management" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="16.0" />
+         </font>
+      </Hyperlink>
+      <Line endX="105.80000305175781" layoutX="127.0" layoutY="513.0" opacity="0.15" startX="-100.0" />
+      <ImageView fitHeight="47.0" fitWidth="66.0" layoutX="21.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@quize.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="22.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@car.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="47.0" fitWidth="54.0" layoutX="17.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@users.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="77.0" fitWidth="66.0" layoutX="4.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@product.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

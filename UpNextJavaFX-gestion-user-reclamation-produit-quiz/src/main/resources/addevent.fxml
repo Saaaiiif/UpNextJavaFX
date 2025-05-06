@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="767.0" prefWidth="900.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.event_reser_ouma.Addevent">
+
+   <children>
+
+      <!-- Formulaire -->
+      <VBox alignment="TOP_CENTER" layoutX="300.0" layoutY="28.0" prefHeight="530.0" prefWidth="600" spacing="20" styleClass="container" stylesheets="@css/styles.css">
+
+
+      <!-- Grille des champs en 2 colonnes -->
+         <GridPane hgap="20" vgap="10">
+            <columnConstraints>
+               <ColumnConstraints percentWidth="50.0" />
+               <ColumnConstraints percentWidth="50.0" />
+            </columnConstraints>
+            <ComboBox fx:id="guest_id" layoutX="200.0" layoutY="460.0" prefWidth="200.0" promptText="Sélectionner un artiste" GridPane.rowIndex="1" />
+            <!-- Ligne 2 -->
+            <TextField fx:id="title" promptText="Title" styleClass="text-field" GridPane.rowIndex="5" />
+            <TextField fx:id="location" editable="false" promptText="Location" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <!-- Ligne 3 -->
+            <DatePicker fx:id="start_date" prefHeight="31.0" prefWidth="233.0" promptText="Start Date" styleClass="date-picker" GridPane.rowIndex="8" />
+            <DatePicker fx:id="end_date" promptText="End Date" styleClass="date-picker" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+            <!-- Ligne 4 -->
+            <TextField fx:id="ticket_price" promptText="Ticket Price" styleClass="text-field" GridPane.rowIndex="11" />
+            <TextField fx:id="count_ticket" promptText="Count Ticket" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Label text="Guest" />
+            <Label text="Title" GridPane.rowIndex="4" />
+            <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Start Date" GridPane.rowIndex="7" />
+            <Label text="End Date" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="TicketCount" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label text="Ticket Price" GridPane.rowIndex="10" />
+            <Label stylesheets="@css/styles.css" text="Upload Image" GridPane.rowIndex="13" />
+            <Label fx:id="titleErrorLabel" styleClass="error" text="Title Required!" visible="false" GridPane.rowIndex="6" />
+            <Label fx:id="locationErrorLabel" styleClass="error" text="Location Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="dateErrorLabel" prefWidth="317.0" styleClass="error" text="The start date must be before the end date!" visible="false" GridPane.rowIndex="9" />
+            <Label fx:id="priceErrorLabel" styleClass="error" text="Price Required!" visible="false" GridPane.rowIndex="12" />
+            <Label fx:id="quantityErrorLabel" styleClass="error" text="Quantity Required!" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+      
+            <!-- Ligne 1 -->
+            <Label text="User" visible="false" GridPane.columnIndex="1" />
+            <TextField fx:id="user_id" editable="false" promptText="user" styleClass="text-field" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="user" visible="false" GridPane.columnIndex="1" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+
+            <!-- Ligne 5 -->
+         </GridPane>
+
+         <!-- Image et bouton -->
+         <HBox alignment="CENTER" spacing="20">
+            <ImageView fx:id="image" fitHeight="46.0" fitWidth="120" preserveRatio="true" />
+            <Button onMouseClicked="#getImage" stylesheets="@css/styles.css" text="+ Choose Image" />
+
+         </HBox>
+         <Label fx:id="imageErrorLabel" styleClass="error" text="No image selected. An image will make the event more attractive!" textFill="#d42525" visible="false" />
+         <Label alignment="BOTTOM_LEFT" text="Event Description" />
+         <TextField fx:id="description" promptText="Description" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+      
+               <!-- Bouton save -->
+               <Button maxWidth="200" onMouseClicked="#save" styleClass="red-button" text="Save">
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                  <padding>
+                     <Insets right="20.0" />
+                  </padding>
+                  <HBox.margin>
+                     <Insets right="20.0" />
+                  </HBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#choose_location" text="Choose location">
+                  <HBox.margin>
+                     <Insets right="20.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+         <Label fx:id="successLabel" styleClass="success" text="Event added successfully!" textFill="#499c15" visible="false" />
+      </VBox>
+      <ImageView fitHeight="51.0" fitWidth="47.0" layoutX="16.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@profile.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="77.0" fitWidth="66.0" layoutX="6.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@product.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="8.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@event.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="4.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@verified.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ProfileImage" fitHeight="174.0" fitWidth="174.0" layoutX="37.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@user.png" />
+         </image>
+         <clip>
+            <Circle centerX="87.0" centerY="87.0" radius="87.0" />
+         </clip>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="833.0" layoutX="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="260.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fx:id="AuthenticatedUser" fill="WHITE" fontSmoothingType="LCD" layoutX="77.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="155.99999389648428">
+         <font>
+            <Font name="Dubai Light" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="51.0" fitWidth="47.0" layoutX="16.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@profile.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="77.0" fitWidth="66.0" layoutX="6.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@product.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="8.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@event.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="76.0" fitWidth="80.0" layoutX="4.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@verified.png" />
+         </image>
+      </ImageView>
+      <Line endX="105.80000305175781" layoutX="124.0" layoutY="382.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="128.0" layoutY="441.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="125.0" layoutY="500.0" opacity="0.15" startX="-100.0" />
+      <Line endX="105.80000305175781" layoutX="127.0" layoutY="616.0" opacity="0.15" startX="-100.0" />
+      <ImageView fx:id="ProfileImage1" fitHeight="174.0" fitWidth="174.0" layoutX="37.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@user.png" />
+         </image>
+         <clip>
+            <Circle centerX="87.0" centerY="87.0" radius="87.0" />
+         </clip>
+      </ImageView>
+      <Hyperlink fx:id="ProfileLink" layoutX="62.0" layoutY="333.0" onAction="#goToProfile" text="Profile" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="ProductLink" layoutX="66.0" layoutY="390.0" onAction="#GoToProduct" text="Products" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="EventLink" layoutX="70.0" layoutY="448.0" onAction="#GoToEvent" text="Events" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="QuizLink" layoutX="70.0" layoutY="567.0" onAction="#GoToQuiz" text="Quiz" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="Logout" layoutX="82.0" layoutY="690.0" onAction="#Logout" text="Logout" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="22.0" />
+         </font>
+      </Hyperlink>
+      <Line endX="105.80000305175781" layoutX="129.0" layoutY="557.0" opacity="0.15" startX="-100.0" />
+      <Hyperlink fx:id="VerifiedArtistLink1" layoutX="73.0" layoutY="511.0" onAction="#GoToVerifiedArtist" text="Verified Artists" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <Line endX="105.80000305175781" layoutX="125.0" layoutY="322.0" opacity="0.15" startX="-100.0" />
+      <Hyperlink fx:id="HomeLink" layoutX="63.0" layoutY="281.0" onAction="#goToHome" text="Home" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <ImageView fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@home.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="63.0" layoutX="19.0" layoutY="560.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@quize.png" />
+         </image>
+      </ImageView>
+      <Line endX="105.80000305175781" layoutX="129.0" layoutY="675.0" opacity="0.15" startX="-100.0" />
+      <Hyperlink fx:id="goToreclamation" layoutX="71.0" layoutY="632.0" onAction="#GoToReclamationClient" text="Reclamations" textFill="WHITE">
+         <font>
+            <Font name="Dubai Medium" size="20.0" />
+         </font>
+      </Hyperlink>
+      <ImageView fitHeight="51.0" fitWidth="63.0" layoutX="20.0" layoutY="628.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/profile.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- Cette ligne n'est pas nécessaire, String est déjà importé automatiquement -->
+
+<VBox prefHeight="499.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.up_next.ReclamationController">
+    <children>
+        <!-- Menu Bar -->
+        <MenuBar style="-fx-background-color: red;" VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" style="-fx-text-fill: white;" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" style="-fx-text-fill: white;" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" style="-fx-text-fill: white;" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <!-- Main Content Section -->
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="502.0" prefWidth="979.0" style="-fx-background-color: #ECF0F1;" VBox.vgrow="ALWAYS">
+            <children>
+                <!-- Form to Add/Modify Reclamation -->
+                <AnchorPane layoutX="8.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="528.0" prefWidth="870.0" style="-fx-background-color: #ECF0F1;" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Form to Add/Modify Reclamation -->
+                        <AnchorPane cache="true" layoutX="38.0" layoutY="47.0" prefHeight="400.0" prefWidth="406.0" style="-fx-border-color: #2C3E50;">
+                            <children>
+                                <TextField fx:id="txtTitre" layoutX="108.0" layoutY="22.0" style="-fx-border-color: #2C3E50; -fx-border-radius: 5; -fx-padding: 5;" />
+                                <Label fx:id="errorTitre" layoutX="106.0" layoutY="58.0" prefHeight="18.0" prefWidth="148.0" style="-fx-text-fill: red; -fx-font-size: 12px; visibility: hidden;" text="" />
+
+                                <TextField fx:id="txtEmail" layoutX="108.0" layoutY="82.0" style="-fx-border-color: #2C3E50; -fx-border-radius: 5; -fx-padding: 5;" />
+                                <Label fx:id="errorEmail" layoutX="105.0" layoutY="116.0" prefHeight="18.0" prefWidth="150.0" style="-fx-text-fill: red; -fx-font-size: 12px; visibility: hidden;" text="" />
+
+                                <ComboBox fx:id="txtType" layoutX="107.0" layoutY="136.0" prefWidth="150.0">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Finance" />
+                                            <String fx:value="Autres" />
+                                            <String fx:value="Service" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <Label fx:id="errorType" layoutX="106.0" layoutY="163.0" prefHeight="18.0" prefWidth="158.0" style="-fx-text-fill: red; -fx-font-size: 12px; visibility: hidden;" text="" />
+
+                                <TextArea fx:id="txtDescription" layoutX="107.0" layoutY="189.0" prefHeight="135.0" prefWidth="242.0" style="-fx-border-color: #2C3E50; -fx-border-radius: 5; -fx-padding: 5;" />
+                                <Label fx:id="errorDescription" layoutX="105.0" layoutY="331.0" prefHeight="18.0" prefWidth="242.0" style="-fx-text-fill: red; -fx-font-size: 12px; visibility: hidden;" text="" />
+                                <Label layoutX="14.0" layoutY="136.0" prefHeight="26.0" prefWidth="64.0" style="-fx-text-fill: #2C3E50;" text="Type Rec" />
+                                <Label layoutX="14.0" layoutY="84.0" prefHeight="26.0" prefWidth="64.0" style="-fx-text-fill: #2C3E50;" text="Email Client" />
+                                <Label layoutX="14.0" layoutY="218.0" prefHeight="26.0" prefWidth="110.0" style="-fx-text-fill: #2C3E50;" text="Description Rec" />
+                            <Button fx:id="btnImport" layoutX="107.0" layoutY="359.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="242.0" style="-fx-background-color: blue; -fx-text-fill: white; -fx-border-radius: 5;" text="Importer" />
+                        <Label layoutX="14.0" layoutY="359.0" prefHeight="26.0" prefWidth="110.0" style="-fx-text-fill: #2C3E50;" text="Fichier Joint" />
+      
+                                <Label layoutX="14.0" layoutY="24.0" prefHeight="26.0" prefWidth="64.0" style="-fx-text-fill: #2C3E50;" text="Titre" />
+                            </children>
+                        </AnchorPane>
+      
+                      <!-- Action Buttons -->
+                      <Button fx:id="btn_ajouter" layoutX="35.0" layoutY="453.0" mnemonicParsing="false" onAction="#AjouterRec" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: green; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5;" text="Ajouter" />
+                      <Button fx:id="btnModifier" layoutX="189.0" layoutY="453.0" mnemonicParsing="false" onAction="#Modifier_Rec" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5;" text="Modifier" />
+                  <TextField fx:id="txtRechercherRec" layoutX="688.0" layoutY="16.0" onAction="#RechercheReclamation" prefHeight="30.0" prefWidth="312.0" style="-fx-border-color: #2C3E50; -fx-border-radius: 5; -fx-padding: 5;" />
+                  <Label layoutX="558.0" layoutY="17.0" prefHeight="27.0" prefWidth="104.0" style="-fx-text-fill: #2C3E50;" text="Rechercher">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                      <Button fx:id="btnSupp" layoutX="343.0" layoutY="453.0" mnemonicParsing="false" onAction="#SupprimerReclamation" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5;" text="Supprimer" />
+                  <Label layoutX="107.0" layoutY="11.0" prefHeight="35.0" prefWidth="312.0" text="Gestion Des Reclamations">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                      <Button fx:id="btn_suivi" layoutX="781.0" layoutY="453.0" mnemonicParsing="false" onAction="#VoirSuiviRec" prefHeight="42.0" prefWidth="242.0" style="-fx-background-color: cyan; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5;" text="Voir Suivi Rec" />
+                    </children>
+                </AnchorPane>
+
+                <!-- Table to Display Reclamations -->
+                <TableView fx:id="TableReclamation" layoutX="466.0" layoutY="73.0" prefHeight="362.0" prefWidth="890.0" style="-fx-background-color: white; -fx-border-color: #2C3E50; -fx-border-radius: 5;">
+                    <columns>
+                        <TableColumn fx:id="TitreCol" prefWidth="219.20004272460938" style="-fx-text-fill: #2C3E50;" text="Titre" />
+                        <TableColumn fx:id="MailCol" prefWidth="170.39996337890625" style="-fx-text-fill: #2C3E50;" text="MailClient" />
+                        <TableColumn fx:id="TypeCol" prefWidth="157.60003662109375" style="-fx-text-fill: #2C3E50;" text="Type Reclamation" />
+                        <TableColumn fx:id="StatusRec" prefWidth="336.0" style="-fx-text-fill: #2C3E50;" text="Status Reclamation" />
+                    </columns>
+                </TableView>
+                <Button fx:id="testEmail" layoutX="1032.0" layoutY="19.0" mnemonicParsing="false" onAction="#EnvoyerEmail" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: purple; -fx-text-fill: white; -fx-border-radius: 5;" text="Traduire Anglais" />
+            <Button fx:id="chat_rec" layoutX="1184.0" layoutY="19.0" mnemonicParsing="false" onAction="#GoToChatbot" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: purple; -fx-text-fill: white; -fx-border-radius: 5;" text="Assistance AI Reclamation" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

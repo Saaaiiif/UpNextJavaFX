@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="715.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListArtist">
+    <style>
+        -fx-background-color: linear-gradient(to bottom right, #F5F5DC, #FAF0E6);
+    </style>
+
+    <VBox layoutX="-7.0" prefHeight="684.0" prefWidth="499.0" spacing="20.0" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Mes Œuvres" textFill="#3A2F2F">
+                <font>
+                    <Font name="Georgia" size="28.0" />
+                </font>
+            </Label>
+
+            <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
+                <Button fx:id="addButton" onAction="#handleAjoutProduct" styleClass="action-button" text="Ajouter une Œuvre">
+                    <style>
+                        -fx-background-color: #32CD32;
+                        -fx-text-fill: white;
+                        -fx-font-family: "Georgia";
+                        -fx-font-size: 14px;
+                    </style>
+                </Button>
+                <Button fx:id="commandeArtistButton" text="Détail">
+                    <style>
+                        -fx-background-color: #FFA726;
+                        -fx-text-fill: white;
+                        -fx-font-family: "Georgia";
+                        -fx-font-size: 14px;
+                    </style>
+                </Button>
+                <Button fx:id="statisticsButton" styleClass="action-button" text="Statistiques">
+                    <style>
+                        -fx-background-color: #6A5ACD;
+                        -fx-text-fill: white;
+                        -fx-font-family: "Georgia";
+                        -fx-font-size: 14px;
+                    </style>
+                </Button>
+                <Button fx:id="generateIaImageButton" onAction="#handleGenerateIaImage" text="Générer une image IA">
+                    <style>
+                        -fx-background-color: #A3C2F7;
+                        -fx-text-fill: #3A2F2F;
+                        -fx-font-family: 'Georgia';
+                        -fx-font-size: 14px;
+                    </style>
+                </Button>
+            </HBox>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <TextField fx:id="searchField" prefHeight="28.0" prefWidth="855.0" promptText="Rechercher par nom ou catégorie...">
+                <style>
+                    -fx-background-color: #FFFFFF;
+                    -fx-border-color: #D3C8A9;
+                    -fx-border-radius: 5px;
+                    -fx-font-family: "Georgia";
+                    -fx-font-size: 14px;
+                </style>
+            </TextField>
+        </HBox>
+
+        <TableView fx:id="produitsTableView" prefHeight="452.0" prefWidth="860.0">
+            <columns>
+                <TableColumn prefWidth="150.0" text="Nom d'œuvre">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nom" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="70.0" text="Image">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="image" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="70.0" text="Prix">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="prix" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="120.0" text="Approval Status">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="approvalStatus" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="100.0" text="Status">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="statut" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="actionsColumn" prefWidth="200.0" text="Actions" />
+            </columns>
+            <style>
+                -fx-font-family: "Georgia";
+                -fx-font-size: 14px;
+                -fx-background-color: transparent;
+                -fx-border-color: #D3C8A9;
+                -fx-border-width: 1px;
+            </style>
+        </TableView>
+    </VBox>
+</AnchorPane>

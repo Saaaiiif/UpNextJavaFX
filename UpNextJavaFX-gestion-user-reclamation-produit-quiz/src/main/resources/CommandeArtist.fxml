@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CommandeArtist">
+    <style>
+        -fx-background-color: linear-gradient(to bottom right, #F5F5DC, #FAF0E6);
+    </style>
+
+    <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+
+        <Label text="Mes Commandes" textFill="#3A2F2F">
+            <font>
+                <Font name="Georgia" size="28.0" />
+            </font>
+        </Label>
+
+        <TableView fx:id="commandesTableView" prefHeight="500.0" prefWidth="860.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="prixTotalColumn" prefWidth="120.0" text="Prix Total">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="prixTotal" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Statut">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="status" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="produitsNomsColumn" prefWidth="300.0" text="Produits" />
+                <TableColumn fx:id="actionsColumn" prefWidth="600.0" text="Actions" />
+            </columns>
+            <style>
+                -fx-font-family: "Georgia";
+                -fx-font-size: 14px;
+                -fx-background-color: transparent;
+                -fx-border-color: #D3C8A9;
+                -fx-border-width: 1px;
+            </style>
+        </TableView>
+
+        <Button fx:id="retourButton" onAction="#handleRetour" text="Retour">
+            <style>
+                -fx-background-color: #D3D3D3;
+                -fx-text-fill: #3A2F2F;
+                -fx-font-family: "Georgia";
+                -fx-font-size: 14px;
+            </style>
+        </Button>
+
+        <Button fx:id="statistiquesButton" onAction="#handleStatistiques" text="Statistiques par Catégorie">
+            <style>
+                -fx-background-color: #6A5ACD;
+                -fx-text-fill: white;
+                -fx-font-family: "Georgia";
+                -fx-font-size: 14px;
+            </style>
+        </Button>
+    </VBox>
+</AnchorPane>

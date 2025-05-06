@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="497.0" prefWidth="691.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.event_reser_ouma.Editreservation">
+   <children>
+      <VBox layoutX="100.0" layoutY="28.0" prefHeight="358.0" prefWidth="492.0">
+         <children>
+            <Label text="User" visible="false" />
+            <TextField fx:id="host_id" editable="false" promptText="User name" visible="false">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Event" visible="false" />
+            <TextField fx:id="event_name" editable="false" promptText="Event name" styleClass="text-field" visible="false">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Tickets" />
+            <TextField fx:id="count_ticket" promptText="Enter number of tickets" styleClass="text-field" />
+            <Label fx:id="ticketsErrorLabel" styleClass="error" text="Number of tickets Required!" textFill="#e12727" visible="false" />
+            <Label text="Total Sum" />
+            <TextField fx:id="ticket_price" editable="false" promptText="Your total price is..." styleClass="text-field" />
+            <Label fx:id="comment" styleClass="error" text="That's a lot :0!!" textFill="#e76767" visible="false" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button maxWidth="200" onMouseClicked="#update_event" styleClass="red-button" text="update">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

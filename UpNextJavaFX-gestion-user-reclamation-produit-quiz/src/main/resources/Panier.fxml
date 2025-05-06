@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.Panier"
+            prefHeight="600.0" prefWidth="900.0">
+    <style>
+        -fx-background-color: linear-gradient(to bottom right, #F5F5DC, #FAF0E6);
+    </style>
+    <children>
+        <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="560.0" prefWidth="860.0" spacing="20.0">
+            <children>
+                <!-- Titre "Mon Panier" -->
+                <Label text="Mon Panier" textFill="#3A2F2F">
+                    <font>
+                        <Font name="Georgia" size="28.0"/>
+                    </font>
+                </Label>
+                <!-- Contenu principal (Liste des produits + Récapitulatif) -->
+                <HBox alignment="CENTER" spacing="20.0">
+                    <!-- Liste des produits -->
+                    <ListView fx:id="produitsList" prefHeight="400.0" prefWidth="500.0">
+                        <style>
+                            -fx-background-color: transparent;
+                            -fx-font-family: "Georgia";
+                            -fx-font-size: 14px;
+                        </style>
+                    </ListView>
+                    <!-- Récapitulatif -->
+                    <VBox alignment="CENTER" spacing="15.0" prefWidth="300.0">
+                        <style>
+                            -fx-background-color: #FFFFFF;
+                            -fx-border-color: #E0E0E0;
+                            -fx-border-radius: 10px;
+                            -fx-background-radius: 10px;
+                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);
+                            -fx-padding: 20px;
+                        </style>
+                        <children>
+                            <Label text="Récapitulatif" textFill="#3A2F2F">
+                                <font>
+                                    <Font name="Georgia" size="20.0"/>
+                                </font>
+                            </Label>
+                            <VBox spacing="10.0" prefWidth="250.0">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <Label text="Sous-total :" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="sousTotalLabel" text="0.00 DT" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                </HBox>
+                                <Line endX="250.0" stroke="#E0E0E0"/>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <Label text="Livraison Standard :" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="livraisonLabel" text="5.00 DT" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                </HBox>
+                                <Line endX="250.0" stroke="#E0E0E0"/>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <Label text="Total :" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="totalLabel" text="0.00 DT" textFill="#3A2F2F">
+                                        <font>
+                                            <Font name="Georgia" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                </HBox>
+                            </VBox>
+                            <!-- Boutons alignés verticalement -->
+                            <VBox alignment="CENTER" spacing="10.0">
+                                <Button fx:id="finaliserButton" onAction="#handleFinaliser" text="Finaliser la commande" prefWidth="200.0">
+                                    <style>
+                                        -fx-background-color: #FF0000;
+                                        -fx-text-fill: white;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                        -fx-font-weight: bold;
+                                        -fx-border-radius: 5px;
+                                        -fx-padding: 10px 20px;
+                                    </style>
+                                </Button>
+                                <Button fx:id="continuerButton" onAction="#handleContinuer" text="Continuer mes achats" prefWidth="200.0">
+                                    <style>
+                                        -fx-background-color: #808080;
+                                        -fx-text-fill: white;
+                                        -fx-font-family: "Georgia";
+                                        -fx-font-size: 14px;
+                                        -fx-font-weight: bold;
+                                        -fx-border-radius: 5px;
+                                        -fx-padding: 10px 20px;
+                                    </style>
+                                </Button>
+                            </VBox>
+                        </children>
+                    </VBox>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ProgressIndicator?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.communities.GenerateImageController"
+            stylesheets="/styles.css"
+            prefWidth="450" 
+            prefHeight="400"
+            styleClass="dialog-pane">
+
+    <top>
+        <!-- Custom Title Bar -->
+        <HBox fx:id="titleBar" alignment="CENTER_RIGHT" styleClass="title-bar" prefHeight="30">
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="Generate Image with AI" styleClass="title-label">
+                    <padding>
+                        <Insets top="5" left="10" />
+                    </padding>
+                </Label>
+            </HBox>
+            <Button fx:id="closeButton" text="✕" styleClass="window-control-button" onAction="#handleClose" />
+        </HBox>
+    </top>
+
+    <center>
+        <!-- Your main content VBox -->
+        <VBox spacing="15" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20" />
+            </padding>
+            <Label text="Enter a prompt to generate an image:" styleClass="dialog-label"/>
+
+            <TextArea fx:id="promptField" styleClass="dialog-field, text-area"
+                      wrapText="true" prefRowCount="3" 
+                      prefHeight="80" minHeight="80" />
+
+            <StackPane VBox.vgrow="ALWAYS" prefHeight="200">
+                <ImageView fx:id="imagePreview" fitWidth="300" fitHeight="200" preserveRatio="true" />
+                <ProgressIndicator fx:id="loadingIndicator" visible="false" />
+            </StackPane>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="generateButton" text="Generate" styleClass="action-button" onAction="#handleGenerateImage"/>
+                <Button fx:id="useImageButton" text="Use This Image" styleClass="action-button" onAction="#handleUseImage" disable="true"/>
+                <Button text="Cancel" styleClass="cancel-button" onAction="#handleCancel"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

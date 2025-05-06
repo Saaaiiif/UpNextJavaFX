@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Tooltip?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.communities.AddCommunityController"
+      stylesheets="/styles.css"
+      spacing="15" 
+      alignment="TOP_CENTER" 
+      styleClass="content-pane">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <!-- Custom Title Bar (hidden but needed for controller) -->
+    <HBox fx:id="titleBar" visible="false" managed="false">
+        <Button fx:id="closeButton" visible="false" managed="false" />
+    </HBox>
+
+    <!-- Page Title -->
+    <Label text="Create Your Community" styleClass="page-title"/>
+
+    <GridPane hgap="15" vgap="15" alignment="CENTER" prefWidth="450" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+        </padding>
+
+        <!-- ID field hidden from artist but still accessible to controller -->
+        <Label text="ID:" styleClass="dialog-label" GridPane.rowIndex="0" GridPane.columnIndex="0" visible="false" managed="false"/>
+        <HBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="1" HBox.hgrow="ALWAYS" visible="false" managed="false">
+            <TextField fx:id="idField" styleClass="dialog-field" editable="false" HBox.hgrow="ALWAYS">
+                <tooltip>
+                    <Tooltip text="ID must be exactly 8 digits - Use Generate button" styleClass="error-tooltip"/>
+                </tooltip>
+            </TextField>
+            <Button text="Generate" styleClass="image-upload-button" onAction="#handleGenerateId"/>
+        </HBox>
+
+        <Label text="Name:" styleClass="dialog-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField" styleClass="dialog-field"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+            <tooltip>
+                <Tooltip text="Required field" styleClass="error-tooltip"/>
+            </tooltip>
+        </TextField>
+
+        <Label text="Image:" styleClass="dialog-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <HBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <Button text="Choose Image" styleClass="image-upload-button"
+                   onAction="#handleImageUpload">
+                <tooltip>
+                    <Tooltip text="Select an image from your device" styleClass="error-tooltip"/>
+                </tooltip>
+            </Button>
+            <Button text="Create Image" styleClass="image-upload-button"
+                   onAction="#handleCreateImage">
+                <tooltip>
+                    <Tooltip text="Generate an image using AI" styleClass="tooltip"/>
+                </tooltip>
+            </Button>
+        </HBox>
+
+        <Label text="Description:" styleClass="dialog-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextArea fx:id="descriptionField" styleClass="dialog-field, text-area"
+                 wrapText="true" prefRowCount="4" editable="true"
+                 GridPane.rowIndex="3" GridPane.columnIndex="1"
+                 prefHeight="100" minHeight="100" GridPane.hgrow="ALWAYS">
+            <tooltip>
+                <Tooltip text="Required field - Maximum 500 characters" styleClass="error-tooltip"/>
+            </tooltip>
+        </TextArea>
+
+        <Label text="Social Media Link:" styleClass="dialog-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="socialField" styleClass="dialog-field"
+                  GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+            <tooltip>
+                <Tooltip text="Optional - Add your social media link" styleClass="tooltip"/>
+            </tooltip>
+        </TextField>
+
+        <Label text="Genre:" styleClass="dialog-label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="genreComboBox" styleClass="dialog-field, combo-box"
+                 GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+            <tooltip>
+                <Tooltip text="Required field - Select a genre for this community" styleClass="error-tooltip"/>
+            </tooltip>
+        </ComboBox>
+    </GridPane>
+
+    <ImageView fx:id="imagePreview" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="createButton" text="Create Community" styleClass="action-button" onAction="#handleCreateCommunity"/>
+        <Button text="Cancel" styleClass="cancel-button" onAction="#handleCancel"/>
+    </HBox>
+</VBox>

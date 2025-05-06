@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* très important pour éviter le débordement */
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Ici dans le body -->
+<input id="searchInput" type="text" placeholder="Rechercher un lieu"
+       style="position: absolute; top: 10px; left: 10px; z-index: 1000; width: 250px; padding: 5px;">
+<button onclick="searchLocation()"
+        style="position: absolute; top: 10px; left: 270px; z-index: 1000; padding: 5px;">🔍</button>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    let marker; // 🔵 Important: marker global pour pouvoir le déplacer
+
+    function searchLocation() {
+        var query = document.getElementById('searchInput').value;
+
+        if (query) {
+            var url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(query);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
+
+                        // Déplacer la carte
+                        map.setView([lat, lon], 13);
+
+                        // Supprimer ancien marker s'il existe
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+
+                        // Ajouter nouveau marker
+                        marker = L.marker([lat, lon]).addTo(map);
+
+                        // 📞 Appeler Java via le bridge
+                        if (window.javaConnector && window.javaConnector.setLocation) {
+                            window.javaConnector.setLocation(query, lat, lon);
+                        }
+                    } else {
+                        alert("❌ Lieu non trouvé !");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la recherche :', error);
+                });
+        }
+    }
+
+    var map = L.map('map').setView([48.8566, 2.3522], 13); // Paris par défaut
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    window.map = map; // très important pour Java pouvoir accéder à map
+</script>
+</body>
+</html>

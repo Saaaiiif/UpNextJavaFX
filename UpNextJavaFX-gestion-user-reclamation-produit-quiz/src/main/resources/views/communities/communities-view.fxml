@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.chart.PieChart?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.communities.CommunitiesController"
+      alignment="CENTER" spacing="20.0"
+      stylesheets="/styles.css">
+    <ImageView fx:id="logoImage" fitHeight="50" fitWidth="50" />
+
+    <HBox alignment="CENTER" spacing="0">
+        <VBox fx:id="statusSummaryBox" spacing="8" alignment="CENTER_LEFT" prefWidth="300">
+            <!-- Bars will be added dynamically from controller -->
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER">
+        <HBox fx:id="addCardContainer" alignment="CENTER" />
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="20">
+        <HBox alignment="CENTER" spacing="10" styleClass="search-bar" maxWidth="400">
+            <StackPane>
+                <TextField fx:id="searchField" styleClass="search-field" promptText="Search"/>
+                <ImageView fx:id="searchIcon" fitWidth="16" fitHeight="16" preserveRatio="true" styleClass="search-icon" StackPane.alignment="CENTER_RIGHT" translateX="-10">
+                    <image>
+                        <Image url="@/search.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="10" styleClass="filter-bar">
+            <Label text="Genre:" styleClass="filter-label"/>
+            <ComboBox fx:id="genreComboBox" prefWidth="150" onAction="#handleGenreFilter" styleClass="dialog-field"/>
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="10" styleClass="filter-bar">
+            <Label text="Filter by status:" styleClass="filter-label"/>
+            <HBox alignment="CENTER" spacing="5">
+                <CheckBox fx:id="statusFilter0" text="Unverified" styleClass="status-checkbox"/>
+                <CheckBox fx:id="statusFilter1" text="Pending" styleClass="status-checkbox"/>
+                <CheckBox fx:id="statusFilter2" text="Verified" styleClass="status-checkbox"/>
+            </HBox>
+        </HBox>
+    </HBox>
+
+    <Button fx:id="createCommunityButton"
+            text="Create Community"
+            onAction="#handleCreateCommunityButtonClick"
+            visible="false"
+            styleClass="primary-button"/>
+
+    <ScrollPane fitToWidth="true" prefHeight="500" styleClass="transparent-scroll-pane">
+        <GridPane fx:id="communitiesGrid" alignment="CENTER" hgap="20" vgap="20">
+            <padding>
+                <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+            </padding>
+        </GridPane>
+    </ScrollPane>
+
+</VBox>

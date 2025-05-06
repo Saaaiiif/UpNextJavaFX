@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ScrollPane?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.communities.ArtistsController"
+      alignment="CENTER" spacing="20.0"
+      stylesheets="/styles.css">
+
+    <Label text="All Artists" styleClass="page-title"/>
+
+    <ScrollPane fitToWidth="true" prefHeight="500" styleClass="transparent-scroll-pane">
+        <GridPane fx:id="artistsGrid" alignment="CENTER" hgap="20" vgap="20">
+            <padding>
+                <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+            </padding>
+        </GridPane>
+    </ScrollPane>
+
+</VBox>

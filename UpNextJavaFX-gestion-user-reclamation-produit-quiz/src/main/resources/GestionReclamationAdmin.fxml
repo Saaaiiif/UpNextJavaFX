@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.up_next.GestionReclamationAdminController">
+   <children>
+
+      <!-- Table des réclamations -->
+      <TableView fx:id="TableRecAdm" layoutX="248.0" layoutY="93.0" prefHeight="436.0" prefWidth="1073.0">
+         <columns>
+            <TableColumn fx:id="TitreCol" prefWidth="75.0" text="Titre" />
+            <TableColumn fx:id="MailCol" minWidth="0.0" prefWidth="0.0" text="Mail Client" />
+            <TableColumn fx:id="TypeCol" prefWidth="228.0" text="Type Réclamation" />
+            <TableColumn fx:id="StatusRec" prefWidth="120.0" text="Status" />
+            <TableColumn fx:id="DateCreRecCol" prefWidth="100.0" text="Date Création" />
+            <TableColumn fx:id="DescriptionCol" prefWidth="130.0" text="Description" />
+            <TableColumn fx:id="DateResRecCol" prefWidth="100.0" text="Date Résolution" />
+            <TableColumn fx:id="FichierCol" prefWidth="160.0" text="Fichier Emprunté" />
+            <TableColumn fx:id="user_rec" prefWidth="160.0" text="Utilisateur" />
+         </columns>
+      </TableView>
+
+      <!-- Bouton Voir Suivi -->
+      <Button fx:id="btn_suivi" layoutX="569.0" layoutY="559.0" mnemonicParsing="false" onAction="#VoirSuivi" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;" text="Voir Suivi" textFill="#bc1212" />
+
+      <Button fx:id="btn_generate_pdf" layoutX="779.0" layoutY="559.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;" text="Générer PDF" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="622.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="234.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="72.0" layoutX="227.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1139.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.3598484893639883">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7052631378173828" green="0.031345028430223465" blue="0.031345028430223465" opacity="0.6100000143051147" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="249.0" layoutY="22.0" text="Gestion des Réclamations" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="17.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@up-next.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelStatsRec" layoutX="17.0" layoutY="145.0" onMouseClicked="#goToStatsRecs" prefHeight="27.0" prefWidth="216.0" text="Statistiques Reclamations" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+
+   </children>
+</AnchorPane>

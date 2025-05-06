@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="edu.gestion_quiz.controllers.AdminController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <spacing>10</spacing>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <Tab text="Gestion des Quiz" closable="false">
+            <VBox>
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <spacing>10</spacing>
+
+                <HBox spacing="10">
+                    <TextField fx:id="quizTitre" promptText="Titre du quiz" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="quizSujet" promptText="Sujet du quiz" HBox.hgrow="ALWAYS"/>
+                    <Button text="Ajouter Quiz" onAction="#ajouterQuiz"/>
+                    <Button text="Imprimer tous les quiz" onAction="#imprimerTousLesQuiz"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Rechercher:"/>
+                    <TextField fx:id="searchQuizField" promptText="Rechercher un quiz..." HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <TableView fx:id="quizTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="quizIdCol" text="ID"/>
+                        <TableColumn fx:id="quizTitreCol" text="Titre"/>
+                        <TableColumn fx:id="quizSujetCol" text="Sujet"/>
+                        <TableColumn fx:id="quizActionsCol" text="Actions"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <Tab text="Gestion des Questions" closable="false">
+            <VBox>
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <spacing>10</spacing>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Quiz sélectionné:"/>
+                    <ComboBox fx:id="quizComboBox" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <GridPane vgap="10" hgap="10">
+                    <TextField fx:id="questionTexte" promptText="Texte de la question"
+                               GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0"/>
+
+                    <TextField fx:id="option1" promptText="Option 1"
+                               GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="option2" promptText="Option 2"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField fx:id="option3" promptText="Option 3"
+                               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="option4" promptText="Option 4"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <TextField fx:id="reponseCorrecte" promptText="Réponse correcte"
+                               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Button text="Ajouter Question" onAction="#ajouterQuestion"
+                            GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Rechercher:"/>
+                    <TextField fx:id="searchQuestionField" promptText="Rechercher une question..." HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <TableView fx:id="questionTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="questionIdCol" text="ID"/>
+                        <TableColumn fx:id="questionTexteCol" text="Question"/>
+                        <TableColumn fx:id="questionOptionsCol" text="Options"/>
+                        <TableColumn fx:id="questionReponseCol" text="Réponse"/>
+                        <TableColumn fx:id="questionActionsCol" text="Actions"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox> 

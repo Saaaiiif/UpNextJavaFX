@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="1064.0" style="-fx-background-color: #f0f0f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.up_next.StatisticReclamationController">
+   <children>
+
+      <!-- Graphiques -->
+      <LineChart fx:id="line_chart_recs_date" layoutX="236.0" layoutY="313.0" prefHeight="279.0" prefWidth="398.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" />
+         </yAxis>
+      </LineChart>
+
+      <PieChart fx:id="pie_chart_recs_type" layoutX="683.0" layoutY="332.0" prefHeight="242.0" prefWidth="318.0" />
+
+      <!-- Cartes Statistiques -->
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#b32ab8" height="94.0" layoutX="255.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" width="204.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#9e165c" height="94.0" layoutX="522.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" width="204.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#C0392B" height="94.0" layoutX="785.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" width="204.0" />
+
+      <Label layoutX="267.0" layoutY="93.0" prefHeight="26.0" prefWidth="191.0" text="Nombre De Reclamations" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="553.0" layoutY="93.0" prefHeight="26.0" prefWidth="141.0" text="Nombre de Suivis" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="791.0" layoutY="93.0" prefHeight="26.0" prefWidth="204.0" text="Nombre de Reclamation Non traitées" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+
+      <Label fx:id="label_nbre_recs" layoutX="331.0" layoutY="131.0" text="Label" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_nbre_suivis" layoutX="591.0" layoutY="131.0" text="Label" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_nbre_recs_non_traite" layoutX="861.0" layoutY="131.0" text="Label" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+
+      <!-- Indicateurs -->
+      <ProgressBar fx:id="progress_satisfaction" layoutX="267.0" layoutY="245.0" prefWidth="200.0" progress="0.0" />
+      <ProgressIndicator fx:id="prog_indicator_satisfaction" layoutX="502.0" layoutY="234.0" prefHeight="50.0" prefWidth="87.0" progress="0.0" />
+
+      <Label layoutX="274.0" layoutY="207.0" prefHeight="27.0" prefWidth="288.0" text="Taux de Satisfaction">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="622.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="224.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.49242424693974585">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.19629628956317902" blue="0.19629628956317902" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="72.0" layoutX="222.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="845.0">
+         <fill>
+            <LinearGradient endX="0.47727268392389477" endY="1.0" startX="0.3598484893639883">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.4427777826786041" blue="0.4333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7052631378173828" green="0.031345028430223465" blue="0.031345028430223465" opacity="0.6100000143051147" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="12.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@up-next.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelStatsRec" layoutX="259.0" layoutY="22.0" prefHeight="36.0" prefWidth="350.0" text="Statistiques Reclamations" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="gestionRecAdmin" layoutX="10.0" layoutY="117.0" text="Gestion des Réclamations" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
